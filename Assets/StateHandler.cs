@@ -11,10 +11,12 @@ public class StateHandler : MonoBehaviour
 				happy,
 				mad
 		}
+		public Animator anime;
 		int[] neutralFaces = new int[]{7,19,20,21,25,27,31,32,33};
 		int[] sadFaces = new int[]{8,9,14,15,26};
 		int[] happyFaces = new int[]{6,10,11,12,16,17,18,22,23,24,28,29,34,35};
 		int[] madFaces = new int[]{0,1,2,3,4,5,30};
+
 		public enum charStates
 		{
 				//grin_eyes
@@ -68,6 +70,7 @@ public class StateHandler : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
+				anime = GetComponent<Animator> ();
 		}
 	
 		// Update is called once per frame
