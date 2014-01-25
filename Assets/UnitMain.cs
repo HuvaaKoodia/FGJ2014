@@ -1,15 +1,473 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-public class NewBehaviourScript : MonoBehaviour {
+
+public enum Ideology {RED,GREEN,BLUE,YELLOW}
+public enum Nationality {A,B,C,D}
+
+public class IdeologyData{
+	Ideology MyIdeology;
+
+	public float convert_chance=35;
+	public float aggression=0;
+}
+
+public class UnitMain: MonoBehaviour {
+	
+	public bool DebugGUIOn=false;
+	public GameController GC;
+	public SpriteRenderer GraphicsSpriteRenderer;
+
+	Nationality _nationality;
+	public Nationality MyNationality
+	{
+		get{
+			return _nationality;
+		}
+		set{
+			_nationality=value;
+			if (value==Nationality.A) GraphicsSpriteRenderer.sprite=GC.ResStore.Unit_A;
+			if (value==Nationality.B) GraphicsSpriteRenderer.sprite=GC.ResStore.Unit_B;
+			if (value==Nationality.C) GraphicsSpriteRenderer.sprite=GC.ResStore.Unit_C;
+			if (value==Nationality.D) GraphicsSpriteRenderer.sprite=GC.ResStore.Unit_D;
+		}
+
+	}
+	Ideology _ideology;
+	
+	public Ideology MyIdeology{
+		get{
+			return _ideology;
+		}
+		set{
+			_ideology=value;
+
+			if (value==Ideology.BLUE){
+				GraphicsSpriteRenderer.color=Color.blue;
+			}
+			
+			if (value==Ideology.GREEN){
+				GraphicsSpriteRenderer.color=Color.green;
+			}
+			
+			if (value==Ideology.YELLOW){
+				GraphicsSpriteRenderer.color=Color.yellow;
+			}
+			
+			if (value==Ideology.RED){
+				GraphicsSpriteRenderer.color=Color.red;
+			}
+		}
+	}
+
+	public float convert_change_increase_multiplier=1.1f,
+	convert_change_decline_multiplier=0.75f,
+	depression_increase_multiplier=1.1f,
+	depression_decline_multiplier=0.8f
+	;
+	public int InfluenceIncreasePerConversion=5,
+	ConversationStatementDelay=5000,
+	ConversationStatusDelay=3000
+	;
+
+	public Dictionary<Ideology,IdeologyData> IdeologyStats=new Dictionary<Ideology, IdeologyData>();
+
+	Timer act_timer,speak_timer;
+	public SpeechbubbleMain SpeechBubblePrefab;
+
+	public GameObject Temp;
+
+	public Sprite Talking,Listening;
+
+	float depression=10;
+	public float Depression
+	{
+		get {return depression;}
+		set{
+			depression=Mathf.Clamp(value,5,100);
+		}
+	}
+	
+	int influence=0;
+	public int Influence
+	{
+		get {return influence;}
+		set{
+			influence=Mathf.Clamp(value,0,100);
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
-	
+		act_timer=new Timer(Act);
+		speak_timer=new Timer(5000,SpeakOver);
+		speak_timer.Active=false;
+		ResetActionTimer();
+
+		MyIdeology=Subs.GetRandom(Subs.EnumValues<Ideology>());
+
+		foreach (var emun in Subs.EnumValues<Ideology>()){
+			IdeologyStats.Add(emun,new IdeologyData());
+		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update (){
+		act_timer.Update();
+		speak_timer.Update();
+
+		if (!TALKING){
+			if (Target_Base!=null){
+				MoveTo(Target_Base.transform.position,TargetBaseRange);
+			}
+
+			if (Talk_target!=null){
+				MoveTo(Talk_target.transform.position,BasicMoveTargetRange);
+			}
+		}
+
+		if (moving){
+			if (Vector3.Distance(transform.position,MoveTarget)<MoveTargetRange){
+				ResetMovement();
+				Target_Base=null;
+				if (Talk_target!=null){
+					//talk target reached
+					TalkTo(Talk_target);
+				}
+				else{
+					//reset 
+					ResetActionTimer();
+				}
+			}
+			else{
+				var dir=MoveTarget-transform.position;
+				transform.Translate(dir.normalized*Time.deltaTime*MoveSpeed);
+			}
+		}
 	}
+
+	public float BasicMoveTargetRange=0.5f,MoveSpeed=3f,CloseProximity=0.1f;
+
+	bool moving=false,talking=false;
+	public bool TALKING{get{return talking;}}
+
+	Vector3 MoveTarget;
+	UnitMain Talk_target,TalkingTo;
+	SpeechbubbleMain SpeechBubble;
+
+	public static int  unit_mask=LayerMask.NameToLayer("Unit");
+	
+	void Act(){
+
+		if (moving||TALKING||Talk_target!=null) return;
+
+		if (Subs.GetRandom(100)<10){
+
+			//find target
+			var units=Physics2D.OverlapCircleAll(transform.position,2,unit_mask);
+			
+			if (units.Length>1){
+				while(true){
+					var talk_to=Subs.GetRandom(units);
+					Talk_target=talk_to.gameObject.GetComponent<UnitMain>();
+					if (Talk_target!=this){
+						return;
+					}
+				}
+			}
+		}
+		if (Subs.GetRandom(100)<50){
+			//move
+
+			//find target
+			MoveTo(transform.position + new Vector3(Subs.GetRandom(-2f,2f),Subs.GetRandom(-2f,2f)),BasicMoveTargetRange);
+			return;
+		}
+
+		//idle
+		ResetActionTimer();
+	}
+
+	void SpeakOver(){
+		if (SpeechBubble.StatementPhase){
+			//change statistics
+			bool approve=true;
+			if (TalkingTo.MyIdeology==MyIdeology){
+				DecreaseOtherIdeologyChances();
+				Depression*=depression_decline_multiplier;
+			}
+			else{
+				approve=TryToConvertTarget(TalkingTo);
+			}
+
+			SpeechBubble.SetResult(approve);
+		}
+		else{
+			TalkingTo.EndConversation();
+			EndConversation();
+
+			speak_timer.Active=false;
+		}
+	}
+
+	void MoveTo(Vector3 target,float range){
+		MoveTargetRange=range;
+		moving=true;
+		MoveTarget=target;
+	}
+
+	public void TalkTo(UnitMain target)
+	{
+		if (target.TALKING) return;
+
+
+		SetTalking(target);
+		target.ListenTo(this);
+
+		//Temp.gameObject.SetActive(true);
+		//Temp.GetComponent<SpriteRenderer>().sprite=Talking;
+
+		StartConversation();
+	}
+
+	private void SetTalking(UnitMain target){
+		TalkingTo=target;
+		Talk_target=null;
+		talking=true;
+		
+		moving=false;
+	}
+
+	public void ListenTo (UnitMain target)
+	{
+		SetTalking(target);
+
+		MoveTo(target.transform.position+Vector3.right*2,BasicMoveTargetRange);
+
+		//Temp.gameObject.SetActive(true);
+		//Temp.GetComponent<SpriteRenderer>().sprite=Listening;
+	}
+
+	void StartConversation()
+	{
+		SpeechBubble=Instantiate(SpeechBubblePrefab,transform.position+new Vector3(0.3f,-0.2f),Quaternion.identity) as SpeechbubbleMain;
+		SpeechBubble.SetTalker(this);
+		SpeechBubble.transform.parent=GC.ResStore.MiscContainer;
+
+		speak_timer.Delay=ConversationStatementDelay;
+		speak_timer.Reset(true);
+	}
+
+	void UpdateConversationStatus(bool approve)
+	{
+		SpeechBubble.SetResult(approve);
+		
+		speak_timer.Delay=ConversationStatusDelay;
+		speak_timer.Reset(true);
+	}
+
+	void EndConversation(){
+		ResetTalking();
+
+		if (SpeechBubble!=null){
+			SpeechBubble.Close();
+			SpeechBubble=null;
+		}
+
+		ResetActionTimer();
+
+		//Temp.gameObject.SetActive(false);
+	}
+
+	void ResetTalking(){
+		talking=false;
+		TalkingTo=null;
+	}
+
+	void ResetActionTimer ()
+	{
+		act_timer.Delay=Subs.GetRandom(1000,3000);
+		act_timer.Reset(true);
+	}
+
+	void ResetMovement ()
+	{
+		MoveTargetRange=BasicMoveTargetRange;
+		moving=false;
+	}
+
+	List<int> SocialHistory=new List<int>();
+
+	public void AddSocialEvent(int e){
+		SocialHistory.Add(e);
+		if (SocialHistory.Count>20){
+			SocialHistory.RemoveAt(SocialHistory.Count-1);
+		}
+	}
+
+
+	bool TryToConvertTarget (UnitMain target)
+	{
+		var chance=Subs.GetRandom(100);
+		Debug.Log("Convert chance: "+(chance-Influence)+", "+target.IdeologyStats[MyIdeology].convert_chance);
+		if (chance-Influence<target.IdeologyStats[MyIdeology].convert_chance){
+			//convert infidel
+			AddSocialEvent(1);
+			DecreaseOtherIdeologyChances();
+			Influence+=InfluenceIncreasePerConversion;
+
+			target.AddSocialEvent(1);
+			target.DecreaseOtherIdeologyChances();
+			target.MyIdeology=MyIdeology;
+			return true;
+		}
+		else{
+			//fail conversion
+			AddSocialEvent(-1);
+			aggroIncrease(target);
+
+			target.AddSocialEvent(-1);
+			target.aggroIncrease(this);
+			
+			if (Subs.GetRandom(100)<IdeologyStats[target.MyIdeology].aggression){
+				//attack
+
+			}
+			else{
+				target.IdeologyStats[MyIdeology].convert_chance*=convert_change_increase_multiplier;
+
+				if (MyNationality==target.MyNationality){
+					Depression*=depression_increase_multiplier;
+					ExileCheck();
+				}
+				else{
+					target.Depression*=depression_increase_multiplier;
+					target.ExileCheck();
+				}
+			}
+			return false;
+		}
+	}
+
+	public void DecreaseOtherIdeologyChances ()
+	{
+		foreach (var idea in IdeologyStats){
+			if (idea.Key!=MyIdeology){
+				idea.Value.convert_chance=(int)(idea.Value.convert_chance*convert_change_decline_multiplier);
+			}
+		}
+	}
+
+	void aggroIncrease (UnitMain target)
+	{
+		float multi=2;
+		if (MyNationality==target.MyNationality){
+			multi=1;
+		}
+		int SocialMyA=GetSocialAmount(1);
+		int SocialOtherA=GetSocialAmount(-1);
+		int MaxSocialAmount=SocialMyA+SocialOtherA;
+
+		var add=multi*((1-(Mathf.Abs(SocialMyA-SocialOtherA)/MaxSocialAmount))*MaxSocialAmount*0.5f);
+		IdeologyStats[target.MyIdeology].aggression+=add;
+	
+
+		Debug.Log("Aggro add:"+add);
+	}
+
+	void ExileCheck ()
+	{
+		if (Subs.GetRandom(100)<Depression){
+			GOTOExile();
+		}
+	}
+
+	void GOTOExile(){
+		var closest_base=FindClosesBase();
+		var bases=GameObject.FindGameObjectsWithTag("base");
+		
+		List<BaseMain> other_bases=new List<BaseMain>();
+
+		foreach (var b in bases){
+			if (b==closest_base) continue;
+			other_bases.Add(b.GetComponent<BaseMain>());
+		}
+
+		WalkTowardsBase(Subs.GetRandom(other_bases));
+
+	}
+
+	int GetSocialAmount(int index){
+		var amount=0;
+		foreach (var i in SocialHistory){
+			if (i==index)
+					amount++;
+		}
+		return amount;
+	}
+
+	BaseMain FindClosesBase(){
+		var bases=GameObject.FindGameObjectsWithTag("base");
+
+		GameObject bas=null;
+		float min=1000000;
+
+		foreach (var b in bases){
+			var dis=Vector3.Distance(transform.position,b.transform.position);
+			if (dis<min){
+				bas=b;
+				min=dis;
+			}
+		}
+		return bas.GetComponent<BaseMain>();
+	}
+
+	BaseMain Target_Base;
+	float MoveTargetRange,TargetBaseRange;
+
+	void WalkTowardsBase(BaseMain Base){
+		Target_Base=Base;
+		TargetBaseRange=Subs.GetRandom(2f,5f);
+	}
+	
+	void OnTriggerStay2D(Collider2D col){
+		if (moving||talking||Talk_target!=null) return;
+		if (col.gameObject.tag=="unit"){
+
+			var other=col.gameObject.GetComponent<UnitMain>();
+
+			if (other.moving) return;
+
+			var dir=transform.position-col.transform.position;
+			
+			if (dir.magnitude<CloseProximity)
+				transform.Translate(dir.normalized*Time.deltaTime*MoveSpeed);
+		}
+	}
+	
+	void OnTriggerExit2D(Collider2D col){
+		if (col.gameObject.tag=="worldlimits") {
+			//walk towards closes base
+			
+			var bas=FindClosesBase();
+			WalkTowardsBase(bas);
+
+		}
+	}
+
+	string guitext;
+	void OnGUI(){
+		if (!DebugGUIOn) return;
+
+		guitext="Ideology stats:\n";
+		foreach(var i in IdeologyStats){
+			guitext+=i.Key+ ": Agg="+i.Value.aggression+"% Convert: "+i.Value.convert_chance+"%";
+			guitext+="\n";
+		}
+		GUI.Box(new Rect(10,10,300,400),guitext);
+	}
+
+
 }
