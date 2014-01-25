@@ -419,7 +419,10 @@ MonoBehaviour:
   convert_change_decline_multiplier: .75
   depression_increase_multiplier: 1.10000002
   depression_decline_multiplier: .800000012
-  KillAggressionDeductionMultiplier: .75
+  KillAggressionDeductionMultiplier: 0
+  VendettaConstant: 20
+  VendettaBaseMultiplier: 1.5
+  VendettaRadius: 5
   InfluenceIncreasePerConversion: 5
   ConversationStatementDelay: 5000
   ConversationStatusDelay: 3000
@@ -823,6 +826,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GC: {fileID: 1599035452}
   MyNationality: 2
+  SpawnChance: 25
+  ControllerValue: 25
 --- !u!1001 &841747751
 Prefab:
   m_ObjectHideFlags: 0
@@ -904,6 +909,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GC: {fileID: 1599035452}
   MyNationality: 3
+  SpawnChance: 25
+  ControllerValue: 25
 --- !u!1 &1320090495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,6 +1102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GC: {fileID: 1599035452}
   MyNationality: 0
+  SpawnChance: 25
+  ControllerValue: 25
 --- !u!1 &1599035451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,6 +1314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GC: {fileID: 1599035452}
   MyNationality: 1
+  SpawnChance: 25
+  ControllerValue: 25
 --- !u!1 &2106225819
 GameObject:
   m_ObjectHideFlags: 0

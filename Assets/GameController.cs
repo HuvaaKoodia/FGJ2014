@@ -40,4 +40,16 @@ public class GameController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public float GetPercentOfMaxPopulation(Nationality Nat){
+		//DEV. Opti. save all results in a batch every 5 seconds of so.
+		int amount=0;
+		foreach(var u in Units){
+			if (u.MyNationality==Nat){
+				++amount;
+			}
+		}
+
+		return amount/Units.Count;
+	}
 }

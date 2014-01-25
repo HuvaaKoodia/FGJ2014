@@ -5,15 +5,20 @@ public class BaseMain : MonoBehaviour {
 
 	public GameController GC;
 	public Nationality MyNationality;
+	Timer SpawnTimer;
+
+	public float SpawnChance=25,ControllerValue=25;
+
 
 	// Use this for initialization
 	void Start () {
-	
+		SpawnTimer=new Timer(Spawn);
+		ResetSpawnRate();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		SpawnTimer.Update();
 	}
 
 	public UnitMain AddUnit(){
@@ -22,5 +27,20 @@ public class BaseMain : MonoBehaviour {
 		unit.MyNationality=MyNationality;
 		unit.transform.parent=GC.ResStore.UnitsContainer;
 		return unit;
+	}
+
+	void ResetSpawnRate ()
+	{
+		SpawnTimer.Delay=Subs.GetRandom(3000,5000);
+		SpawnTimer.Reset(true);
+	}
+	void Spawn(){
+		ResetSpawnRate();
+
+		if (Subs.GetRandom(100)-(GC.GetPercentOfMaxPopulation(MyNationality)*ControllerValue)<SpawnChance){
+			AddUnit();
+			Debug.LogWarning(MyNationality+": UNIT SPAWNED ");
+		}
+
 	}
 }

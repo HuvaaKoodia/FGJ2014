@@ -82,7 +82,10 @@ public class UnitMain: MonoBehaviour {
 	convert_change_decline_multiplier=0.75f,
 	depression_increase_multiplier=1.1f,
 	depression_decline_multiplier=0.8f,
-	KillAggressionDeductionMultiplier=0.75f
+	KillAggressionDeductionMultiplier=0.75f,
+	VendettaConstant=20,
+	VendettaBaseMultiplier=1.5f,
+	VendettaRadius=5
 	;
 	public int InfluenceIncreasePerConversion=5,
 	ConversationStatementDelay=5000,
@@ -340,24 +343,28 @@ public class UnitMain: MonoBehaviour {
 		EndConversation();
 		target.EndConversation();
 		if (Subs.GetRandom(100)<50){
-			target.Die();
+			target.Die(this);
 			IdeologyStats[target.MyIdeology].Aggression*=KillAggressionDeductionMultiplier;
 			Debug.LogWarning("DEATH!");
 		}
 		else{
-			Die();
+			Die(target);
 			target.IdeologyStats[MyIdeology].Aggression*=KillAggressionDeductionMultiplier;
 			Debug.LogWarning("DEATH!");
 		}
 	}
 
-	void Die(){
+	void Die(UnitMain killedBy){
 		EndConversation();
 		Destroy(gameObject);
 
 		var obj=Instantiate(GC.ResStore.SplatPrefab,transform.position,Quaternion.identity) as GameObject;
 		obj.transform.parent=GC.ResStore.MiscContainer;
 		obj.GetComponent<SpriteRenderer>().color=GraphicsSpriteRenderer.color;
+
+		if (killedBy!=null)
+			VendettaAOE(killedBy);
+
 	}
 	
 	bool TryToConvertTarget (UnitMain target)
@@ -488,6 +495,20 @@ public class UnitMain: MonoBehaviour {
 		TargetBaseRange=Subs.GetRandom(2f,5f);
 	}
 
+	void VendettaAOE (UnitMain killedBy)
+	{
+		//find target
+		var units=Physics2D.OverlapCircleAll(transform.position,VendettaRadius,unit_mask);
+		
+		if (units.Length>1){
+			foreach(var u in units){
+				var unit=u.GetComponent<UnitMain>();
+				if (unit!=this&&unit.MyIdeology==MyIdeology){
+					unit.IdeologyStats[killedBy.MyIdeology].Aggression*=VendettaBaseMultiplier+VendettaConstant;
+				}
+			}
+		}
+	}
 
 
 	#region Misc
