@@ -9,6 +9,11 @@ public class GameController : MonoBehaviour {
 
 	public BaseMain ABase,BBase,CBase,DBase;   
 
+	public int AmountOfDeaths=0;
+	public float SecondsAfterStart=0;
+
+	public void AddDeath(){++AmountOfDeaths;}
+
 	// Use this for initialization
 	void Start () {
 
@@ -38,7 +43,7 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		SecondsAfterStart+=Time.deltaTime;
 	}
 
 	public float GetPercentOfMaxPopulation(Nationality Nat){

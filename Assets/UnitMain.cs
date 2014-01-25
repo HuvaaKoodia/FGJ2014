@@ -31,7 +31,9 @@ public class IdeologyData{
 }
 
 public class UnitMain: MonoBehaviour {
-	
+
+	public System.Action OnDeath;
+
 	public bool DebugGUIOn=false;
 	public GameController GC;
 	public SpriteRenderer GraphicsSpriteRenderer;
@@ -121,6 +123,8 @@ public class UnitMain: MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		unit_mask=1<<LayerMask.NameToLayer("Unit");
+
 		act_timer=new Timer(Act);
 		speak_timer=new Timer(5000,SpeakOver);
 		speak_timer.Active=false;
@@ -155,13 +159,12 @@ public class UnitMain: MonoBehaviour {
 		if (moving){
 			if (Vector3.Distance(transform.position,MoveTarget)<MoveTargetRange){
 				ResetMovement();
-				Target_Base=null;
 				if (Talk_target!=null){
 					//talk target reached
 					TalkTo(Talk_target);
 				}
 				else{
-					//reset 
+					Target_Base=null;
 					ResetActionTimer();
 				}
 			}
@@ -181,7 +184,7 @@ public class UnitMain: MonoBehaviour {
 	UnitMain Talk_target,TalkingTo;
 	SpeechbubbleMain SpeechBubble;
 
-	public static int  unit_mask=LayerMask.NameToLayer("Unit");
+	public int unit_mask;
 	
 	void Act(){
 
@@ -355,6 +358,9 @@ public class UnitMain: MonoBehaviour {
 	}
 
 	void Die(UnitMain killedBy){
+		if (OnDeath!=null)
+			OnDeath();
+
 		EndConversation();
 		Destroy(gameObject);
 
@@ -364,7 +370,6 @@ public class UnitMain: MonoBehaviour {
 
 		if (killedBy!=null)
 			VendettaAOE(killedBy);
-
 	}
 	
 	bool TryToConvertTarget (UnitMain target)
@@ -472,7 +477,7 @@ public class UnitMain: MonoBehaviour {
 	}
 
 	BaseMain FindClosesBase(){
-		var bases=GameObject.FindGameObjectsWithTag("base");
+		var bases=GameObject.FindGameObjectsWithTag("Base");
 
 		GameObject bas=null;
 		float min=1000000;
@@ -503,7 +508,7 @@ public class UnitMain: MonoBehaviour {
 		if (units.Length>1){
 			foreach(var u in units){
 				var unit=u.GetComponent<UnitMain>();
-				if (unit!=this&&unit.MyIdeology==MyIdeology){
+				if (unit!=null&&unit!=this&&unit.MyIdeology==MyIdeology){
 					unit.IdeologyStats[killedBy.MyIdeology].Aggression*=VendettaBaseMultiplier+VendettaConstant;
 				}
 			}

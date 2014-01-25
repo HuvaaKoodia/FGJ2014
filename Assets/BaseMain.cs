@@ -26,6 +26,7 @@ public class BaseMain : MonoBehaviour {
 		unit.GC=GC;
 		unit.MyNationality=MyNationality;
 		unit.transform.parent=GC.ResStore.UnitsContainer;
+		unit.OnDeath+=GC.AddDeath;
 		return unit;
 	}
 

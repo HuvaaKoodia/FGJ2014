@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 58: {fileID: 5800000}
   - 50: {fileID: 5000000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Unit
   m_TagString: unit
   m_Icon: {fileID: 0}
@@ -129,6 +129,10 @@ MonoBehaviour:
   convert_change_decline_multiplier: .75
   depression_increase_multiplier: 1.10000002
   depression_decline_multiplier: .800000012
+  KillAggressionDeductionMultiplier: .75
+  VendettaConstant: 20
+  VendettaBaseMultiplier: 1.5
+  VendettaRadius: 4
   InfluenceIncreasePerConversion: 5
   ConversationStatementDelay: 5000
   ConversationStatusDelay: 3000
@@ -139,6 +143,7 @@ MonoBehaviour:
   BasicMoveTargetRange: .800000012
   MoveSpeed: 1
   CloseProximity: 1
+  unit_mask: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -157,7 +162,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_SortingLayerID: 1995298189
   m_Sprite: {fileID: 21300002, guid: 7550ab4b8402a2943abd50ae04f45427, type: 3}
@@ -180,7 +185,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_SortingLayerID: 1995298189
   m_Sprite: {fileID: 21300000, guid: 7550ab4b8402a2943abd50ae04f45427, type: 3}
