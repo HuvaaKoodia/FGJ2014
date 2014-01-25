@@ -1,11 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+public enum Ideology {RED,GREEN,BLUE,YELLOW}
+public enum Nationality {A,B,C,D}
+
+public class IdeologyData{
+	Ideology MyIdeology;
+
+	public float convert_chance=20;
+	public float aggression=0;
+}
 
 public class UnitMain: MonoBehaviour {
 
 	public SpriteRenderer GraphicsSpriteRenderer;
 
-	public enum Ideology {RED,GREEN,BLUE,YELLOW}
+
+	Nationality MyNationality;
 	Ideology _ideology;
 	
 	Ideology MyIdeology{
@@ -33,12 +45,39 @@ public class UnitMain: MonoBehaviour {
 		}
 	}
 
+	public float convert_change_increase_multiplier=1.1f,
+	convert_change_decline_multiplier=0.75f,
+	depression_increase_multiplier=1.1f,
+	depression_decline_multiplier=0.8f
+	;
+	public int InfluenceIncreasePerConversion=5;
+
+	public Dictionary<Ideology,IdeologyData> IdeologyStats=new Dictionary<Ideology, IdeologyData>();
+
 	Timer act_timer,speak_timer;
 	public SpeechbubbleMain SpeechBubblePrefab;
 
 	public GameObject Temp;
 
 	public Sprite Talking,Listening;
+
+	float depression=10;
+	public float Depression
+	{
+		get {return depression;}
+		set{
+			depression=Mathf.Clamp(value,5,100);
+		}
+	}
+	
+	int influence=0;
+	public int Influence
+	{
+		get {return influence;}
+		set{
+			influence=Mathf.Clamp(value,0,100);
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -48,6 +87,10 @@ public class UnitMain: MonoBehaviour {
 		ResetActionTimer();
 
 		MyIdeology=Subs.GetRandom(Subs.EnumValues<Ideology>());
+
+		foreach (var emun in Subs.EnumValues<Ideology>()){
+			IdeologyStats.Add(emun,new IdeologyData());
+		}
 	}
 	
 	// Update is called once per frame
@@ -62,10 +105,11 @@ public class UnitMain: MonoBehaviour {
 		if (moving){
 			if (Vector3.Distance(transform.position,MoveTarget)<CloseToRange){
 				moving=false;
-				if (TalkingTo!=null){
+				if (talking){
 
 				}
-				else if (Talk_target!=null){
+				else
+				if (Talk_target!=null){
 					//talk target reached
 					TalkTo(Talk_target);
 				}
@@ -121,15 +165,22 @@ public class UnitMain: MonoBehaviour {
 	}
 
 	void SpeakOver(){
+
+		//DEv.TODO change statistics
+		
+		if (TalkingTo.MyIdeology==MyIdeology){
+			DecreaseOtherIdeologyChances();
+			Depression*=depression_decline_multiplier;
+		}
+		else{
+			TryToConvertTarget(TalkingTo);
+		}
+		
 		TalkingTo.EndConversation();
 		EndConversation();
 
 
 		speak_timer.Active=false;
-
-		//DEv.TODO change statistics
-
-
 	}
 
 	void MoveTo(Vector3 target){
@@ -156,7 +207,6 @@ public class UnitMain: MonoBehaviour {
 		talking=true;
 		
 		moving=false;
-		act_timer.Active=false;
 	}
 
 	public void ListenTo (UnitMain target)
@@ -181,8 +231,10 @@ public class UnitMain: MonoBehaviour {
 		talking=false;
 		TalkingTo=null;
 
-		if (SpeechBubble!=null)
+		if (SpeechBubble!=null){
 			SpeechBubble.Close();
+			SpeechBubble=null;
+		}
 
 		ResetActionTimer();
 
@@ -191,7 +243,7 @@ public class UnitMain: MonoBehaviour {
 
 	void ResetActionTimer ()
 	{
-		act_timer.Delay=Subs.GetRandom(3000,5000);
+		act_timer.Delay=Subs.GetRandom(1000,3000);
 		act_timer.Reset(true);
 	}
 
@@ -201,13 +253,102 @@ public class UnitMain: MonoBehaviour {
 			//walk away from here
 
 			var dir=transform.position-col.transform.position;
-			//if (dir.magnitude<0.05f){
-			//	transform.Translate(new Vector3(Subs.GetRandom(-0.1f,0.1f),Subs.GetRandom(-0.1f,0.1f)));
-			//}
-			//else{
+
 			if (dir.magnitude<CloseProximity)
 				transform.Translate(dir.normalized*Time.deltaTime*MoveSpeed);
-			//}
 		}
+	}
+
+	List<int> SocialHistory=new List<int>();
+
+	public void AddSocialEvent(int e){
+		SocialHistory.Add(e);
+		if (SocialHistory.Count>20){
+			SocialHistory.RemoveAt(SocialHistory.Count-1);
+		}
+	}
+
+
+	void TryToConvertTarget (UnitMain target)
+	{
+		var chance=Subs.GetRandom(100);
+		Debug.Log("Convert chance: "+(chance-Influence)+", "+target.IdeologyStats[MyIdeology].convert_chance);
+		if (chance-Influence<target.IdeologyStats[MyIdeology].convert_chance){
+			//convert infidel
+			AddSocialEvent(1);
+			DecreaseOtherIdeologyChances();
+			Influence+=InfluenceIncreasePerConversion;
+
+			target.AddSocialEvent(1);
+			target.DecreaseOtherIdeologyChances();
+			target.MyIdeology=MyIdeology;
+		}
+		else{
+			//fail conversion
+			AddSocialEvent(-1);
+			aggroIncrease(target);
+		
+			if (Subs.GetRandom(100)<IdeologyStats[target.MyIdeology].aggression){
+				//tappo
+				return;
+			}
+
+			target.IdeologyStats[MyIdeology].convert_chance*=convert_change_increase_multiplier;
+
+			if (MyNationality==target.MyNationality){
+				Depression*=depression_increase_multiplier;
+				exileCheck();
+			}
+			else{
+				target.Depression*=depression_increase_multiplier;
+				target.exileCheck();
+			}
+		}
+	}
+
+	public void DecreaseOtherIdeologyChances ()
+	{
+		foreach (var idea in IdeologyStats){
+			if (idea.Key!=MyIdeology){
+				idea.Value.convert_chance=(int)(idea.Value.convert_chance*convert_change_decline_multiplier);
+			}
+		}
+	}
+
+	void aggroIncrease (UnitMain target)
+	{
+		float multi=2;
+		if (MyNationality==target.MyNationality){
+			multi=1;
+		}
+		int SocialMyA=GetSocialAmount(1);
+		int SocialOtherA=GetSocialAmount(-1);
+		int MaxSocialAmount=SocialMyA+SocialOtherA;
+
+		var add=multi*((1-(Mathf.Abs(SocialMyA-SocialOtherA)/MaxSocialAmount))*MaxSocialAmount*0.5f);
+		IdeologyStats[target.MyIdeology].aggression+=add;
+	
+
+		Debug.Log("Aggro add:"+add);
+	}
+
+	void exileCheck ()
+	{
+		if (Subs.GetRandom(100)<Depression){
+			Exile();
+		}
+	}
+
+	void Exile(){
+
+	}
+
+	int GetSocialAmount(int index){
+			var amount=0;
+		foreach (var i in SocialHistory){
+			if (i==index)
+					amount++;
+		}
+			return amount;
 	}
 }

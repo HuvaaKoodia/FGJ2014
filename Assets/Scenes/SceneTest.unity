@@ -238,6 +238,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GraphicsSpriteRenderer: {fileID: 2106225821}
+  convert_change_increase_multiplier: 1.10000002
+  convert_change_decline_multiplier: .75
+  depression_increase_multiplier: 1.10000002
+  depression_decline_multiplier: .800000012
+  InfluenceIncreasePerConversion: 5
   SpeechBubblePrefab: {fileID: 11400000, guid: 26d0882a801ded84f8e6f1a74d785092, type: 2}
   Temp: {fileID: 643480774}
   Talking: {fileID: 21300002, guid: 7550ab4b8402a2943abd50ae04f45427, type: 3}
