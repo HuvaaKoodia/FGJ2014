@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Banana
+  m_Name: GrapeRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,9 +38,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3c2befbc262734aad685a38ebee8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chest: {fileID: 21300002, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  right_arm: {fileID: 21300004, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  left_arm: {fileID: 21300006, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
+  chest: {fileID: 21300090, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  right_arm: {fileID: 21300010, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  left_arm: {fileID: 21300012, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   eyes_grin: {fileID: 21300014, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
   eyes_adore: {fileID: 21300016, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
   eyes_idle: {fileID: 21300020, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
@@ -54,7 +54,7 @@ MonoBehaviour:
   mouth_troll: {fileID: 21300034, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
   mouth_howl: {fileID: 21300036, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
   eyes_closed: {fileID: 21300038, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  leg: {fileID: 21300010, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
+  leg: {fileID: 21300028, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

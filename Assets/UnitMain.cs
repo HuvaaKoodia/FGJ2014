@@ -13,10 +13,10 @@ public enum Ideology
 
 public enum Nationality
 {
-		A,
-		B,
-		C,
-		D
+		Banana,
+		Pear,
+		Lemon,
+		Grape
 }
 
 public class IdeologyData
@@ -91,6 +91,7 @@ public class UnitMain: MonoBehaviour
 						if (value == Ideology.RED) {
 								ideologyColor = Color.red;
 						}
+						handler.ChangeViews(MyNationality, MyIdeology);
 				}
 		}
 
@@ -133,6 +134,7 @@ public class UnitMain: MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
+		handler.ResStore = GC.ResStore;
 				unit_mask = 1 << LayerMask.NameToLayer ("Unit");
 
 				act_timer = new Timer (Act);
@@ -141,7 +143,7 @@ public class UnitMain: MonoBehaviour
 				ResetActionTimer ();
 
 				MyIdeology = Subs.GetRandom (Subs.EnumValues<Ideology> ());
-
+				
 				foreach (var emun in Subs.EnumValues<Ideology>()) {
 						var idea = new IdeologyData ();
 						IdeologyStats.Add (emun, idea);
@@ -425,7 +427,8 @@ public class UnitMain: MonoBehaviour
 						OnDeath ();
 
 				EndConversation ();
-				Destroy (gameObject);
+				
+				Destroy (gameObject, 2000f);
 
 				var obj = Instantiate (GC.ResStore.SplatPrefab, transform.position, Quaternion.identity) as GameObject;
 				obj.transform.parent = GC.ResStore.MiscContainer;
