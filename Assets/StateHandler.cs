@@ -12,10 +12,10 @@ public class StateHandler : MonoBehaviour
 				mad
 		}
 		public Animator anime;
-		int[] neutralFaces = new int[]{7,19,20,21,25,27,31,32,33};
-		int[] sadFaces = new int[]{8,9,14,15,26};
-		int[] happyFaces = new int[]{6,10,11,12,16,17,18,22,23,24,28,29,34,35};
-		int[] madFaces = new int[]{0,1,2,3,4,5,30};
+		int[] neutralFaces = new int[9]{7,19,20,21,25,27,31,32,33};
+		int[] sadFaces = new int[5]{8,9,14,15,26};
+		int[] happyFaces = new int[14]{6,10,11,12,16,17,18,22,23,24,28,29,34,35};
+		int[] madFaces = new int[7]{0,1,2,3,4,5,30};
 
 		public enum charStates
 		{
@@ -95,6 +95,7 @@ public class StateHandler : MonoBehaviour
 				int mouth = charaState % 6;
 				int eyes = charaState / 6;
 		
+				Debug.Log ("1:" + force.mouthState.sprite.name + " " + force.eyeState.sprite.name);
 				Debug.Log (charaState + " " + eyes + " " + mouth);
 				switch (eyes) {
 				case 0:
@@ -137,24 +138,17 @@ public class StateHandler : MonoBehaviour
 						break;
 
 				}
+				
+	
 		}
 		
-		void charaStateCheck ()
-		{
-				if (charaState < 0) {
-						charaState = 35;
-				} else if (charaState > 35) {
-						charaState = 0;
-				}
-				UpdateState ();
-		}
-
+		
+		/// <summary>
+		/// 0 Neut 1 Sad 2 Happy 3 Mad
+		/// </summary>
+		/// <param name="i">The index.</param>
 		public void GenerateFace (int i)
 		{
-				//0 Neutral
-				//1 Sad
-				//2 Happy
-				//3 Mad
 				switch (i) {
 				case 0:
 						charaState = neutralFaces [Random.Range (0, neutralFaces.Length - 1)];
@@ -171,5 +165,7 @@ public class StateHandler : MonoBehaviour
 
 						break;
 				}
+				Debug.Break();
+				UpdateState ();
 		}
 }

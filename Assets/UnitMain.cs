@@ -22,7 +22,7 @@ public enum Nationality
 public class IdeologyData
 {
 		Ideology MyIdeology;
-	float convert_chance=25;
+		float convert_chance = 25;
 		float aggression;
 
 		public float ConvertChance {
@@ -151,6 +151,7 @@ public class UnitMain: MonoBehaviour
 				}
 		
 				UpdateGFXPos ();
+				handler.GenerateFace (0);
 		}
 
 		void UpdateGFXPos ()
@@ -184,7 +185,7 @@ public class UnitMain: MonoBehaviour
 								ResetMovement ();
 								if (Talk_target != null) {
 										//talk target reached
-					StartConversation(Talk_target);
+										StartConversation (Talk_target);
 								} else {
 										Target_Base = null;
 										ResetActionTimer ();
@@ -306,7 +307,8 @@ public class UnitMain: MonoBehaviour
 				transform.localScale = theScale;
 		}
 
-	private void TalkTo(UnitMain target){
+		private void TalkTo (UnitMain target)
+		{
 				TalkingTo = target;
 				Talk_target = null;
 				talking = true;
@@ -314,26 +316,30 @@ public class UnitMain: MonoBehaviour
 				moving = false;
 		}
 
-	public void ListenTo (UnitMain target)
+		public void ListenTo (UnitMain target)
 		{
-		TalkTo(target);
+				TalkTo (target);
 
 				MoveTo (target.transform.position + Vector3.right * 2, 0.05f);
 		}
 
-	void StartConversation(UnitMain target)
+		void StartConversation (UnitMain target)
 		{
-		if (target.TALKING) return;
+				if (target.TALKING)
+						return;
 		
-		TalkTo(target);
-		target.ListenTo(this);
+				TalkTo (target);
+				target.ListenTo (this);
 
-		SpeechBubble=Instantiate(SpeechBubblePrefab,transform.position+new Vector3(1,2,handler.transform.position.z),Quaternion.identity) as SpeechbubbleMain;
+				SpeechBubble = Instantiate (SpeechBubblePrefab, transform.position + new Vector3 (1, 2, handler.transform.position.z), Quaternion.identity) as SpeechbubbleMain;
 				SpeechBubble.SetTalker (this);
 				SpeechBubble.transform.parent = GC.ResStore.MiscContainer;
 		
 				speak_timer.Delay = ConversationStatementDelay;
 				speak_timer.Reset (true);
+				if (IdeologyStats [target.MyIdeology].Aggression > 30) {
+						handler.GenerateFace (3);		
+				}
 		}
 
 		void UpdateConversationStatus (bool approve)
@@ -354,11 +360,12 @@ public class UnitMain: MonoBehaviour
 				}
 
 				ResetActionTimer ();
-	}
+		}
 
-	public void ForceStopTalking(){
-		TalkingTo.EndConversation();
-		EndConversation();
+		public void ForceStopTalking ()
+		{
+				TalkingTo.EndConversation ();
+				EndConversation ();
 		}
 
 		void ResetTalking ()
