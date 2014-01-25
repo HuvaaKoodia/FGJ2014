@@ -170,6 +170,7 @@ MonoBehaviour:
   StatusDisapprove: {fileID: 21300010, guid: ae2f506c6ddfd39428495ddbd2ea8982, type: 3}
   IconRenderer: {fileID: 21200002}
   StatusRenderer: {fileID: 21200000}
+  BonusRenderer: {fileID: 21200006}
   StatementPhase: 1
 --- !u!212 &21200000
 SpriteRenderer:

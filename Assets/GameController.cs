@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour {
 			if (hit.collider!=null){
 				var bubble=hit.collider.gameObject.GetComponent<SpeechbubbleMain>();
 				if (bubble.StatementPhase)
-					bubble.BONUS();
+					bubble.PlayerApprove();
 			}
 		}
 
@@ -77,7 +77,7 @@ public class GameController : MonoBehaviour {
 			if (hit.collider!=null){
 				var bubble=hit.collider.gameObject.GetComponent<SpeechbubbleMain>();
 				if (bubble.StatementPhase)
-					bubble.ForceClose();
+					bubble.PlayerDissapprove();
 			}
 		}
 	}

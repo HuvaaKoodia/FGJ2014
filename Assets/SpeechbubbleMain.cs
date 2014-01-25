@@ -2,10 +2,8 @@
 using System.Collections;
 
 public class SpeechbubbleMain : MonoBehaviour {
-
-
 	public Sprite IdeologyIconRED,IdeologyIconGREEN,IdeologyIconBLUE,IdeologyIconYELLOW,StatusApprove,StatusDisapprove;
-	public SpriteRenderer IconRenderer,StatusRenderer;
+	public SpriteRenderer IconRenderer,StatusRenderer,BonusRenderer;
 
 	public bool StatementPhase=true;
 
@@ -32,6 +30,7 @@ public class SpeechbubbleMain : MonoBehaviour {
 
 		IconRenderer.gameObject.SetActive(true);
 		StatusRenderer.gameObject.SetActive(false);
+		BonusRenderer.gameObject.SetActive(false);
 	}
 
 	public void SetResult(bool approve){
@@ -49,23 +48,23 @@ public class SpeechbubbleMain : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
-	public void ForceClose()
+	void ForceClose()
 	{
 		Destroy(gameObject);
 		Talker.ForceStopTalking();
 	}
 
 	public void PlayerApprove(){
-
+		BONUS();
 	}
 
 	
 	public void PlayerDissapprove(){
-		
+		ForceClose();
 	}
 
 	public void BONUS ()
 	{
-		throw new System.NotImplementedException ();
+		BonusRenderer.gameObject.SetActive(true);
 	}
 }
