@@ -48,4 +48,19 @@ public class SpeechbubbleMain : MonoBehaviour {
 	{
 		Destroy(gameObject);
 	}
+
+	void ForceClose()
+	{
+		Destroy(gameObject);
+		Talker.EndConversation();
+	}
+
+	public void PlayerApprove(){
+
+	}
+
+	
+	public void PlayerDissapprove(){
+		
+	}
 }
