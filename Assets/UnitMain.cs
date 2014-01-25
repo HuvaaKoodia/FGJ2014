@@ -10,8 +10,24 @@ public enum Nationality {A,B,C,D}
 public class IdeologyData{
 	Ideology MyIdeology;
 
-	public float convert_chance=35;
-	public float aggression=0;
+	float convert_chance=35;
+	float aggression;
+
+	public float ConvertChance
+	{
+		get {return convert_chance;}
+		set{
+			convert_chance=Mathf.Clamp(value,1,100);
+		}
+	}
+
+	public float Aggression
+	{
+		get {return aggression;}
+		set{
+			aggression=Mathf.Clamp(value,0,100);
+		}
+	}
 }
 
 public class UnitMain: MonoBehaviour {
@@ -65,7 +81,8 @@ public class UnitMain: MonoBehaviour {
 	public float convert_change_increase_multiplier=1.1f,
 	convert_change_decline_multiplier=0.75f,
 	depression_increase_multiplier=1.1f,
-	depression_decline_multiplier=0.8f
+	depression_decline_multiplier=0.8f,
+	KillAggressionDeductionMultiplier=0.75f
 	;
 	public int InfluenceIncreasePerConversion=5,
 	ConversationStatementDelay=5000,
@@ -109,7 +126,11 @@ public class UnitMain: MonoBehaviour {
 		MyIdeology=Subs.GetRandom(Subs.EnumValues<Ideology>());
 
 		foreach (var emun in Subs.EnumValues<Ideology>()){
-			IdeologyStats.Add(emun,new IdeologyData());
+			var idea=new IdeologyData();
+			IdeologyStats.Add(emun,idea);
+			if (emun!=MyIdeology){
+				idea.Aggression=Subs.GetRandom(0,30);
+			}
 		}
 	}
 	
@@ -191,6 +212,12 @@ public class UnitMain: MonoBehaviour {
 	}
 
 	void SpeakOver(){
+		if (SpeechBubble==null){
+			EndConversation();
+			speak_timer.Active=false;
+			return;
+		}
+
 		if (SpeechBubble.StatementPhase){
 			//change statistics
 			bool approve=true;
@@ -202,7 +229,9 @@ public class UnitMain: MonoBehaviour {
 				approve=TryToConvertTarget(TalkingTo);
 			}
 
-			SpeechBubble.SetResult(approve);
+			if (SpeechBubble!=null){
+				UpdateConversationStatus(approve);
+			}
 		}
 		else{
 			TalkingTo.EndConversation();
@@ -222,12 +251,8 @@ public class UnitMain: MonoBehaviour {
 	{
 		if (target.TALKING) return;
 
-
 		SetTalking(target);
 		target.ListenTo(this);
-
-		//Temp.gameObject.SetActive(true);
-		//Temp.GetComponent<SpriteRenderer>().sprite=Talking;
 
 		StartConversation();
 	}
@@ -244,10 +269,7 @@ public class UnitMain: MonoBehaviour {
 	{
 		SetTalking(target);
 
-		MoveTo(target.transform.position+Vector3.right*2,BasicMoveTargetRange);
-
-		//Temp.gameObject.SetActive(true);
-		//Temp.GetComponent<SpriteRenderer>().sprite=Listening;
+		MoveTo(target.transform.position+Vector3.right*2,0.05f);
 	}
 
 	void StartConversation()
@@ -268,7 +290,7 @@ public class UnitMain: MonoBehaviour {
 		speak_timer.Reset(true);
 	}
 
-	void EndConversation(){
+	public void EndConversation(){
 		ResetTalking();
 
 		if (SpeechBubble!=null){
@@ -277,8 +299,6 @@ public class UnitMain: MonoBehaviour {
 		}
 
 		ResetActionTimer();
-
-		//Temp.gameObject.SetActive(false);
 	}
 
 	void ResetTalking(){
@@ -307,12 +327,44 @@ public class UnitMain: MonoBehaviour {
 		}
 	}
 
+	bool CheckAggression (UnitMain target)
+	{
+		var c=Subs.GetRandom(100);
+		var a=IdeologyStats[target.MyIdeology].Aggression;
+		Debug.Log("Aggression check: "+c+" < "+a);
+		return c<a;
+	}
 
+	void Attack(UnitMain target)
+	{
+		EndConversation();
+		target.EndConversation();
+		if (Subs.GetRandom(100)<50){
+			target.Die();
+			IdeologyStats[target.MyIdeology].Aggression*=KillAggressionDeductionMultiplier;
+			Debug.LogWarning("DEATH!");
+		}
+		else{
+			Die();
+			target.IdeologyStats[MyIdeology].Aggression*=KillAggressionDeductionMultiplier;
+			Debug.LogWarning("DEATH!");
+		}
+	}
+
+	void Die(){
+		EndConversation();
+		Destroy(gameObject);
+
+		var obj=Instantiate(GC.ResStore.SplatPrefab,transform.position,Quaternion.identity) as GameObject;
+		obj.transform.parent=GC.ResStore.MiscContainer;
+		obj.GetComponent<SpriteRenderer>().color=GraphicsSpriteRenderer.color;
+	}
+	
 	bool TryToConvertTarget (UnitMain target)
 	{
 		var chance=Subs.GetRandom(100);
-		Debug.Log("Convert chance: "+(chance-Influence)+", "+target.IdeologyStats[MyIdeology].convert_chance);
-		if (chance-Influence<target.IdeologyStats[MyIdeology].convert_chance){
+		Debug.Log("Convert chance: "+(chance-Influence)+", "+target.IdeologyStats[MyIdeology].ConvertChance);
+		if (chance-Influence<target.IdeologyStats[MyIdeology].ConvertChance){
 			//convert infidel
 			AddSocialEvent(1);
 			DecreaseOtherIdeologyChances();
@@ -321,6 +373,7 @@ public class UnitMain: MonoBehaviour {
 			target.AddSocialEvent(1);
 			target.DecreaseOtherIdeologyChances();
 			target.MyIdeology=MyIdeology;
+			target.IdeologyStats[MyIdeology].Aggression*=0.5f;
 			return true;
 		}
 		else{
@@ -330,14 +383,18 @@ public class UnitMain: MonoBehaviour {
 
 			target.AddSocialEvent(-1);
 			target.aggroIncrease(this);
-			
-			if (Subs.GetRandom(100)<IdeologyStats[target.MyIdeology].aggression){
-				//attack
 
+			//check attacks
+			if (CheckAggression(target)){
+				Attack(target);
+			}
+			else if (target.CheckAggression(this)){
+				Attack(target);
 			}
 			else{
-				target.IdeologyStats[MyIdeology].convert_chance*=convert_change_increase_multiplier;
-
+				target.IdeologyStats[MyIdeology].ConvertChance*=convert_change_increase_multiplier;
+				
+				//check exile
 				if (MyNationality==target.MyNationality){
 					Depression*=depression_increase_multiplier;
 					ExileCheck();
@@ -355,7 +412,7 @@ public class UnitMain: MonoBehaviour {
 	{
 		foreach (var idea in IdeologyStats){
 			if (idea.Key!=MyIdeology){
-				idea.Value.convert_chance=(int)(idea.Value.convert_chance*convert_change_decline_multiplier);
+				idea.Value.ConvertChance*=convert_change_decline_multiplier;
 			}
 		}
 	}
@@ -371,7 +428,7 @@ public class UnitMain: MonoBehaviour {
 		int MaxSocialAmount=SocialMyA+SocialOtherA;
 
 		var add=multi*((1-(Mathf.Abs(SocialMyA-SocialOtherA)/MaxSocialAmount))*MaxSocialAmount*0.5f);
-		IdeologyStats[target.MyIdeology].aggression+=add;
+		IdeologyStats[target.MyIdeology].Aggression+=add;
 	
 
 		Debug.Log("Aggro add:"+add);
@@ -396,7 +453,6 @@ public class UnitMain: MonoBehaviour {
 		}
 
 		WalkTowardsBase(Subs.GetRandom(other_bases));
-
 	}
 
 	int GetSocialAmount(int index){
@@ -431,7 +487,11 @@ public class UnitMain: MonoBehaviour {
 		Target_Base=Base;
 		TargetBaseRange=Subs.GetRandom(2f,5f);
 	}
-	
+
+
+
+	#region Misc
+
 	void OnTriggerStay2D(Collider2D col){
 		if (moving||talking||Talk_target!=null) return;
 		if (col.gameObject.tag=="unit"){
@@ -463,11 +523,11 @@ public class UnitMain: MonoBehaviour {
 
 		guitext="Ideology stats:\n";
 		foreach(var i in IdeologyStats){
-			guitext+=i.Key+ ": Agg="+i.Value.aggression+"% Convert: "+i.Value.convert_chance+"%";
+			guitext+=i.Key+ ": Agg="+i.Value.Aggression+"% Convert: "+i.Value.ConvertChance+"%";
 			guitext+="\n";
 		}
 		GUI.Box(new Rect(10,10,300,400),guitext);
 	}
-
+	#endregion
 
 }
