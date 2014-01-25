@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour {
 		}
 
         if (Input.GetKey(KeyCode.Space)){
-            var units = Physics2D.OverlapCircleAll (transform.position, FingerOfGodRadius, unit_mask);
+            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint(Input.mousePosition), FingerOfGodRadius, unit_mask);
 
             foreach (var u in units) {
                 var unit = u.GetComponent<UnitMain> ();

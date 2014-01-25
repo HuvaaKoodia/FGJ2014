@@ -9,7 +9,7 @@ public class SpeechbubbleMain : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        BONUS_ON=false;
 	}
 	
 	// Update is called once per frame
@@ -63,8 +63,11 @@ public class SpeechbubbleMain : MonoBehaviour {
 		ForceClose();
 	}
 
+    public bool BONUS_ON;
+
 	public void BONUS ()
 	{
+        BONUS_ON=true;
 		BonusRenderer.gameObject.SetActive(true);
 	}
 }

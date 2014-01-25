@@ -254,17 +254,21 @@ public class UnitMain: MonoBehaviour
         if (SpeechBubble.StatementPhase) {
             //change statistics
             bool approve = true;
+            bool bonus=SpeechBubble.BONUS_ON;
             if (TalkingTo.MyIdeology == MyIdeology) {
-                DecreaseOtherIdeologyChances ();
+                DecreaseOtherIdeologyChances (bonus);
                 Depression *= depression_decline_multiplier;
             } else {
+                if (bonus) approve=true;
+                    else
                 approve = TryToConvertTarget (TalkingTo);
             }
 
             if (SpeechBubble != null) {
                 UpdateConversationStatus (approve);
             }
-        } else {
+        } 
+        else {
             TalkingTo.EndConversation ();
             EndConversation ();
 
@@ -433,7 +437,7 @@ public class UnitMain: MonoBehaviour
         
         EndConversation ();
         
-        Destroy (gameObject, 2000f);
+        Destroy (gameObject);
         
         var obj = Instantiate (GC.ResStore.SplatPrefab, transform.position, Quaternion.identity) as GameObject;
         obj.transform.parent = GC.ResStore.MiscContainer;
@@ -447,11 +451,11 @@ public class UnitMain: MonoBehaviour
         if (chance - Influence < target.IdeologyStats [MyIdeology].ConvertChance) {
             //convert infidel
             AddSocialEvent (1);
-            DecreaseOtherIdeologyChances ();
+            DecreaseOtherIdeologyChances (false);
             Influence += InfluenceIncreasePerConversion;
 
             target.AddSocialEvent (1);
-            target.DecreaseOtherIdeologyChances ();
+            target.DecreaseOtherIdeologyChances (false);
             target.MyIdeology = MyIdeology;
             target.IdeologyStats [MyIdeology].Aggression *= 0.5f;
             return true;
@@ -484,11 +488,15 @@ public class UnitMain: MonoBehaviour
         }
     }
 
-    public void DecreaseOtherIdeologyChances ()
+    public void DecreaseOtherIdeologyChances (bool bonus)
     {
+        var multi=1;
+        if (bonus)
+            multi=2;
+
         foreach (var idea in IdeologyStats) {
             if (idea.Key != MyIdeology) {
-                idea.Value.ConvertChance *= convert_change_decline_multiplier;
+                idea.Value.ConvertChance *= convert_change_decline_multiplier*multi;
             }
         }
     }
