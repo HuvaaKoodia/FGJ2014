@@ -3,6 +3,9 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - unit
+  - worldlimits
+  - Base
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -12,9 +15,9 @@ TagManager:
   Builtin Layer 5: 
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: 
-  User Layer 9: 
-  User Layer 10: 
+  User Layer 8: Unit
+  User Layer 9: Base
+  User Layer 10: World
   User Layer 11: 
   User Layer 12: 
   User Layer 13: 
@@ -40,6 +43,22 @@ TagManager:
   - name: Default
     userID: 0
     uniqueID: 0
+    locked: 0
+  - name: Background
+    userID: 4
+    uniqueID: 3053699657
+    locked: 0
+  - name: Unit
+    userID: 1
+    uniqueID: 1995298189
+    locked: 0
+  - name: Speechbubble
+    userID: 2
+    uniqueID: 2870220851
+    locked: 0
+  - name: SpeechbubbleContents
+    userID: 3
+    uniqueID: 3468459877
     locked: 0
   - name: Character
     userID: 1
