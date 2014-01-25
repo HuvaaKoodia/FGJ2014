@@ -70,7 +70,6 @@ public class StateHandler : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-				anime = GetComponent<Animator> ();
 		}
 	
 		// Update is called once per frame

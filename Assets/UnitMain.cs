@@ -307,8 +307,6 @@ public class UnitMain: MonoBehaviour
 		}
 
 	private void TalkTo(UnitMain target){
-						return;
-		{
 				TalkingTo = target;
 				Talk_target = null;
 				talking = true;
@@ -316,7 +314,7 @@ public class UnitMain: MonoBehaviour
 				moving = false;
 		}
 
-		public void ListenTo (UnitMain target)
+	public void ListenTo (UnitMain target)
 		{
 		TalkTo(target);
 
@@ -330,7 +328,7 @@ public class UnitMain: MonoBehaviour
 		TalkTo(target);
 		target.ListenTo(this);
 
-		SpeechBubble=Instantiate(SpeechBubblePrefab,transform.position+new Vector3(1,2),Quaternion.identity) as SpeechbubbleMain;
+		SpeechBubble=Instantiate(SpeechBubblePrefab,transform.position+new Vector3(1,2,handler.transform.position.z),Quaternion.identity) as SpeechbubbleMain;
 				SpeechBubble.SetTalker (this);
 				SpeechBubble.transform.parent = GC.ResStore.MiscContainer;
 		
