@@ -62,3 +62,7 @@ TagManager:
     userID: 3
     uniqueID: 3468459877
     locked: 0
+  - name: Character
+    userID: 1
+    uniqueID: 86466777
+    locked: 0

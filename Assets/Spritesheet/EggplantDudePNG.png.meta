@@ -1,0 +1,157 @@
+fileFormatVersion: 2
+guid: fd0b1b0b1f7ac88499f26fe7b6885c41
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: Eggplant_Chest
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 279
+        width: 190
+        height: 276
+      alignment: 9
+      pivot: {x: .357115746, y: .292811185}
+    - name: Eggplant_RightArm
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 430
+        width: 57
+        height: 118
+      alignment: 9
+      pivot: {x: .22388123, y: .359695703}
+    - name: Eggplant_LeftArm
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 430
+        width: 57
+        height: 117
+      alignment: 9
+      pivot: {x: .202776998, y: .34335953}
+    - name: Eggplant_Eyes_Grin
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 233
+        width: 57
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Eyes_Adore
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 215
+        width: 66
+        height: 45
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Eyes_Idle
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 233
+        width: 45
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Eyes_WTF
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 222
+        width: 65
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Mouth_Idle
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 176
+        width: 38
+        height: 26
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Mouth_Smile
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 159
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Mouth_Open
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 170
+        width: 51
+        height: 29
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Mouth_Derp
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 157
+        width: 71
+        height: 46
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Eggplant_Eyes_Closde
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 107
+        width: 59
+        height: 5
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 
