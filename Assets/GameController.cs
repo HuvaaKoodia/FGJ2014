@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
 	public BaseMain ABase,BBase,CBase,DBase;   
 
 	public int AmountOfDeaths=0,AmountOfSpawns=0,AmountOfDeathsLastMin=0,AmountOfSpawnsLastMin=0;
-	public float SecondsAfterStart=0;
+    public float SecondsAfterStart=0,FingerOfGodRadius=2.5f;
 	float LastMin=0;
 
 	public void AddDeath(){
@@ -60,6 +60,7 @@ public class GameController : MonoBehaviour {
 		//input
 
 		int mask=1<<LayerMask.NameToLayer("SpeechBubble");
+        int unit_mask=1<<LayerMask.NameToLayer("Unit");
 
 		if (Input.GetMouseButtonDown(0)){
 			var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,mask);
@@ -80,6 +81,18 @@ public class GameController : MonoBehaviour {
 					bubble.PlayerDissapprove();
 			}
 		}
+
+        if (Input.GetKey(KeyCode.Space)){
+            var units = Physics2D.OverlapCircleAll (transform.position, FingerOfGodRadius, unit_mask);
+
+            foreach (var u in units) {
+                var unit = u.GetComponent<UnitMain> ();
+                if (unit != null) {
+                    unit.Die();
+                }
+            }
+
+        }
 	}
 
 	public float GetPercentOfMaxPopulation(Nationality Nat){

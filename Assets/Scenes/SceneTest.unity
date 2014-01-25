@@ -327,7 +327,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_SortingLayerID: 86466777
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300048, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &136584218
 Prefab:
@@ -787,6 +787,7 @@ GameObject:
   - 92: {fileID: 411692981}
   - 124: {fileID: 411692980}
   - 81: {fileID: 411692979}
+  - 114: {fileID: 411692984}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -855,6 +856,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &411692984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411692978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9506720b065ebf446bbe5e971bcc4b05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraMax: 18
+  CameraMin: 1
+  CameraSpeed: 30
+  ZoomSpeed: 10
+  Limits: {fileID: 535916280}
 --- !u!1 &417049153
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +946,7 @@ Transform:
   m_PrefabInternal: {fileID: 378770037}
   m_GameObject: {fileID: 425038927}
   m_LocalRotation: {x: 0, y: 0, z: .445967257, w: .895049274}
-  m_LocalPosition: {x: -.653401971, y: -.417472005, z: -.0500000007}
+  m_LocalPosition: {x: -.653401971, y: -.417472005, z: 0}
   m_LocalScale: {x: 1.39200044, y: 1.39200044, z: 1.39200044}
   m_Children:
   - {fileID: 1293472003}
@@ -1005,6 +1022,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anime: {fileID: 458503514}
+  ResStore: {fileID: 0}
+  force: {fileID: 458503513}
   charaState: 2
   chara: {fileID: 458503510}
 --- !u!114 &458503513
@@ -1019,9 +1038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0521854699b6b97409916cb811c24ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appearance: {fileID: 11400000, guid: b015c2ddfb0637e4e92f609a2e68d692, type: 2}
-  appearance1: {fileID: 11400000, guid: b015c2ddfb0637e4e92f609a2e68d692, type: 2}
-  appearance2: {fileID: 11400000, guid: 628a04ca999d58c45be002e3230d6c86, type: 2}
+  appearance: {fileID: 11400000, guid: 562e57d959c41a04b9ac74c981872afd, type: 2}
   chest: {fileID: 930169085}
   right_arm: {fileID: 425038929}
   left_arm: {fileID: 1389463792}
@@ -2000,7 +2017,7 @@ Transform:
   m_PrefabInternal: {fileID: 378770037}
   m_GameObject: {fileID: 1389463790}
   m_LocalRotation: {x: 0, y: 0, z: -.799684286, w: -.600420773}
-  m_LocalPosition: {x: -.177355915, y: .0396495722, z: .00999999978}
+  m_LocalPosition: {x: .18256551, y: .266378105, z: .0500000007}
   m_LocalScale: {x: 1.39200044, y: 1.39200044, z: 1.39200044}
   m_Children: []
   m_Father: {fileID: 458503511}
@@ -2363,6 +2380,7 @@ MonoBehaviour:
   AmountOfDeathsLastMin: 0
   AmountOfSpawnsLastMin: 0
   SecondsAfterStart: 0
+  FingerOfGodRadius: 2.5
 --- !u!4 &1599035453
 Transform:
   m_ObjectHideFlags: 0
@@ -2404,6 +2422,22 @@ MonoBehaviour:
   Unit_C: {fileID: 21300004, guid: 7550ab4b8402a2943abd50ae04f45427, type: 3}
   Unit_D: {fileID: 21300006, guid: 7550ab4b8402a2943abd50ae04f45427, type: 3}
   SplatPrefab: {fileID: 100002, guid: c52460aaa9c9a8c4c8abe0c3a7e0e3a2, type: 2}
+  BananaYellow: {fileID: 11400000, guid: b015c2ddfb0637e4e92f609a2e68d692, type: 2}
+  BananaRed: {fileID: 11400000, guid: 01f02f3679fafca4e95dfb53d40d7415, type: 2}
+  BananaGreen: {fileID: 11400000, guid: 033815fbeb93a2d45becdb053c885cb3, type: 2}
+  BananaBlue: {fileID: 11400000, guid: 562e57d959c41a04b9ac74c981872afd, type: 2}
+  LemonYellow: {fileID: 11400000, guid: 5dbf99e13bc1dfa4989126db68d9b7be, type: 2}
+  LemonRed: {fileID: 11400000, guid: 127ffedc123ded142ae2966628a21546, type: 2}
+  LemonGreen: {fileID: 11400000, guid: 97eb29a7f900ccd4f8d88f0530cf911c, type: 2}
+  LemonBlue: {fileID: 11400000, guid: d08bff5cc971cad4c887061944421733, type: 2}
+  GrapeYellow: {fileID: 11400000, guid: 8383686fe689ea44babb3192c7883fc0, type: 2}
+  GrapeRed: {fileID: 11400000, guid: ded753eaf4cf17d42afc22f97eb3ef75, type: 2}
+  GrapeGreen: {fileID: 11400000, guid: 0c10c854005204c4a87a27cd89171eb1, type: 2}
+  GrapeBlue: {fileID: 11400000, guid: ed08a8a4fa16b424cb793d38c2cd00d5, type: 2}
+  PearYellow: {fileID: 11400000, guid: 54e7a7be24b4968428c630abbee38fb8, type: 2}
+  PearRed: {fileID: 11400000, guid: b7936eda8f3d8ca40a5b5988ae0023f1, type: 2}
+  PearGreen: {fileID: 11400000, guid: fb01aea77131673499deee111109f1e5, type: 2}
+  PearBlue: {fileID: 11400000, guid: 6d659b1a481f91f43bdaea1176b490b2, type: 2}
 --- !u!1 &1684634684
 GameObject:
   m_ObjectHideFlags: 0
