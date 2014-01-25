@@ -49,10 +49,10 @@ public class SpeechbubbleMain : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
-	void ForceClose()
+	public void ForceClose()
 	{
 		Destroy(gameObject);
-		Talker.EndConversation();
+		Talker.ForceStopTalking();
 	}
 
 	public void PlayerApprove(){
@@ -62,5 +62,10 @@ public class SpeechbubbleMain : MonoBehaviour {
 	
 	public void PlayerDissapprove(){
 		
+	}
+
+	public void BONUS ()
+	{
+		throw new System.NotImplementedException ();
 	}
 }

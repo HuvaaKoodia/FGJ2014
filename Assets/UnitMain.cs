@@ -10,7 +10,7 @@ public enum Nationality {A,B,C,D}
 public class IdeologyData{
 	Ideology MyIdeology;
 
-	float convert_chance=35;
+	float convert_chance=25;
 	float aggression;
 
 	public float ConvertChance
@@ -161,7 +161,7 @@ public class UnitMain: MonoBehaviour {
 				ResetMovement();
 				if (Talk_target!=null){
 					//talk target reached
-					TalkTo(Talk_target);
+					StartConversation(Talk_target);
 				}
 				else{
 					Target_Base=null;
@@ -253,17 +253,7 @@ public class UnitMain: MonoBehaviour {
 		MoveTarget=target;
 	}
 
-	public void TalkTo(UnitMain target)
-	{
-		if (target.TALKING) return;
-
-		SetTalking(target);
-		target.ListenTo(this);
-
-		StartConversation();
-	}
-
-	private void SetTalking(UnitMain target){
+	private void TalkTo(UnitMain target){
 		TalkingTo=target;
 		Talk_target=null;
 		talking=true;
@@ -273,17 +263,22 @@ public class UnitMain: MonoBehaviour {
 
 	public void ListenTo (UnitMain target)
 	{
-		SetTalking(target);
+		TalkTo(target);
 
 		MoveTo(target.transform.position+Vector3.right*2,0.05f);
 	}
 
-	void StartConversation()
+	void StartConversation(UnitMain target)
 	{
-		SpeechBubble=Instantiate(SpeechBubblePrefab,transform.position+new Vector3(0.3f,-0.2f),Quaternion.identity) as SpeechbubbleMain;
+		if (target.TALKING) return;
+		
+		TalkTo(target);
+		target.ListenTo(this);
+
+		SpeechBubble=Instantiate(SpeechBubblePrefab,transform.position+new Vector3(1,2),Quaternion.identity) as SpeechbubbleMain;
 		SpeechBubble.SetTalker(this);
 		SpeechBubble.transform.parent=GC.ResStore.MiscContainer;
-
+		
 		speak_timer.Delay=ConversationStatementDelay;
 		speak_timer.Reset(true);
 	}
@@ -305,6 +300,11 @@ public class UnitMain: MonoBehaviour {
 		}
 
 		ResetActionTimer();
+	}
+
+	public void ForceStopTalking(){
+		TalkingTo.EndConversation();
+		EndConversation();
 	}
 
 	void ResetTalking(){

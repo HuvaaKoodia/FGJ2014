@@ -19,6 +19,7 @@ public class BaseMain : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		SpawnTimer.Update();
+
 	}
 
 	public UnitMain AddUnit(){
@@ -35,12 +36,14 @@ public class BaseMain : MonoBehaviour {
 		SpawnTimer.Delay=Subs.GetRandom(3000,5000);
 		SpawnTimer.Reset(true);
 	}
+
 	void Spawn(){
 		ResetSpawnRate();
 
 		if (Subs.GetRandom(100)-(GC.GetPercentOfMaxPopulation(MyNationality)*ControllerValue)<SpawnChance){
 			AddUnit();
 			Debug.LogWarning(MyNationality+": UNIT SPAWNED ");
+			GC.AddSpawn();
 		}
 
 	}
