@@ -8,15 +8,17 @@ public class GameController : MonoBehaviour {
 	public List<UnitMain> Units=new List<UnitMain>();
     public HudController Hud;
 
-	public BaseMain ABase,BBase,CBase,DBase;   
+	public BaseMain ABase,BBase,CBase,DBase;
 
 	public int AmountOfDeaths=0,AmountOfSpawns=0,AmountOfDeathsLastMin=0,AmountOfSpawnsLastMin=0;
     public float SecondsAfterStart=0,FingerOfGodRadius=2.5f;
 	float LastMin=0;
 
-	public void AddDeath(){
+	public void AddDeath(UnitMain unit){
 		++AmountOfDeaths;
 		++AmountOfDeathsLastMin;
+
+        Units.Remove(unit);
 	}
 	public void AddSpawn(){
 		++AmountOfSpawns;
@@ -28,10 +30,9 @@ public class GameController : MonoBehaviour {
     int score=0,score_last=0,multi=2;
 
     void AddScore(int amount){
-        score+=amount;
+        score+=amount*multi;
         score_last+=amount;
 
-        score*=multi;
     }
 
     void HudScoresUpdate(){
@@ -54,22 +55,22 @@ public class GameController : MonoBehaviour {
 
 		//generate units
 
-		int a=Subs.GetRandom(10,20);
+		int a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
 			Units.Add(ABase.AddUnit());
 		}
 
-		a=Subs.GetRandom(10,20);
+		a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
 			Units.Add(BBase.AddUnit());
 		}
 
-		a=Subs.GetRandom(10,20);
+		a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
 			Units.Add(CBase.AddUnit());
 		}
 
-		a=Subs.GetRandom(10,20);
+		a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
 			Units.Add(DBase.AddUnit());
 		}
@@ -122,17 +123,86 @@ public class GameController : MonoBehaviour {
             }
 
         }
+
+#if UNITY_EDITOR
+
+        if (Input.GetKeyDown(KeyCode.Q)){
+            var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,unit_mask);
+
+            UnitMain unit=null;
+            if (hit.collider!=null){
+
+                unit = hit.collider.GetComponent<UnitMain> ();
+                unit.DebugGUIOn=!unit.DebugGUIOn;
+
+            }
+            foreach(var u in Units){
+                if (u!=unit) u.DebugGUIOn=false;
+            }
+        }
+#endif
+
+#if UNITY_EDITOR
+
+        if (Input.GetKeyDown(KeyCode.E)){
+            DebugGUIOn=!DebugGUIOn;
+        }
+#endif
 	}
+
+    public bool DebugGUIOn=false;
+
+    public float GetAmountOfMaxPopulation(Nationality Nat){
+        //DEV. Opti. save all results in a batch every 5 seconds of so.
+        int amount=0;
+        foreach(var u in Units){
+            if (u.MyNationality==Nat){
+                ++amount;
+            }
+        }
+        
+        return amount;
+    }
 
 	public float GetPercentOfMaxPopulation(Nationality Nat){
-		//DEV. Opti. save all results in a batch every 5 seconds of so.
-		int amount=0;
-		foreach(var u in Units){
-			if (u.MyNationality==Nat){
-				++amount;
-			}
-		}
-
-		return amount/Units.Count;
+		return GetAmountOfMaxPopulation(Nat)/Units.Count;
 	}
+
+    public float GetAmountOfMaxPopulation(Ideology ide){
+        //DEV. Opti. save all results in a batch every 5 seconds of so.
+        int amount=0;
+        foreach(var u in Units){
+            if (u.MyIdeology==ide){
+                ++amount;
+            }
+        }
+        
+        return amount;
+    }
+    
+    public float GetPercentOfMaxPopulation(Ideology ide){
+        return GetAmountOfMaxPopulation(ide)/Units.Count;
+    }
+
+    string guitext="";
+
+    void OnGUI ()
+    {
+        if (!DebugGUIOn)
+            return;
+        
+        guitext = "Game stats:\n";
+        guitext+="Amount of Fruit= "+Units.Count;
+        guitext+="\nNationality:\n";
+        foreach (var i in Subs.EnumValues<Nationality>()) {
+            guitext += i + ": Amount=" + GetAmountOfMaxPopulation(i) + ", Percent= " + GetPercentOfMaxPopulation(i)*100f + "%";
+            guitext += "\n";
+        }
+        guitext+="\nIdealogy:\n";
+        foreach (var i in Subs.EnumValues<Ideology>()) {
+            guitext += i + ": Amount=" + GetAmountOfMaxPopulation(i) + ", Percent= " + GetPercentOfMaxPopulation(i)*100f + "%";
+            guitext += "\n";
+        }
+        GUI.Box (new Rect (Screen.width-300, 10, 300, 400), guitext);
+    }
 }
