@@ -95,8 +95,8 @@ public class UnitMain: MonoBehaviour
 				}
 		}
 
-		public void stopFighting ()
-		{
+    public void stopFighting ()
+    {
 				handler.anime.SetBool ("fighting", false);
 				fighting = false;
 				fighting_timer.Active = false;
@@ -108,7 +108,7 @@ public class UnitMain: MonoBehaviour
 				obj.transform.parent = GC.ResStore.MiscContainer;
 				obj.GetComponent<SpriteRenderer> ().color = ideologyColor;
 				splat_timer.Active = false;
-		}
+    }
 
 		public float convert_change_increase_multiplier = 1.1f,
 				convert_change_decline_multiplier = 0.75f,
@@ -183,48 +183,47 @@ public class UnitMain: MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				if (!handler.anime.GetBool ("dead")) {
-						act_timer.Update ();
-						speak_timer.Update ();
+        if (!handler.anime.GetBool ("dead")) {
+            act_timer.Update ();
+            speak_timer.Update ();
 						fighting_timer.Update ();
 						
 
-						UpdateFacingTalking ();
-						handler.anime.SetBool ("talking", TALKING);
-						handler.anime.SetBool ("walking", moving);
-						
+            UpdateFacingTalking ();
+            handler.anime.SetBool ("talking", TALKING);
+            handler.anime.SetBool ("walking", moving);
 
-						if (!TALKING && !fighting) {
-								if (Target_Base != null) {
-										MoveTo (Target_Base.transform.position, TargetBaseRange);
-								}
+            if (!TALKING && !fighting) {
+                if (Target_Base != null) {
+                    MoveTo (Target_Base.transform.position, TargetBaseRange);
+                }
 
-								if (Talk_target != null) {
-										MoveTo (Talk_target.transform.position, BasicMoveTargetRange);
-								}
-						}
+                if (Talk_target != null) {
+                    MoveTo (Talk_target.transform.position, BasicMoveTargetRange);
+                }
+            }
 
 						if (moving && !fighting) {
         
-								UpdateGFXPos ();
-								if (Vector3.Distance (transform.position, MoveTarget) < MoveTargetRange) {
-										ResetMovement ();
-										if (Talk_target != null) {
-												//talk target reached
-												StartConversation (Talk_target);
-										} else {
-												Target_Base = null;
-												ResetActionTimer ();
-										}
-								} else {
-										var dir = MoveTarget - transform.position;
-										transform.Translate (dir.normalized * Time.deltaTime * MoveSpeed);
-								}
-						}
+                UpdateGFXPos ();
+                if (Vector3.Distance (transform.position, MoveTarget) < MoveTargetRange) {
+                    ResetMovement ();
+                    if (Talk_target != null) {
+                        //talk target reached
+                        StartConversation (Talk_target);
+                    } else {
+                        Target_Base = null;
+                        ResetActionTimer ();
+                    }
+                } else {
+                    var dir = MoveTarget - transform.position;
+                    transform.Translate (dir.normalized * Time.deltaTime * MoveSpeed);
+                }
+            }
 				} else {
 						splat_timer.Update ();
-				}
-		}
+        }
+    }
 
 		public float BasicMoveTargetRange = 0.5f, MoveSpeed = 3f, CloseProximity = 0.1f;
 		bool moving = false, talking = false, fighting = false, dead = false;
@@ -293,18 +292,19 @@ public class UnitMain: MonoBehaviour
 				if (SpeechBubble.StatementPhase) {
 						//change statistics
 						bool approve = true;
-						bool bonus = SpeechBubble.BONUS_ON;
+            bool bonus = SpeechBubble.BONUS_ON;
 						if (TalkingTo.MyIdeology == MyIdeology) {
 								DecreaseOtherIdeologyChances (bonus);
 								Depression *= depression_decline_multiplier;
 						} else {
-								approve = TryToConvertTarget (TalkingTo, bonus);
+                approve = TryToConvertTarget (TalkingTo, bonus);
 						}
 
 						if (SpeechBubble != null) {
 								UpdateConversationStatus (approve);
 						}
-				} else {
+        } 
+        else {
 						TalkingTo.EndConversation ();
 						EndConversation ();
 
@@ -445,7 +445,7 @@ public class UnitMain: MonoBehaviour
 
 		void Attack (UnitMain target)
 		{
-				handler.anime.SetBool ("fighting", true);
+        handler.anime.SetBool ("fighting", true);
 				fighting = true;
 				target.fighting = true;	
 				
@@ -472,9 +472,9 @@ public class UnitMain: MonoBehaviour
 				
 				dead = true;
 				splat_timer.Active = true;
-				handler.anime.SetBool ("dead", true);
+        handler.anime.SetBool ("dead", true);
 				
-				VendettaAOE (killedBy);
+        VendettaAOE (killedBy);
 		if (OnDeath != null)
 			OnDeath ();
 		
@@ -493,13 +493,14 @@ public class UnitMain: MonoBehaviour
         
 		}
 
-		bool TryToConvertTarget (UnitMain target, bool bonus)
+    bool TryToConvertTarget (UnitMain target, bool bonus)
 		{
-				Attack (target);
-				return false;
-				/*var chance = Subs.GetRandom (100);
+        var bonus_influence=0;
+        if (bonus)
+            bonus_influence=100;
+
 				Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
-				if (chance - Influence < target.IdeologyStats [MyIdeology].ConvertChance) {
+        if (chance - Influence-bonus_influence < target.IdeologyStats [MyIdeology].ConvertChance) {
 						//convert infidel
 						AddSocialEvent (1);
 						DecreaseOtherIdeologyChances (false);
@@ -536,18 +537,18 @@ public class UnitMain: MonoBehaviour
 								}
 						}
 						return false;
-				}*/
+				}	
 		}
 
 		public void DecreaseOtherIdeologyChances (bool bonus)
 		{
-				var multi = 1;
+        var multi = 1;
 				if (bonus)
-						multi = 2;
+            multi = 2;
 
 				foreach (var idea in IdeologyStats) {
 						if (idea.Key != MyIdeology) {
-								idea.Value.ConvertChance *= convert_change_decline_multiplier * multi;
+                idea.Value.ConvertChance *= convert_change_decline_multiplier * multi;
 						}
 				}
 		}
