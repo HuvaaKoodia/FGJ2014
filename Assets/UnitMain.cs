@@ -107,8 +107,9 @@ public class UnitMain: MonoBehaviour
     {
         var obj = Instantiate (GC.ResStore.SplatPrefab, transform.position, Quaternion.identity) as GameObject;
         obj.transform.parent = GC.ResStore.MiscContainer;
-        obj.GetComponent<SpriteRenderer> ().color = ideologyColor;
+        obj.GetComponent<SplatMain>().SetIdeology(MyIdeology);
         splat_timer.Active = false;
+        handler.playSFX ("death");
     }
 
     public float convert_change_increase_multiplier = 1.1f,
@@ -456,12 +457,14 @@ public class UnitMain: MonoBehaviour
     }
 
     void Attack (UnitMain target)
-    {
+    {   
+        handler.playSFX ("attack");
+
         handler.anime.SetBool ("fighting", true);
         fighting = true;
-        target.fighting = true; 
-                
         fighting_timer.Active = true;
+
+        target.fighting = true; 
         target.fighting_timer.Active = true;
         target.handler.anime.SetBool ("fighting", true);
 
@@ -691,6 +694,8 @@ public class UnitMain: MonoBehaviour
 
     void VendettaAOE (UnitMain killedBy)
     {
+        if (killedBy.MyIdeology==MyIdeology) return;
+
         //find target
         var units = Physics2D.OverlapCircleAll (transform.position, VendettaRadius, unit_mask);
     

@@ -8,7 +8,7 @@ public class AutoFade : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		transform.Rotate(Vector3.forward, Subs.GetRandom(0,360));
+		//transform.Rotate(Vector3.forward, Subs.GetRandom(0,360));
 	}
 	
 	// Update is called once per frame

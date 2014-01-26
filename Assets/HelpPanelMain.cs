@@ -8,7 +8,7 @@ public class HelpPanelMain : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        Pages[0].SetActive(true);
 	}
 	
 	// Update is called once per frame
