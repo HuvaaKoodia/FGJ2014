@@ -91,8 +91,13 @@ public class UnitMain: MonoBehaviour
 						if (value == Ideology.RED) {
 								ideologyColor = Color.red;
 						}
-						handler.ChangeViews(MyNationality, MyIdeology);
+						handler.ChangeViews (MyNationality, MyIdeology);
 				}
+		}
+
+		public void stopFighting ()
+		{
+
 		}
 
 		public float convert_change_increase_multiplier = 1.1f,
@@ -134,7 +139,7 @@ public class UnitMain: MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-		handler.ResStore = GC.ResStore;
+				handler.ResStore = GC.ResStore;
 				unit_mask = 1 << LayerMask.NameToLayer ("Unit");
 
 				act_timer = new Timer (Act);
@@ -163,44 +168,50 @@ public class UnitMain: MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				act_timer.Update ();
-				speak_timer.Update ();
-
-				UpdateFacingTalking ();
-				handler.anime.SetBool ("talking", TALKING);
-				handler.anime.SetBool ("walking", moving);
-
-				if (!TALKING) {
-						if (Target_Base != null) {
-								MoveTo (Target_Base.transform.position, TargetBaseRange);
-						}
-
-						if (Talk_target != null) {
-								MoveTo (Talk_target.transform.position, BasicMoveTargetRange);
-						}
+				if (moving || TALKING) {
+						handler.anime.SetBool ("fighting", false);		
 				}
+				if (!handler.anime.GetBool ("dead")) {
+						act_timer.Update ();
+						speak_timer.Update ();
 
-				if (moving) {
-			
-						UpdateGFXPos ();
-						if (Vector3.Distance (transform.position, MoveTarget) < MoveTargetRange) {
-								ResetMovement ();
-								if (Talk_target != null) {
-										//talk target reached
-										StartConversation (Talk_target);
-								} else {
-										Target_Base = null;
-										ResetActionTimer ();
+						UpdateFacingTalking ();
+						handler.anime.SetBool ("talking", TALKING);
+						handler.anime.SetBool ("walking", moving);
+						
+
+						if (!TALKING && !fighting) {
+								if (Target_Base != null) {
+										MoveTo (Target_Base.transform.position, TargetBaseRange);
 								}
-						} else {
-								var dir = MoveTarget - transform.position;
-								transform.Translate (dir.normalized * Time.deltaTime * MoveSpeed);
+
+								if (Talk_target != null) {
+										MoveTo (Talk_target.transform.position, BasicMoveTargetRange);
+								}
+						}
+
+						if (moving) {
+			
+								UpdateGFXPos ();
+								if (Vector3.Distance (transform.position, MoveTarget) < MoveTargetRange) {
+										ResetMovement ();
+										if (Talk_target != null) {
+												//talk target reached
+												StartConversation (Talk_target);
+										} else {
+												Target_Base = null;
+												ResetActionTimer ();
+										}
+								} else {
+										var dir = MoveTarget - transform.position;
+										transform.Translate (dir.normalized * Time.deltaTime * MoveSpeed);
+								}
 						}
 				}
 		}
 
 		public float BasicMoveTargetRange = 0.5f, MoveSpeed = 3f, CloseProximity = 0.1f;
-		bool moving = false, talking = false;
+		bool moving = false, talking = false, fighting = false;
 
 		public bool TALKING{ get { return talking; } }
 
@@ -407,7 +418,8 @@ public class UnitMain: MonoBehaviour
 		}
 
 		void Attack (UnitMain target)
-		{
+		{		
+				handler.anime.SetBool ("fighting", true);
 				EndConversation ();
 				target.EndConversation ();
 				if (Subs.GetRandom (100) < 50) {
@@ -419,16 +431,19 @@ public class UnitMain: MonoBehaviour
 						target.IdeologyStats [MyIdeology].Aggression *= KillAggressionDeductionMultiplier;
 						Debug.LogWarning ("DEATH!");
 				}
+
 		}
 
 		void Die (UnitMain killedBy)
-		{
+	{
+		handler.anime.SetBool ("fighting", true);
+		handler.anime.SetBool ("dead", true);
+
 				if (OnDeath != null)
 						OnDeath ();
 
 				EndConversation ();
-				
-				Destroy (gameObject, 2000f);
+				Destroy (gameObject, 4f);
 
 				var obj = Instantiate (GC.ResStore.SplatPrefab, transform.position, Quaternion.identity) as GameObject;
 				obj.transform.parent = GC.ResStore.MiscContainer;
