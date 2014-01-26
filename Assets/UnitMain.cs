@@ -23,7 +23,7 @@ public class IdeologyData
 {
     Ideology MyIdeology;
     float convert_chance = 25;
-    float aggression;
+    float aggression=1;
 
     public float ConvertChance {
         get { return convert_chance;}
