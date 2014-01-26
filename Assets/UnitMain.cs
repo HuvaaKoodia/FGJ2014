@@ -187,7 +187,9 @@ public class UnitMain: MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        
         if (!handler.anime.GetBool ("dead")) {
+
             act_timer.Update ();
             speak_timer.Update ();
             fighting_timer.Update ();
@@ -204,6 +206,9 @@ public class UnitMain: MonoBehaviour
 
                 if (Talk_target != null) {
                     MoveTo (Talk_target.transform.position, BasicMoveTargetRange);
+                    if (Talk_target.dead) {
+                        Talk_target = null;
+                    }
                 }
             }
 

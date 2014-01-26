@@ -215,7 +215,7 @@ TextureImporter:
         width: 30
         height: 9
       alignment: 9
-      pivot: {x: .699854016, y: .289999992}
+      pivot: {x: .649999976, y: .319999993}
     - name: Fruitpalette_21
       rect:
         serializedVersion: 2
@@ -223,8 +223,8 @@ TextureImporter:
         y: 386
         width: 45
         height: 29
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .600000024, y: 0}
     - name: Fruitpalette_22
       rect:
         serializedVersion: 2
@@ -260,7 +260,7 @@ TextureImporter:
         width: 31
         height: 20
       alignment: 9
-      pivot: {x: .589999974, y: .30014649}
+      pivot: {x: .579999983, y: .379999995}
     - name: Fruitpalette_27
       rect:
         serializedVersion: 2
@@ -313,8 +313,8 @@ TextureImporter:
         y: 347
         width: 21
         height: 35
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .5, y: 1.45000005}
     - name: Fruitpalette_36
       rect:
         serializedVersion: 2
@@ -341,7 +341,7 @@ TextureImporter:
         width: 31
         height: 29
       alignment: 9
-      pivot: {x: .720000029, y: .200000003}
+      pivot: {x: .670000017, y: .25}
     - name: Fruitpalette_42
       rect:
         serializedVersion: 2
@@ -350,7 +350,7 @@ TextureImporter:
         width: 31
         height: 20
       alignment: 9
-      pivot: {x: .649999976, y: .319999993}
+      pivot: {x: .660000026, y: .469999999}
     - name: Fruitpalette_43
       rect:
         serializedVersion: 2
@@ -538,8 +538,8 @@ TextureImporter:
         y: 103
         width: 28
         height: 15
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .579999983, y: .379999995}
     - name: Fruitpalette_67
       rect:
         serializedVersion: 2
@@ -583,8 +583,8 @@ TextureImporter:
         y: 80
         width: 31
         height: 31
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .550000012, y: 1.04999995}
     - name: Fruitpalette_75
       rect:
         serializedVersion: 2
@@ -592,8 +592,8 @@ TextureImporter:
         y: 81
         width: 30
         height: 23
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .600000024, y: .189999998}
     - name: Fruitpalette_76
       rect:
         serializedVersion: 2
@@ -610,8 +610,8 @@ TextureImporter:
         y: 35
         width: 31
         height: 29
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .670000017, y: .25}
     - name: Fruitpalette_78
       rect:
         serializedVersion: 2
@@ -619,8 +619,8 @@ TextureImporter:
         y: 40
         width: 31
         height: 20
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .660000026, y: .469999999}
     - name: Fruitpalette_79
       rect:
         serializedVersion: 2
@@ -628,8 +628,8 @@ TextureImporter:
         y: 55
         width: 27
         height: 7
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .680000007, y: 1.35000002}
     - name: Fruitpalette_80
       rect:
         serializedVersion: 2
@@ -637,8 +637,8 @@ TextureImporter:
         y: 46
         width: 21
         height: 20
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .5, y: 1.66892886}
     - name: Fruitpalette_84
       rect:
         serializedVersion: 2
@@ -664,8 +664,8 @@ TextureImporter:
         y: 392
         width: 23
         height: 23
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .5, y: 1.5}
     - name: Fruitpalette_80
       rect:
         serializedVersion: 2
@@ -673,6 +673,15 @@ TextureImporter:
         y: 106
         width: 30
         height: 9
+      alignment: 9
+      pivot: {x: .649999976, y: .319999993}
+    - name: EMPTY
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 175
+        width: 22
+        height: 27
       alignment: 0
       pivot: {x: .5, y: .5}
   spritePackingTag: 
