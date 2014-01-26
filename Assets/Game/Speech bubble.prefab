@@ -314,7 +314,7 @@ MonoBehaviour:
   StatusDisapprove: {fileID: 21300010, guid: ae2f506c6ddfd39428495ddbd2ea8982, type: 3}
   StatusRenderer: {fileID: 21200000}
   BonusRenderer: {fileID: 21200006}
-  approveSound: {fileID: 8300000, guid: 8eb18145c175e4b49ba12345872a6fe6, type: 3}
+  approveSound: {fileID: 8300000, guid: 3d528464fbf747744b7e4305b5cba544, type: 3}
   rejectSound: {fileID: 8300000, guid: 5921cae33a097b1449ae76cbbab623c7, type: 3}
   audio_src: {fileID: 8200000}
   StatementPhase: 1
