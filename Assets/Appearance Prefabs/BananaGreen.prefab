@@ -58,7 +58,7 @@ MonoBehaviour:
   headWear: {fileID: 21300140, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   eyeWear: {fileID: 21300128, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   chestWear: {fileID: 21300130, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
-  weapon: {fileID: 21300030, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  weapon: {fileID: 21300000, guid: e696b8efb8e91e54dbfc791d5aa160a8, type: 3}
   hatOffset: {x: -.342184097, y: 1.34437501, z: -.00999999978}
 --- !u!1001 &100100000
 Prefab:
