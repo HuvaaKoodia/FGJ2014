@@ -45,8 +45,10 @@ public class ForceRace : MonoBehaviour
         eyeState.sprite = appearance.eyes_idle;
         mouthState.sprite = appearance.mouth_idle;
 
-        headWear.sprite = appearance.headWear;
-        headWear.transform.localPosition = appearance.hatOffset;
+        if (appearance.headWear != null) {
+            headWear.sprite = appearance.headWear;
+            headWear.transform.localPosition = appearance.hatOffset;
+        }
         eyeWear.sprite = appearance.eyeWear;
 
         chestWear.sprite = appearance.chestWear;
