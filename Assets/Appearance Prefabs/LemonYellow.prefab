@@ -55,9 +55,9 @@ MonoBehaviour:
   mouth_howl: {fileID: 21300070, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   eyes_closed: {fileID: 21300036, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   leg: {fileID: 21300024, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
-  headWear: {fileID: 21300140, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  headWear: {fileID: 21300058, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   eyeWear: {fileID: 21300140, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
-  chestWear: {fileID: 21300058, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  chestWear: {fileID: 21300060, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   weapon: {fileID: 21300026, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   hatOffset: {x: -.916823685, y: 1.04189897, z: -.00999999978}
 --- !u!1001 &100100000
