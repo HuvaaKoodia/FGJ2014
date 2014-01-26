@@ -95,6 +95,11 @@ public class UnitMain: MonoBehaviour
         }
     }
 
+		public void stopFighting ()
+		{
+
+		}
+
     public float convert_change_increase_multiplier = 1.1f,
         convert_change_decline_multiplier = 0.75f,
         depression_increase_multiplier = 1.1f,
@@ -162,14 +167,19 @@ public class UnitMain: MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+				if (moving || TALKING) {
+						handler.anime.SetBool ("fighting", false);		
+				}
+				if (!handler.anime.GetBool ("dead")) {
         act_timer.Update ();
         speak_timer.Update ();
 
         UpdateFacingTalking ();
         handler.anime.SetBool ("talking", TALKING);
         handler.anime.SetBool ("walking", moving);
+						
 
-        if (!TALKING) {
+						if (!TALKING && !fighting) {
             if (Target_Base != null) {
                 MoveTo (Target_Base.transform.position, TargetBaseRange);
             }
@@ -197,9 +207,10 @@ public class UnitMain: MonoBehaviour
             }
         }
     }
+		}
 
     public float BasicMoveTargetRange = 0.5f, MoveSpeed = 3f, CloseProximity = 0.1f;
-    bool moving = false, talking = false;
+		bool moving = false, talking = false, fighting = false;
 
     public bool TALKING{ get { return talking; } }
 
@@ -407,6 +418,7 @@ public class UnitMain: MonoBehaviour
 
     void Attack (UnitMain target)
     {
+				handler.anime.SetBool ("fighting", true);
         EndConversation ();
         target.EndConversation ();
         if (Subs.GetRandom (100) < 50) {
@@ -418,13 +430,14 @@ public class UnitMain: MonoBehaviour
             target.IdeologyStats [MyIdeology].Aggression *= KillAggressionDeductionMultiplier;
             Debug.LogWarning ("DEATH!");
         }
+
     }
 
     void Die (UnitMain killedBy)
     {
-        Die ();
+		handler.anime.SetBool ("fighting", true);
+		handler.anime.SetBool ("dead", true);
 
-        if (killedBy != null)
             VendettaAOE (killedBy);
     }
 
@@ -434,8 +447,7 @@ public class UnitMain: MonoBehaviour
             OnDeath ();
         
         EndConversation ();
-        
-        Destroy (gameObject);
+				Destroy (gameObject, 4f);
         
         var obj = Instantiate (GC.ResStore.SplatPrefab, transform.position, Quaternion.identity) as GameObject;
         obj.transform.parent = GC.ResStore.MiscContainer;
