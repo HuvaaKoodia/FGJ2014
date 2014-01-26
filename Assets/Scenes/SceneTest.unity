@@ -3138,6 +3138,7 @@ MonoBehaviour:
   AmountOfSpawnsLastMin: 0
   SecondsAfterStart: 0
   FingerOfGodRadius: 2.5
+  DebugGUIOn: 1
 --- !u!4 &1599035453
 Transform:
   m_ObjectHideFlags: 0
