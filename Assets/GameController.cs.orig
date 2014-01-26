@@ -10,24 +10,23 @@ public class GameController : MonoBehaviour
     public HudController Hud;
     public BaseMain ABase, BBase, CBase, DBase;
     public AudioSource audio_src;
+<<<<<<< HEAD
+    GameOptions GO;
+
     public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
     public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
     float LastMin = 0;
 
-<<<<<<< HEAD
-	public BaseMain ABase,BBase,CBase,DBase;
-
-    GameOptions GO;
-
-	public int AmountOfDeaths=0,AmountOfSpawns=0,AmountOfDeathsLastMin=0,AmountOfSpawnsLastMin=0;
-    public float SecondsAfterStart=0,FingerOfGodRadius=2.5f;
-	float LastMin=0;
 =======
+    public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
+    public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
+    float LastMin = 0;
+
+>>>>>>> origin/master
     public void AddDeath (UnitMain unit)
     {
         ++AmountOfDeaths;
         ++AmountOfDeathsLastMin;
->>>>>>> origin/master
 
         Units.Remove (unit);
     }
@@ -45,11 +44,13 @@ public class GameController : MonoBehaviour
     {
         score += amount * multi;
         score_last += amount;
+<<<<<<< HEAD
 
     }
 
-<<<<<<< HEAD
     int diversity_basescore=10, population_balancer=10;
+=======
+>>>>>>> origin/master
 
     int GetDiverseNationalityScore(){
 
@@ -72,8 +73,9 @@ public class GameController : MonoBehaviour
         return Units.Count/population_balancer;
     }
 
-
+<<<<<<< HEAD
     void HudScoresUpdate(){
+
         //calculate scores
 
         multi=GetMulti();
@@ -117,7 +119,27 @@ public class GameController : MonoBehaviour
             temp*=multi;
         }
        
-        AddScore(1000);
+        AddScore (temp);
+
+        Hud.SetScore (score);
+        Hud.SetMulti (multi);
+        Hud.SetScoreAdd (score_last, multi);
+
+        score_last = 0;
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
+
+        ScoreTimer = new Timer (5000, HudScoresUpdate);
+        Hud.SetScore (score);
+        Hud.SetMulti (multi);
+
+
+        //generate units
+
 =======
     void HudScoresUpdate ()
     {
@@ -140,8 +162,8 @@ public class GameController : MonoBehaviour
 
 
         //generate units
->>>>>>> origin/master
 
+>>>>>>> origin/master
         int a = Subs.GetRandom (5, 10);
         for (int i=0; i<a; i++) {
             ABase.AddUnit ();
@@ -151,6 +173,7 @@ public class GameController : MonoBehaviour
         for (int i=0; i<a; i++) {
             BBase.AddUnit ();
         }
+<<<<<<< HEAD
 
         a = Subs.GetRandom (5, 10);
         for (int i=0; i<a; i++) {
@@ -159,6 +182,16 @@ public class GameController : MonoBehaviour
 
         a = Subs.GetRandom (5, 10);
         for (int i=0; i<a; i++) {
+=======
+
+        a = Subs.GetRandom (5, 10);
+        for (int i=0; i<a; i++) {
+            CBase.AddUnit ();
+        }
+
+        a = Subs.GetRandom (5, 10);
+        for (int i=0; i<a; i++) {
+>>>>>>> origin/master
             DBase.AddUnit ();
         }
     }
@@ -176,6 +209,7 @@ public class GameController : MonoBehaviour
         }
 
         //input
+<<<<<<< HEAD
 
         int mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
         int unit_mask = 1 << LayerMask.NameToLayer ("Unit");
@@ -190,76 +224,22 @@ public class GameController : MonoBehaviour
             }
         }
 
-<<<<<<< HEAD
-	// Use this for initialization
-	void Start () {
-        ScoreTimer=new Timer(5000,HudScoresUpdate);
-        Hud.SetScore(score);
-        Hud.SetMulti(multi);
-
-
-		//generate units
-
-		int a=Subs.GetRandom(5,10);
-		for(int i=0;i<a;i++){
-			ABase.AddUnit();
-		}
-
-		a=Subs.GetRandom(5,10);
-		for(int i=0;i<a;i++){
-			BBase.AddUnit();
-		}
-
-		a=Subs.GetRandom(5,10);
-		for(int i=0;i<a;i++){
-			CBase.AddUnit();
-		}
-
-		a=Subs.GetRandom(5,10);
-		for(int i=0;i<a;i++){
-			DBase.AddUnit();
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        ScoreTimer.Update();
-
-		SecondsAfterStart+=Time.deltaTime;
-		LastMin+=Time.deltaTime;
-		if (LastMin>60){
-			LastMin=0;
-			AmountOfDeathsLastMin=AmountOfSpawnsLastMin=0;
-		}
-
-		//input
-
-		int mask=1<<LayerMask.NameToLayer("SpeechBubble");
-        int unit_mask=1<<LayerMask.NameToLayer("Unit");
-
-		if (Input.GetMouseButtonDown(0)){
-			var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,mask);
-			
-			if (hit.collider!=null){
-				var bubble=hit.collider.gameObject.GetComponent<SpeechbubbleMain>();
-				if (bubble.StatementPhase)
-					bubble.PlayerApprove();
-			}
-		}
-
-		if (Input.GetMouseButtonDown(1)){
-			var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,mask);
-			
-			if (hit.collider!=null){
-				var bubble=hit.collider.gameObject.GetComponent<SpeechbubbleMain>();
-				if (bubble.StatementPhase)
-					bubble.PlayerDissapprove();
-			}
-		}
-
-        if (Input.GetKeyDown(KeyCode.Space)){
-            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint(Input.mousePosition), FingerOfGodRadius, unit_mask);
 =======
+
+        int mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
+        int unit_mask = 1 << LayerMask.NameToLayer ("Unit");
+
+        if (Input.GetMouseButtonDown (0)) {
+            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
+            
+            if (hit.collider != null) {
+                var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
+                if (bubble.StatementPhase)
+                    bubble.PlayerApprove ();
+            }
+        }
+
+>>>>>>> origin/master
         if (Input.GetMouseButtonDown (1)) {
             var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
             
@@ -270,9 +250,12 @@ public class GameController : MonoBehaviour
             }
         }
 
+<<<<<<< HEAD
+        if (Input.GetKeyDown(KeyCode.Space)){
+=======
         if (Input.GetKeyDown (KeyCode.Space)) {
-            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
 >>>>>>> origin/master
+            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
 
             foreach (var u in units) {
                 var unit = u.GetComponent<UnitMain> ();
