@@ -6,11 +6,12 @@ public class GameController : MonoBehaviour {
 
 	public ResourceStore ResStore;
 	public List<UnitMain> Units=new List<UnitMain>();
+    public HudController Hud;
 
 	public BaseMain ABase,BBase,CBase,DBase;   
 
 	public int AmountOfDeaths=0,AmountOfSpawns=0,AmountOfDeathsLastMin=0,AmountOfSpawnsLastMin=0;
-	public float SecondsAfterStart=0;
+    public float SecondsAfterStart=0,FingerOfGodRadius=2.5f;
 	float LastMin=0;
 
 	public void AddDeath(){
@@ -22,8 +23,34 @@ public class GameController : MonoBehaviour {
 		++AmountOfSpawnsLastMin;
 	}
 
+    Timer ScoreTimer;
+
+    int score=0,score_last=0,multi=2;
+
+    void AddScore(int amount){
+        score+=amount;
+        score_last+=amount;
+
+        score*=multi;
+    }
+
+    void HudScoresUpdate(){
+        //calculate scores
+        AddScore(1000);
+
+        Hud.SetScore(score);
+        Hud.SetMulti(multi);
+        Hud.SetScoreAdd(score_last,multi);
+
+        score_last=0;
+    }
+
 	// Use this for initialization
 	void Start () {
+        ScoreTimer=new Timer(5000,HudScoresUpdate);
+        Hud.SetScore(score);
+        Hud.SetMulti(multi);
+
 
 		//generate units
 
@@ -50,6 +77,8 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        ScoreTimer.Update();
+
 		SecondsAfterStart+=Time.deltaTime;
 		LastMin+=Time.deltaTime;
 		if (LastMin>60){
@@ -60,6 +89,7 @@ public class GameController : MonoBehaviour {
 		//input
 
 		int mask=1<<LayerMask.NameToLayer("SpeechBubble");
+        int unit_mask=1<<LayerMask.NameToLayer("Unit");
 
 		if (Input.GetMouseButtonDown(0)){
 			var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,mask);
@@ -67,7 +97,7 @@ public class GameController : MonoBehaviour {
 			if (hit.collider!=null){
 				var bubble=hit.collider.gameObject.GetComponent<SpeechbubbleMain>();
 				if (bubble.StatementPhase)
-					bubble.BONUS();
+					bubble.PlayerApprove();
 			}
 		}
 
@@ -77,9 +107,21 @@ public class GameController : MonoBehaviour {
 			if (hit.collider!=null){
 				var bubble=hit.collider.gameObject.GetComponent<SpeechbubbleMain>();
 				if (bubble.StatementPhase)
-					bubble.ForceClose();
+					bubble.PlayerDissapprove();
 			}
 		}
+
+        if (Input.GetKey(KeyCode.Space)){
+            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint(Input.mousePosition), FingerOfGodRadius, unit_mask);
+
+            foreach (var u in units) {
+                var unit = u.GetComponent<UnitMain> ();
+                if (unit != null) {
+                    unit.Die();
+                }
+            }
+
+        }
 	}
 
 	public float GetPercentOfMaxPopulation(Nationality Nat){

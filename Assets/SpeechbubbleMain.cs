@@ -2,16 +2,15 @@
 using System.Collections;
 
 public class SpeechbubbleMain : MonoBehaviour {
-
-
-	public Sprite IdeologyIconRED,IdeologyIconGREEN,IdeologyIconBLUE,IdeologyIconYELLOW,StatusApprove,StatusDisapprove;
-	public SpriteRenderer IconRenderer,StatusRenderer;
+    public GameObject IdeologyIconRED,IdeologyIconGREEN,IdeologyIconBLUE,IdeologyIconYELLOW;
+    public Sprite StatusApprove,StatusDisapprove;
+	public SpriteRenderer StatusRenderer,BonusRenderer;
 
 	public bool StatementPhase=true;
 
 	// Use this for initialization
 	void Start () {
-		
+        BONUS_ON=false;
 	}
 	
 	// Update is called once per frame
@@ -25,18 +24,23 @@ public class SpeechbubbleMain : MonoBehaviour {
 		Talker=unit;
 		StatementPhase=true;
 
-		if (unit.MyIdeology==Ideology.RED){IconRenderer.sprite=IdeologyIconRED;}
-		if (unit.MyIdeology==Ideology.GREEN){IconRenderer.sprite=IdeologyIconGREEN;}
-		if (unit.MyIdeology==Ideology.BLUE){IconRenderer.sprite=IdeologyIconBLUE;}
-		if (unit.MyIdeology==Ideology.YELLOW){IconRenderer.sprite=IdeologyIconYELLOW;}
+        if (unit.MyIdeology==Ideology.RED){IdeologyIconRED.SetActive(true);}
+        if (unit.MyIdeology==Ideology.GREEN){IdeologyIconGREEN.SetActive(true);}
+        if (unit.MyIdeology==Ideology.BLUE){IdeologyIconBLUE.SetActive(true);}
+        if (unit.MyIdeology==Ideology.YELLOW){IdeologyIconYELLOW.SetActive(true);}
 
-		IconRenderer.gameObject.SetActive(true);
 		StatusRenderer.gameObject.SetActive(false);
+		BonusRenderer.gameObject.SetActive(false);
 	}
 
 	public void SetResult(bool approve){
 		StatementPhase=false;
-		IconRenderer.gameObject.SetActive(false);
+
+        IdeologyIconRED.SetActive     (false);
+        IdeologyIconGREEN.SetActive   (false);
+        IdeologyIconBLUE.SetActive    (false);
+        IdeologyIconYELLOW.SetActive  (false);
+
 		StatusRenderer.gameObject.SetActive(true);
 		if (approve)
 			StatusRenderer.sprite=StatusApprove;
@@ -49,23 +53,26 @@ public class SpeechbubbleMain : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
-	public void ForceClose()
+	void ForceClose()
 	{
 		Destroy(gameObject);
 		Talker.ForceStopTalking();
 	}
 
 	public void PlayerApprove(){
-
+		BONUS();
 	}
 
 	
 	public void PlayerDissapprove(){
-		
+		ForceClose();
 	}
+
+    public bool BONUS_ON;
 
 	public void BONUS ()
 	{
-		throw new System.NotImplementedException ();
+        BONUS_ON=true;
+		BonusRenderer.gameObject.SetActive(true);
 	}
 }

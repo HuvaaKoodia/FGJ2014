@@ -72,6 +72,7 @@ public class StateHandler : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
+            GenerateFace(0);
 		}
 	
 		// Update is called once per frame
