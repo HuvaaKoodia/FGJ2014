@@ -41,20 +41,25 @@ MonoBehaviour:
   chest: {fileID: 21300072, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   right_arm: {fileID: 21300074, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   left_arm: {fileID: 21300076, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
-  eyes_grin: {fileID: 21300014, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  eyes_adore: {fileID: 21300016, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  eyes_idle: {fileID: 21300020, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  eyes_wtf: {fileID: 21300018, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  eyes_troll: {fileID: 21300030, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  eyes_fanatic: {fileID: 21300032, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  mouth_idle: {fileID: 21300028, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  mouth_smile: {fileID: 21300022, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  mouth_open: {fileID: 21300024, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  mouth_derp: {fileID: 21300026, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  mouth_troll: {fileID: 21300034, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  mouth_howl: {fileID: 21300036, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
-  eyes_closed: {fileID: 21300038, guid: 79f2a721d4fccd340ad38b6ea7026ed4, type: 3}
+  eyes_grin: {fileID: 21300100, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  eyes_adore: {fileID: 21300108, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  eyes_idle: {fileID: 21300110, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  eyes_wtf: {fileID: 21300102, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  eyes_troll: {fileID: 21300124, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  eyes_fanatic: {fileID: 21300126, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  mouth_idle: {fileID: 21300122, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  mouth_smile: {fileID: 21300112, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  mouth_open: {fileID: 21300114, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  mouth_derp: {fileID: 21300116, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  mouth_troll: {fileID: 21300132, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  mouth_howl: {fileID: 21300134, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  eyes_closed: {fileID: 21300138, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
   leg: {fileID: 21300092, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  headWear: {fileID: 21300140, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  eyeWear: {fileID: 21300128, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  chestWear: {fileID: 21300130, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  weapon: {fileID: 21300030, guid: 6199ab47b5bf1a342a7536f255881965, type: 3}
+  hatOffset: {x: -.342184097, y: 1.34437501, z: -.00999999978}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
