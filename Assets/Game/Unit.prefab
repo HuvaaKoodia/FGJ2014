@@ -809,7 +809,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Radius: 1.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0}
 --- !u!95 &9500000
 Animator:
@@ -857,7 +857,7 @@ MonoBehaviour:
   Listening: {fileID: 21300006, guid: 7550ab4b8402a2943abd50ae04f45427, type: 3}
   BasicMoveTargetRange: .800000012
   MoveSpeed: 1
-  CloseProximity: 1.5
+  CloseProximity: 2
   unit_mask: 0
   ConfirmationBiasAggressionThreshold: 35
   ConfirmationBiasOwnAggressionDecreaseMulti: .800000012

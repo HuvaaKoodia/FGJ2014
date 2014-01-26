@@ -68,7 +68,6 @@ public class UnitMain: MonoBehaviour
         }
 
     }
-
     Ideology _ideology;
 
     public Ideology MyIdeology {
@@ -303,7 +302,6 @@ public class UnitMain: MonoBehaviour
             bool approve = true;
             bool bonus = SpeechBubble.BONUS_ON;
             if (TalkingTo.MyIdeology == MyIdeology) {
-                TalkingToSameBelieverBonuses(bonus);
                 TalkingToSameBelievers(TalkingTo,bonus);
                
             } else {
@@ -522,14 +520,17 @@ public class UnitMain: MonoBehaviour
         Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
         if (chance - Influence - bonus_influence < target.IdeologyStats [MyIdeology].ConvertChance) {
             //convert infidel
+            Influence += InfluenceIncreasePerConversion;
+            target.MyIdeology = MyIdeology;
+            target.IdeologyStats [MyIdeology].Aggression *= 0.5f;
+
             AddSocialEvent (1);
             DecreaseOtherIdeologyChances (false);
-            Influence += InfluenceIncreasePerConversion;
 
             target.AddSocialEvent (1);
             target.DecreaseOtherIdeologyChances (false);
-            target.MyIdeology = MyIdeology;
-            target.IdeologyStats [MyIdeology].Aggression *= 0.5f;
+
+
             return true;
         } else {
             //fail conversion
@@ -563,7 +564,10 @@ public class UnitMain: MonoBehaviour
     void TalkingToSameBelievers(UnitMain target,bool boost){
         AddSocialEvent (1);
         target.AddSocialEvent (1);
-        
+
+        TalkingToSameBelieverBonuses(boost);
+        target.TalkingToSameBelieverBonuses (boost);
+
         if (CheckAggression (target)) {
             Attack (target);
         } else if (target.CheckAggression (this)) {
