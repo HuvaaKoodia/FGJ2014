@@ -22,7 +22,7 @@ public enum Nationality
 public class IdeologyData
 {
     Ideology MyIdeology;
-    float convert_chance = 25;
+    float convert_chance = 20;
     float aggression;
 
     public float ConvertChance {
@@ -148,7 +148,7 @@ public class UnitMain: MonoBehaviour
             var idea = new IdeologyData ();
             IdeologyStats.Add (emun, idea);
             if (emun != MyIdeology) {
-                idea.Aggression = Subs.GetRandom (0, 30);
+                idea.Aggression = Subs.GetRandom (0, 20);
             }
         }
     
