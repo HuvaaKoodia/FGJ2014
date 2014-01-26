@@ -22,7 +22,7 @@ public enum Nationality
 public class IdeologyData
 {
     Ideology MyIdeology;
-    		float convert_chance = 20;
+    float convert_chance = 25;
     float aggression;
 
     public float ConvertChance {
@@ -119,12 +119,13 @@ public class UnitMain: MonoBehaviour
         KillAggressionDeductionMultiplier = 0.75f,
         VendettaConstant = 20,
         VendettaBaseMultiplier = 1.5f,
-        VendettaRadius = 5
-;
+        VendettaRadius = 5,
+        AggressionIncreaseIfDismissedMultiplier=1.25f
+    ;
     public int InfluenceIncreasePerConversion = 5,
         ConversationStatementDelay = 5000,
         ConversationStatusDelay = 3000
-;
+    ;
     public Dictionary<Ideology,IdeologyData> IdeologyStats = new Dictionary<Ideology, IdeologyData> ();
     Timer act_timer, speak_timer, fighting_timer, splat_timer;
     public SpeechbubbleMain SpeechBubblePrefab;
@@ -170,6 +171,7 @@ public class UnitMain: MonoBehaviour
             IdeologyStats.Add (emun, idea);
             if (emun != MyIdeology) {
                 idea.Aggression = Subs.GetRandom (0, 20);
+                idea.ConvertChance = Subs.GetRandom (10, 30);
             }
         }
     
@@ -296,8 +298,9 @@ public class UnitMain: MonoBehaviour
             bool approve = true;
             bool bonus = SpeechBubble.BONUS_ON;
             if (TalkingTo.MyIdeology == MyIdeology) {
-                DecreaseOtherIdeologyChances (bonus);
-                Depression *= depression_decline_multiplier;
+                TalkingToSameBelieverBonuses(bonus);
+                TalkingToSameBelievers(TalkingTo,bonus);
+               
             } else {
                 approve = TryToConvertTarget (TalkingTo, bonus);
             }
@@ -406,6 +409,11 @@ public class UnitMain: MonoBehaviour
     {
         TalkingTo.EndConversation ();
         EndConversation ();
+
+        //start dissing everyone
+        foreach(var i in IdeologyStats){
+            i.Value.Aggression*=AggressionIncreaseIfDismissedMultiplier;
+        }
     }
 
     void ResetTalking ()
@@ -547,11 +555,44 @@ public class UnitMain: MonoBehaviour
         }   
     }
 
-    public void DecreaseOtherIdeologyChances (bool bonus)
+    void TalkingToSameBelievers(UnitMain target,bool boost){
+        AddSocialEvent (1);
+        target.AddSocialEvent (1);
+        
+        if (CheckAggression (target)) {
+            Attack (target);
+        } else if (target.CheckAggression (this)) {
+            Attack (target);
+        }
+    }
+
+    void TalkingToSameBelieverBonuses(bool boost){
+        DecreaseOtherIdeologyChances (boost);
+        IncreaseOtherIdeologyAggression (boost);
+        Depression *= depression_decline_multiplier;
+        IdeologyStats [MyIdeology].Aggression *= ConfirmationBiasOwnAggressionDecreaseMulti;
+    }
+
+    public int ConfirmationBiasAggressionThreshold=35;
+    public float ConfirmationBiasOwnAggressionDecreaseMulti=0.8f,ConfirmationBiasOtherAggressionIncrease=0.25f;
+
+    public void IncreaseOtherIdeologyAggression (bool boost)
     {
         var multi = 1;
-        if (bonus)
-            multi = 2;
+        if (boost) multi = 2;
+        
+        foreach (var idea in IdeologyStats) {
+            if (idea.Key != MyIdeology) {
+                if (idea.Value.Aggression>=ConfirmationBiasAggressionThreshold)
+                    idea.Value.Aggression =idea.Value.Aggression* ConfirmationBiasOtherAggressionIncrease * multi;
+            }
+        }
+    }
+
+    public void DecreaseOtherIdeologyChances (bool boost)
+    {
+        var multi = 1;
+        if (boost) multi = 2;
 
         foreach (var idea in IdeologyStats) {
             if (idea.Key != MyIdeology) {

@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
 	public List<UnitMain> Units=new List<UnitMain>();
     public HudController Hud;
 
-	public BaseMain ABase,BBase,CBase,DBase;   
+	public BaseMain ABase,BBase,CBase,DBase;
 
 	public int AmountOfDeaths=0,AmountOfSpawns=0,AmountOfDeathsLastMin=0,AmountOfSpawnsLastMin=0;
     public float SecondsAfterStart=0,FingerOfGodRadius=2.5f;
@@ -168,6 +168,22 @@ public class GameController : MonoBehaviour {
 		return GetAmountOfMaxPopulation(Nat)/Units.Count;
 	}
 
+    public float GetAmountOfMaxPopulation(Ideology ide){
+        //DEV. Opti. save all results in a batch every 5 seconds of so.
+        int amount=0;
+        foreach(var u in Units){
+            if (u.MyIdeology==ide){
+                ++amount;
+            }
+        }
+        
+        return amount;
+    }
+    
+    public float GetPercentOfMaxPopulation(Ideology ide){
+        return GetAmountOfMaxPopulation(ide)/Units.Count;
+    }
+
     string guitext="";
 
     void OnGUI ()
@@ -177,11 +193,16 @@ public class GameController : MonoBehaviour {
         
         guitext = "Game stats:\n";
         guitext+="Amount of Fruit= "+Units.Count;
-        guitext+="\n";
+        guitext+="\nNationality:\n";
         foreach (var i in Subs.EnumValues<Nationality>()) {
-            guitext += i + ": Amount=" + GetAmountOfMaxPopulation(i) + ", Percent= " + GetPercentOfMaxPopulation(i) + "%";
+            guitext += i + ": Amount=" + GetAmountOfMaxPopulation(i) + ", Percent= " + GetPercentOfMaxPopulation(i)*100f + "%";
             guitext += "\n";
         }
-        GUI.Box (new Rect (300, 10, 300, 400), guitext);
+        guitext+="\nIdealogy:\n";
+        foreach (var i in Subs.EnumValues<Ideology>()) {
+            guitext += i + ": Amount=" + GetAmountOfMaxPopulation(i) + ", Percent= " + GetPercentOfMaxPopulation(i)*100f + "%";
+            guitext += "\n";
+        }
+        GUI.Box (new Rect (Screen.width-300, 10, 300, 400), guitext);
     }
 }
