@@ -499,7 +499,9 @@ public class UnitMain: MonoBehaviour
         if (bonus)
             bonus_influence=100;
 
-				Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
+        var chance=Subs.GetRandom(100);
+
+		Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
         if (chance - Influence-bonus_influence < target.IdeologyStats [MyIdeology].ConvertChance) {
 						//convert infidel
 						AddSocialEvent (1);

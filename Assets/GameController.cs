@@ -127,17 +127,15 @@ public class GameController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q)){
             var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,unit_mask);
 
-            
+            UnitMain unit=null;
             if (hit.collider!=null){
 
-                var unit = hit.collider.GetComponent<UnitMain> ();
+                unit = hit.collider.GetComponent<UnitMain> ();
                 unit.DebugGUIOn=!unit.DebugGUIOn;
-                foreach(var u in Units){
-                    if (u!=unit) u.DebugGUIOn=false;
-                }
 
-
-
+            }
+            foreach(var u in Units){
+                if (u!=unit) u.DebugGUIOn=false;
             }
         }
 #endif
