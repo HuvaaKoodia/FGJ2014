@@ -8,7 +8,7 @@ public class HudController : MonoBehaviour {
 
     // Use this for initialization
 	void Start () {
-        AddTimer=new Timer(1000,HideAddLabel);
+        AddTimer=new Timer(3000,HideAddLabel);
         HideAddLabel();
 	}
 	
