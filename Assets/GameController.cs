@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour
     public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
     public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
     float LastMin = 0;
-    public SpriteRenderer fingerOfGodus;
     public bool fingering = false, saucetime = false;
     public Vector3 target_finger_pos, offset = new Vector3 (0, 10.0f);
     public float fingering_speed = 2000.0f;
@@ -124,7 +123,7 @@ public class GameController : MonoBehaviour
     void Start ()
     {
         GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
-        fingerOfGodus.enabled = false;
+        //fingerOfGodus.enabled = false;
 
         ScoreTimer = new Timer (5000, HudScoresUpdate);
         Hud.SetScore (score);
@@ -157,13 +156,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if (fingering) {
-            if (fingerOfGodus.transform.localPosition.y > target_finger_pos.y + 1.0f) {
-                fingerOfGodus.transform.localPosition = fingerOfGodus.transform.localPosition + new Vector3 (0.0f, -fingering_speed*Time.deltaTime, 0.0f);
-            } else {
-                saucetime = true;
-            }
-        }
+
         ScoreTimer.Update ();
 
         SecondsAfterStart += Time.deltaTime;
@@ -200,17 +193,7 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)){
 
-            fingerOfGodus.enabled = true;
-            fingering = true;
-            target_finger_pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-            fingerOfGodus.transform.localPosition = new Vector3 (0.0f, 0.0f, 5.0f) + Camera.main.ScreenToWorldPoint (Input.mousePosition) + offset;
-            //Camera.main.ScreenToWorldPoint (Input.mousePosition)
-
-        }
-        if (Mathf.Abs (target_finger_pos.y - fingerOfGodus.transform.position.y) < 1.0f && fingering && saucetime) {
-            fingering = false;
-            saucetime = false;
-            var units = Physics2D.OverlapCircleAll (target_finger_pos, FingerOfGodRadius, unit_mask);
+            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
             
             foreach (var u in units) {
                 var unit = u.GetComponent<UnitMain> ();
@@ -218,8 +201,6 @@ public class GameController : MonoBehaviour
                     unit.Die ();
                 }
             }
-            audio_src.PlayOneShot (audio_src.clip);
-            fingerOfGodus.enabled=false;
         }
 
 #if UNITY_EDITOR

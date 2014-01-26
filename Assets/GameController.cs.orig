@@ -10,19 +10,15 @@ public class GameController : MonoBehaviour
     public HudController Hud;
     public BaseMain ABase, BBase, CBase, DBase;
     public AudioSource audio_src;
-<<<<<<< HEAD
     GameOptions GO;
-
     public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
     public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
     float LastMin = 0;
+    public SpriteRenderer fingerOfGodus;
+    public bool fingering = false, saucetime = false;
+    public Vector3 target_finger_pos, offset = new Vector3 (0, 10.0f);
+    public float fingering_speed = 2000.0f;
 
-=======
-    public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
-    public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
-    float LastMin = 0;
-
->>>>>>> origin/master
     public void AddDeath (UnitMain unit)
     {
         ++AmountOfDeaths;
@@ -44,13 +40,10 @@ public class GameController : MonoBehaviour
     {
         score += amount * multi;
         score_last += amount;
-<<<<<<< HEAD
 
     }
 
     int diversity_basescore=10, population_balancer=10;
-=======
->>>>>>> origin/master
 
     int GetDiverseNationalityScore(){
 
@@ -73,7 +66,6 @@ public class GameController : MonoBehaviour
         return Units.Count/population_balancer;
     }
 
-<<<<<<< HEAD
     void HudScoresUpdate(){
 
         //calculate scores
@@ -131,31 +123,12 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+<<<<<<< HEAD
         GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
 
-        ScoreTimer = new Timer (5000, HudScoresUpdate);
-        Hud.SetScore (score);
-        Hud.SetMulti (multi);
-
-
-        //generate units
-
 =======
-    void HudScoresUpdate ()
-    {
-        //calculate scores
-        AddScore (1000);
-
-        Hud.SetScore (score);
-        Hud.SetMulti (multi);
-        Hud.SetScoreAdd (score_last, multi);
-
-        score_last = 0;
-    }
-
-    // Use this for initialization
-    void Start ()
-    {
+        fingerOfGodus.enabled = false;
+>>>>>>> origin/master
         ScoreTimer = new Timer (5000, HudScoresUpdate);
         Hud.SetScore (score);
         Hud.SetMulti (multi);
@@ -163,7 +136,6 @@ public class GameController : MonoBehaviour
 
         //generate units
 
->>>>>>> origin/master
         int a = Subs.GetRandom (5, 10);
         for (int i=0; i<a; i++) {
             ABase.AddUnit ();
@@ -173,7 +145,6 @@ public class GameController : MonoBehaviour
         for (int i=0; i<a; i++) {
             BBase.AddUnit ();
         }
-<<<<<<< HEAD
 
         a = Subs.GetRandom (5, 10);
         for (int i=0; i<a; i++) {
@@ -182,16 +153,6 @@ public class GameController : MonoBehaviour
 
         a = Subs.GetRandom (5, 10);
         for (int i=0; i<a; i++) {
-=======
-
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            CBase.AddUnit ();
-        }
-
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
->>>>>>> origin/master
             DBase.AddUnit ();
         }
     }
@@ -199,6 +160,13 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        if (fingering) {
+            if (fingerOfGodus.transform.localPosition.y > target_finger_pos.y + 1.0f) {
+                fingerOfGodus.transform.localPosition = fingerOfGodus.transform.localPosition + new Vector3 (0.0f, -fingering_speed*Time.deltaTime, 0.0f);
+            } else {
+                saucetime = true;
+            }
+        }
         ScoreTimer.Update ();
 
         SecondsAfterStart += Time.deltaTime;
@@ -209,7 +177,6 @@ public class GameController : MonoBehaviour
         }
 
         //input
-<<<<<<< HEAD
 
         int mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
         int unit_mask = 1 << LayerMask.NameToLayer ("Unit");
@@ -224,22 +191,6 @@ public class GameController : MonoBehaviour
             }
         }
 
-=======
-
-        int mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
-        int unit_mask = 1 << LayerMask.NameToLayer ("Unit");
-
-        if (Input.GetMouseButtonDown (0)) {
-            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
-            
-            if (hit.collider != null) {
-                var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
-                if (bubble.StatementPhase)
-                    bubble.PlayerApprove ();
-            }
-        }
-
->>>>>>> origin/master
         if (Input.GetMouseButtonDown (1)) {
             var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
             
@@ -252,11 +203,23 @@ public class GameController : MonoBehaviour
 
 <<<<<<< HEAD
         if (Input.GetKeyDown(KeyCode.Space)){
+            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
 =======
         if (Input.GetKeyDown (KeyCode.Space)) {
 >>>>>>> origin/master
-            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
 
+            fingerOfGodus.enabled = true;
+            fingering = true;
+            target_finger_pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+            fingerOfGodus.transform.localPosition = new Vector3 (0.0f, 0.0f, 5.0f) + Camera.main.ScreenToWorldPoint (Input.mousePosition) + offset;
+            //Camera.main.ScreenToWorldPoint (Input.mousePosition)
+
+        }
+        if (Mathf.Abs (target_finger_pos.y - fingerOfGodus.transform.position.y) < 1.0f && fingering && saucetime) {
+            fingering = false;
+            saucetime = false;
+            var units = Physics2D.OverlapCircleAll (target_finger_pos, FingerOfGodRadius, unit_mask);
+            
             foreach (var u in units) {
                 var unit = u.GetComponent<UnitMain> ();
                 if (unit != null) {
@@ -264,6 +227,7 @@ public class GameController : MonoBehaviour
                 }
             }
             audio_src.PlayOneShot (audio_src.clip);
+            fingerOfGodus.enabled=false;
         }
 
 #if UNITY_EDITOR

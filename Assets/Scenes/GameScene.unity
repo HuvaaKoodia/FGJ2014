@@ -3506,6 +3506,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: .419999987
       objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: d8da72b61aa78a340ba32c910af3aeaa, type: 2}
+      propertyPath: m_Volume
+      value: .0839999989
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8da72b61aa78a340ba32c910af3aeaa, type: 2}
   m_RootGameObject: {fileID: 535916278}
@@ -4262,6 +4266,11 @@ MonoBehaviour:
   AmountOfSpawnsLastMin: 0
   SecondsAfterStart: 0
   FingerOfGodRadius: 2.5
+  fingering: 0
+  saucetime: 0
+  target_finger_pos: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 10, z: 0}
+  fingering_speed: 2000
   DebugGUIOn: 0
 --- !u!4 &1599035453
 Transform:
@@ -4820,7 +4829,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 382b856fae7fdea4b8ff0a0227e4a102, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: .129999995
+  m_Volume: .0839999989
   m_Pitch: 1
   Loop: 1
   Mute: 0
