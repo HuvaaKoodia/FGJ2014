@@ -49,11 +49,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 61
-        y: 69
+        y: 67
         width: 23
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
     - name: Logos_1
       rect:
         serializedVersion: 2
@@ -71,15 +71,15 @@ TextureImporter:
         width: 21
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
     - name: Logos_3
       rect:
         serializedVersion: 2
-        x: 63
+        x: 64
         y: 8
         width: 21
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
   spritePackingTag: 
   userData: 
