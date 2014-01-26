@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour {
 
 	public ResourceStore ResStore;
 	public List<UnitMain> Units=new List<UnitMain>();
+    public HudController Hud;
 
 	public BaseMain ABase,BBase,CBase,DBase;   
 
@@ -22,8 +23,34 @@ public class GameController : MonoBehaviour {
 		++AmountOfSpawnsLastMin;
 	}
 
+    Timer ScoreTimer;
+
+    int score=0,score_last=0,multi=2;
+
+    void AddScore(int amount){
+        score+=amount;
+        score_last+=amount;
+
+        score*=multi;
+    }
+
+    void HudScoresUpdate(){
+        //calculate scores
+        AddScore(1000);
+
+        Hud.SetScore(score);
+        Hud.SetMulti(multi);
+        Hud.SetScoreAdd(score_last,multi);
+
+        score_last=0;
+    }
+
 	// Use this for initialization
 	void Start () {
+        ScoreTimer=new Timer(5000,HudScoresUpdate);
+        Hud.SetScore(score);
+        Hud.SetMulti(multi);
+
 
 		//generate units
 
@@ -50,6 +77,8 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        ScoreTimer.Update();
+
 		SecondsAfterStart+=Time.deltaTime;
 		LastMin+=Time.deltaTime;
 		if (LastMin>60){
