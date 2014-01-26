@@ -11,7 +11,6 @@ public class GameController : MonoBehaviour
     public BaseMain ABase, BBase, CBase, DBase;
     public AudioSource audio_src;
     GameOptions GO;
-
     public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
     public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
     float LastMin = 0;
