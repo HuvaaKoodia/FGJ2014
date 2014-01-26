@@ -80,14 +80,14 @@ public class StateHandler : MonoBehaviour
 		{
 
 
-				if (Input.GetKeyDown (KeyCode.RightArrow)) {
-						charaState++;
-				} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-						charaState--;
-				} else if (Input.GetKeyDown (KeyCode.Space)) {
-						charaState = Random.Range (0, 35);
-						UpdateState ();
-				}
+//				if (Input.GetKeyDown (KeyCode.RightArrow)) {
+//						charaState++;
+//				} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+//						charaState--;
+//				} else if (Input.GetKeyDown (KeyCode.Space)) {
+//						charaState = Random.Range (0, 35);
+//						UpdateState ();
+//				}
 		}
 
 		public void ChangeViews (Nationality nationality, Ideology ideology)

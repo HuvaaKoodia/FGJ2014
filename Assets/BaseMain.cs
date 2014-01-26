@@ -25,6 +25,7 @@ public class BaseMain : MonoBehaviour {
 	public UnitMain AddUnit(){
 		var unit=Instantiate(GC.ResStore.UnitPrefab,transform.position+new Vector3(Subs.GetRandom(-5f,5f),Subs.GetRandom(-5f,5f)),Quaternion.identity) as UnitMain;
 		unit.GC=GC;
+        GC.Units.Add(unit);
 		unit.MyNationality=MyNationality;
 		unit.transform.parent=GC.ResStore.UnitsContainer;
 		unit.OnDeath+=GC.AddDeath;
