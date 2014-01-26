@@ -21,25 +21,6 @@ public enum Nationality
 
 public class IdeologyData
 {
-<<<<<<< HEAD
-		Ideology MyIdeology;
-    		float convert_chance = 20;
-		float aggression;
-
-		public float ConvertChance {
-				get { return convert_chance;}
-				set {
-						convert_chance = Mathf.Clamp (value, 1, 100);
-				}
-		}
-
-		public float Aggression {
-				get { return aggression;}
-				set {
-						aggression = Mathf.Clamp (value, 0, 100);
-				}
-		}
-=======
     Ideology MyIdeology;
     float convert_chance = 25;
     float aggression;
@@ -57,7 +38,6 @@ public class IdeologyData
             aggression = Mathf.Clamp (value, 0, 100);
         }
     }
->>>>>>> 50d4edd6f11c57a32f36998674ef9cc42e8c8da9
 }
 
 public delegate void DeathAction (UnitMain d);
@@ -65,7 +45,11 @@ public delegate void DeathAction (UnitMain d);
 public class UnitMain: MonoBehaviour
 {
     Color ideologyColor;
+<<<<<<< HEAD
+    public System.Action OnDeath;
+=======
     public DeathAction OnDeath;
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
     public bool DebugGUIOn = false;
     public GameController GC;
     bool facingRight = true;
@@ -139,12 +123,22 @@ public class UnitMain: MonoBehaviour
         KillAggressionDeductionMultiplier = 0.75f,
         VendettaConstant = 20,
         VendettaBaseMultiplier = 1.5f,
+<<<<<<< HEAD
         VendettaRadius = 5
 ;
     public int InfluenceIncreasePerConversion = 5,
         ConversationStatementDelay = 5000,
         ConversationStatusDelay = 3000
 ;
+=======
+        VendettaRadius = 5,
+        AggressionIncreaseIfDismissedMultiplier=1.25f
+    ;
+    public int InfluenceIncreasePerConversion = 5,
+        ConversationStatementDelay = 5000,
+        ConversationStatusDelay = 3000
+    ;
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
     public Dictionary<Ideology,IdeologyData> IdeologyStats = new Dictionary<Ideology, IdeologyData> ();
     Timer act_timer, speak_timer, fighting_timer, splat_timer;
     public SpeechbubbleMain SpeechBubblePrefab;
@@ -185,23 +179,18 @@ public class UnitMain: MonoBehaviour
 
         MyIdeology = Subs.GetRandom (Subs.EnumValues<Ideology> ());
                 
-<<<<<<< HEAD
-				foreach (var emun in Subs.EnumValues<Ideology>()) {
-						var idea = new IdeologyData ();
-						IdeologyStats.Add (emun, idea);
-						if (emun != MyIdeology) {
-                idea.Aggression = Subs.GetRandom (0, 20);
-						}
-				}
-=======
         foreach (var emun in Subs.EnumValues<Ideology>()) {
             var idea = new IdeologyData ();
             IdeologyStats.Add (emun, idea);
             if (emun != MyIdeology) {
+<<<<<<< HEAD
                 idea.Aggression = Subs.GetRandom (0, 30);
+=======
+                idea.Aggression = Subs.GetRandom (0, 20);
+                idea.ConvertChance = Subs.GetRandom (10, 30);
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
             }
         }
->>>>>>> 50d4edd6f11c57a32f36998674ef9cc42e8c8da9
     
         UpdateGFXPos ();
     }
@@ -215,6 +204,36 @@ public class UnitMain: MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+<<<<<<< HEAD
+        
+        if (!handler.anime.GetBool ("dead")) {
+
+           act_timer.Update ();
+            speak_timer.Update ();
+            fighting_timer.Update ();
+                      
+
+            UpdateFacingTalking ();
+            handler.anime.SetBool ("talking", TALKING);
+            handler.anime.SetBool ("walking", moving);
+                        
+
+            if (!TALKING && !fighting) {
+                if (Target_Base != null) {
+                    MoveTo (Target_Base.transform.position, TargetBaseRange);
+                }
+
+                if (Talk_target != null) {
+                    MoveTo (Talk_target.transform.position, BasicMoveTargetRange);
+                    if (Talk_target.dead) {
+                        Talk_target = null;
+                    }
+                }
+            }
+
+            if (moving && !fighting) {
+        
+=======
         if (!handler.anime.GetBool ("dead")) {
             act_timer.Update ();
             speak_timer.Update ();
@@ -237,6 +256,7 @@ public class UnitMain: MonoBehaviour
 
             if (moving && !fighting) {
         
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
                 UpdateGFXPos ();
                 if (Vector3.Distance (transform.position, MoveTarget) < MoveTargetRange) {
                     ResetMovement ();
@@ -326,8 +346,14 @@ public class UnitMain: MonoBehaviour
             bool approve = true;
             bool bonus = SpeechBubble.BONUS_ON;
             if (TalkingTo.MyIdeology == MyIdeology) {
+<<<<<<< HEAD
                 DecreaseOtherIdeologyChances (bonus);
                 Depression *= depression_decline_multiplier;
+=======
+                TalkingToSameBelieverBonuses(bonus);
+                TalkingToSameBelievers(TalkingTo,bonus);
+               
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
             } else {
                 approve = TryToConvertTarget (TalkingTo, bonus);
             }
@@ -415,6 +441,7 @@ public class UnitMain: MonoBehaviour
     void UpdateConversationStatus (bool approve)
     {
         SpeechBubble.SetResult (approve);
+<<<<<<< HEAD
         
         speak_timer.Delay = ConversationStatusDelay;
         speak_timer.Reset (true);
@@ -507,29 +534,190 @@ public class UnitMain: MonoBehaviour
                 
         VendettaAOE (killedBy);
         if (OnDeath != null)
+            OnDeath ();
+        
+        EndConversation ();
+        Destroy (gameObject, 4f);
+=======
+        
+        speak_timer.Delay = ConversationStatusDelay;
+        speak_timer.Reset (true);
+    }
+
+    public void EndConversation ()
+    {
+        ResetTalking ();
+
+        if (SpeechBubble != null) {
+            SpeechBubble.Close ();
+            SpeechBubble = null;
+        }
+
+        ResetActionTimer ();
+    }
+
+    public void ForceStopTalking ()
+    {
+        TalkingTo.EndConversation ();
+        EndConversation ();
+
+        //start dissing everyone
+        foreach(var i in IdeologyStats){
+            i.Value.Aggression*=AggressionIncreaseIfDismissedMultiplier;
+        }
+    }
+
+    void ResetTalking ()
+    {
+        talking = false;
+        TalkingTo = null;
+    }
+
+    void ResetActionTimer ()
+    {
+        act_timer.Delay = Subs.GetRandom (1000, 3000);
+        act_timer.Reset (true);
+    }
+
+    void ResetMovement ()
+    {
+        MoveTargetRange = BasicMoveTargetRange;
+        moving = false;
+    }
+
+    List<int> SocialHistory = new List<int> ();
+
+    public void AddSocialEvent (int e)
+    {
+        SocialHistory.Add (e);
+        if (SocialHistory.Count > 20) {
+            SocialHistory.RemoveAt (SocialHistory.Count - 1);
+        }
+    }
+
+    bool CheckAggression (UnitMain target)
+    {
+        var c = Subs.GetRandom (100);
+        var a = IdeologyStats [target.MyIdeology].Aggression;
+        Debug.Log ("Aggression check: " + c + " < " + a);
+        return c < a;
+    }
+
+    void Attack (UnitMain target)
+    {
+        handler.anime.SetBool ("fighting", true);
+        fighting = true;
+        target.fighting = true; 
+                
+        fighting_timer.Active = true;
+        target.fighting_timer.Active = true;
+        target.handler.anime.SetBool ("fighting", true);
+
+        EndConversation ();
+        target.EndConversation ();
+        if (Subs.GetRandom (100) < 50) {
+            target.Die (this);
+            IdeologyStats [target.MyIdeology].Aggression *= KillAggressionDeductionMultiplier;
+            Debug.LogWarning ("DEATH!");
+        } else {
+            Die (target);
+            target.IdeologyStats [MyIdeology].Aggression *= KillAggressionDeductionMultiplier;
+            Debug.LogWarning ("DEATH!");
+        }
+
+    }
+
+    void Die (UnitMain killedBy)
+    {
+                
+        dead = true;
+        splat_timer.Active = true;
+        handler.anime.SetBool ("dead", true);
+                
+        VendettaAOE (killedBy);
+        if (OnDeath != null)
             OnDeath (this);
         
         EndConversation ();
         Destroy (gameObject, 4f);
 
         DebugGUIOn=false;
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
     }
 
     public void Die ()
     {
         if (OnDeath != null)
+<<<<<<< HEAD
+            OnDeath ();
+=======
             OnDeath (this);
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
         splatterStorm ();
                 
         EndConversation ();
         Destroy (gameObject);
+<<<<<<< HEAD
+=======
 
         DebugGUIOn=false;
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
         
     }
 
     bool TryToConvertTarget (UnitMain target, bool bonus)
     {
+<<<<<<< HEAD
+        Attack (target);
+        return false;
+        /*var chance = Subs.GetRandom (100);
+                Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
+                if (chance - Influence < target.IdeologyStats [MyIdeology].ConvertChance) {
+                        //convert infidel
+                        AddSocialEvent (1);
+                        DecreaseOtherIdeologyChances (false);
+                        Influence += InfluenceIncreasePerConversion;
+
+                        target.AddSocialEvent (1);
+                        target.DecreaseOtherIdeologyChances (false);
+                        target.MyIdeology = MyIdeology;
+                        target.IdeologyStats [MyIdeology].Aggression *= 0.5f;
+                        return true;
+                } else {
+                        //fail conversion
+                        AddSocialEvent (-1);
+                        aggroIncrease (target);
+
+                        target.AddSocialEvent (-1);
+                        target.aggroIncrease (this);
+
+                        //check attacks
+                        if (CheckAggression (target)) {
+                                Attack (target);
+                        } else if (target.CheckAggression (this)) {
+                                Attack (target);
+                        } else {
+                                target.IdeologyStats [MyIdeology].ConvertChance *= convert_change_increase_multiplier;
+            
+                                //check exile
+                                if (MyNationality == target.MyNationality) {
+                                        Depression *= depression_increase_multiplier;
+                                        ExileCheck ();
+                                } else {
+                                        target.Depression *= depression_increase_multiplier;
+                                        target.ExileCheck ();
+                                }
+                        }
+                        return false;
+                }*/
+    }
+
+    public void DecreaseOtherIdeologyChances (bool bonus)
+    {
+        var multi = 1;
+        if (bonus)
+            multi = 2;
+=======
         var bonus_influence = 0;
         if (bonus)
             bonus_influence = 100;
@@ -577,11 +765,45 @@ public class UnitMain: MonoBehaviour
         }   
     }
 
-    public void DecreaseOtherIdeologyChances (bool bonus)
+    void TalkingToSameBelievers(UnitMain target,bool boost){
+        AddSocialEvent (1);
+        target.AddSocialEvent (1);
+        
+        if (CheckAggression (target)) {
+            Attack (target);
+        } else if (target.CheckAggression (this)) {
+            Attack (target);
+        }
+    }
+
+    void TalkingToSameBelieverBonuses(bool boost){
+        DecreaseOtherIdeologyChances (boost);
+        IncreaseOtherIdeologyAggression (boost);
+        Depression *= depression_decline_multiplier;
+        IdeologyStats [MyIdeology].Aggression *= ConfirmationBiasOwnAggressionDecreaseMulti;
+    }
+
+    public int ConfirmationBiasAggressionThreshold=35;
+    public float ConfirmationBiasOwnAggressionDecreaseMulti=0.8f,ConfirmationBiasOtherAggressionIncrease=0.25f;
+
+    public void IncreaseOtherIdeologyAggression (bool boost)
     {
         var multi = 1;
-        if (bonus)
-            multi = 2;
+        if (boost) multi = 2;
+        
+        foreach (var idea in IdeologyStats) {
+            if (idea.Key != MyIdeology) {
+                if (idea.Value.Aggression>=ConfirmationBiasAggressionThreshold)
+                    idea.Value.Aggression =idea.Value.Aggression* ConfirmationBiasOtherAggressionIncrease * multi;
+            }
+        }
+    }
+
+    public void DecreaseOtherIdeologyChances (bool boost)
+    {
+        var multi = 1;
+        if (boost) multi = 2;
+>>>>>>> c49d5b5ff53490ee6d3bf8c7a15eceddb6a0fb96
 
         foreach (var idea in IdeologyStats) {
             if (idea.Key != MyIdeology) {
