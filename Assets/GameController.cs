@@ -57,22 +57,22 @@ public class GameController : MonoBehaviour {
 
 		int a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
-			Units.Add(ABase.AddUnit());
+			ABase.AddUnit();
 		}
 
 		a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
-			Units.Add(BBase.AddUnit());
+			BBase.AddUnit();
 		}
 
 		a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
-			Units.Add(CBase.AddUnit());
+			CBase.AddUnit();
 		}
 
 		a=Subs.GetRandom(5,10);
 		for(int i=0;i<a;i++){
-			Units.Add(DBase.AddUnit());
+			DBase.AddUnit();
 		}
 	}
 	

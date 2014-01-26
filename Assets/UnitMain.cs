@@ -23,7 +23,7 @@ public class IdeologyData
 {
     Ideology MyIdeology;
     float convert_chance = 25;
-    float aggression;
+    float aggression=1;
 
     public float ConvertChance {
         get { return convert_chance;}
@@ -35,7 +35,7 @@ public class IdeologyData
     public float Aggression {
         get { return aggression;}
         set {
-            aggression = Mathf.Clamp (value, 0, 100);
+            aggression = Mathf.Clamp (value, 1, 100);
         }
     }
 }
@@ -576,6 +576,7 @@ public class UnitMain: MonoBehaviour
         IncreaseOtherIdeologyAggression (boost);
         Depression *= depression_decline_multiplier;
         IdeologyStats [MyIdeology].Aggression *= ConfirmationBiasOwnAggressionDecreaseMulti;
+        //debug
     }
 
     public int ConfirmationBiasAggressionThreshold=35;
