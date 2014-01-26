@@ -14,9 +14,11 @@ public class GameController : MonoBehaviour {
     public float SecondsAfterStart=0,FingerOfGodRadius=2.5f;
 	float LastMin=0;
 
-	public void AddDeath(){
+	public void AddDeath(UnitMain unit){
 		++AmountOfDeaths;
 		++AmountOfDeathsLastMin;
+
+        Units.Remove(unit);
 	}
 	public void AddSpawn(){
 		++AmountOfSpawns;
@@ -139,17 +141,47 @@ public class GameController : MonoBehaviour {
             }
         }
 #endif
+
+#if UNITY_EDITOR
+
+        if (Input.GetKeyDown(KeyCode.E)){
+            DebugGUIOn=!DebugGUIOn;
+        }
+#endif
 	}
+
+    public bool DebugGUIOn=false;
+
+    public float GetAmountOfMaxPopulation(Nationality Nat){
+        //DEV. Opti. save all results in a batch every 5 seconds of so.
+        int amount=0;
+        foreach(var u in Units){
+            if (u.MyNationality==Nat){
+                ++amount;
+            }
+        }
+        
+        return amount;
+    }
 
 	public float GetPercentOfMaxPopulation(Nationality Nat){
-		//DEV. Opti. save all results in a batch every 5 seconds of so.
-		int amount=0;
-		foreach(var u in Units){
-			if (u.MyNationality==Nat){
-				++amount;
-			}
-		}
-
-		return amount/Units.Count;
+		return GetAmountOfMaxPopulation(Nat)/Units.Count;
 	}
+
+    string guitext="";
+
+    void OnGUI ()
+    {
+        if (!DebugGUIOn)
+            return;
+        
+        guitext = "Game stats:\n";
+        guitext+="Amount of Fruit= "+Units.Count;
+        guitext+="\n";
+        foreach (var i in Subs.EnumValues<Nationality>()) {
+            guitext += i + ": Amount=" + GetAmountOfMaxPopulation(i) + ", Percent= " + GetPercentOfMaxPopulation(i) + "%";
+            guitext += "\n";
+        }
+        GUI.Box (new Rect (300, 10, 300, 400), guitext);
+    }
 }

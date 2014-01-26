@@ -40,10 +40,12 @@ public class IdeologyData
 		}
 }
 
+public delegate void DeathAction(UnitMain d);
+
 public class UnitMain: MonoBehaviour
 {
 		Color ideologyColor;
-		public System.Action OnDeath;
+		public DeathAction OnDeath;
 		public bool DebugGUIOn = false;
 		public GameController GC;
 		bool facingRight = true;
@@ -476,7 +478,7 @@ public class UnitMain: MonoBehaviour
 				
         VendettaAOE (killedBy);
 		if (OnDeath != null)
-			OnDeath ();
+			OnDeath (this);
 		
 		EndConversation ();
 		Destroy (gameObject, 4f);
@@ -485,7 +487,7 @@ public class UnitMain: MonoBehaviour
 		public void Die ()
 		{
 				if (OnDeath != null)
-			OnDeath ();
+            OnDeath (this);
 		splatterStorm ();
 				
 				EndConversation ();
