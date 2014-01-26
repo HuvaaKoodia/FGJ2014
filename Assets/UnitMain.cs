@@ -259,9 +259,7 @@ public class UnitMain: MonoBehaviour
                 DecreaseOtherIdeologyChances (bonus);
                 Depression *= depression_decline_multiplier;
             } else {
-                if (bonus) approve=true;
-                    else
-                approve = TryToConvertTarget (TalkingTo);
+                approve = TryToConvertTarget (TalkingTo,bonus);
             }
 
             if (SpeechBubble != null) {
@@ -444,7 +442,7 @@ public class UnitMain: MonoBehaviour
         obj.GetComponent<SpriteRenderer> ().color = ideologyColor;
     }
 
-    bool TryToConvertTarget (UnitMain target)
+    bool TryToConvertTarget (UnitMain target,bool bonus)
     {
         var chance = Subs.GetRandom (100);
         Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
