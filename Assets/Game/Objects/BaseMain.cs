@@ -41,9 +41,10 @@ public class BaseMain : MonoBehaviour {
 	void Spawn(){
 		ResetSpawnRate();
 
-		if ((Subs.GetRandom(100)-(GC.GetPercentOfMaxPopulation(MyNationality)*ControllerValue))<SpawnChance){
+        var control=GC.GetPercentOfMaxPopulation(MyNationality)*ControllerValue;
+		if ((Subs.GetRandom(100)-control)<SpawnChance){
 			AddUnit();
-			Debug.LogWarning(MyNationality+": UNIT SPAWNED ");
+			
 			GC.AddSpawn();
 		}
 

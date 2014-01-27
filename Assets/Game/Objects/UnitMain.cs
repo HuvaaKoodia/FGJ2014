@@ -5,18 +5,18 @@ using System.Linq;
 
 public enum Ideology
 {
-    RED,
-    GREEN,
-    BLUE,
-    YELLOW
+    BLUE=0,
+    RED=1,
+    GREEN=2,
+    YELLOW=3
 }
 
 public enum Nationality
 {
-    Banana,
-    Pear,
-    Lemon,
-    Grape
+    Banana=0,
+    Pear=1,
+    Lemon=2,
+    Grape=3
 }
 
 public class IdeologyData
@@ -381,7 +381,7 @@ public class UnitMain: MonoBehaviour
         TalkTo (target);
         target.ListenTo (this);
 
-        SpeechBubble = Instantiate (SpeechBubblePrefab, transform.position + new Vector3 (1, 2, handler.transform.position.z), Quaternion.identity) as SpeechbubbleMain;
+        SpeechBubble = Instantiate (SpeechBubblePrefab, transform.position + new Vector3 (1, 3, handler.transform.position.z), Quaternion.identity) as SpeechbubbleMain;
         SpeechBubble.SetTalker (this);
         SpeechBubble.transform.parent = GC.ResStore.MiscContainer;
     

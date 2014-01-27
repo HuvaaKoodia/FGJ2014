@@ -14,9 +14,130 @@ public class GameController : MonoBehaviour
     public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
     public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
     float LastMin = 0;
-    public bool fingering = false, saucetime = false;
-    public Vector3 target_finger_pos, offset = new Vector3 (0, 10.0f);
-    public float fingering_speed = 2000.0f;
+
+    float GameTime;
+
+    void Start ()
+    {
+        GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
+
+        GameTime=GO.GameTime;
+
+        ScoreTimer = new Timer (5000, HudScoresUpdate);
+        Hud.SetScore (score);
+        Hud.SetMulti (multi);
+
+        //generate units
+        
+        int a = Subs.GetRandom (5, 10);
+        for (int i=0; i<a; i++) {
+            ABase.AddUnit ();
+        }
+        
+        a = Subs.GetRandom (5, 10);
+        for (int i=0; i<a; i++) {
+            BBase.AddUnit ();
+        }
+        
+        a = Subs.GetRandom (5, 10);
+        for (int i=0; i<a; i++) {
+            CBase.AddUnit ();
+        }
+        
+        a = Subs.GetRandom (5, 10);
+        for (int i=0; i<a; i++) {
+            DBase.AddUnit ();
+        }
+    }
+
+    bool gameover=false;
+
+    void Update ()
+    {
+        if(gameover) return;
+
+        GameTime-=Time.deltaTime;
+
+        if(GameTime<0){
+            gameover=true;
+            Hud.SetGameover();
+            GameTime=0;
+        }
+
+        Hud.SetTime((int)GameTime);
+
+        ScoreTimer.Update ();
+        UpdateStatIcons();
+        
+        SecondsAfterStart += Time.deltaTime;
+        LastMin += Time.deltaTime;
+        if (LastMin > 60) {
+            LastMin = 0;
+            AmountOfDeathsLastMin = AmountOfSpawnsLastMin = 0;
+        }
+        
+        //input
+        
+        int mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
+        int unit_mask = 1 << LayerMask.NameToLayer ("Unit");
+        
+        if (Input.GetMouseButtonDown (0)) {
+            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
+            
+            if (hit.collider != null) {
+                var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
+                if (bubble.StatementPhase)
+                    bubble.PlayerApprove ();
+            }
+        }
+        
+        if (Input.GetMouseButtonDown (1)) {
+            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
+            
+            if (hit.collider != null) {
+                var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
+                if (bubble.StatementPhase)
+                    bubble.PlayerDissapprove ();
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Space)){
+            
+            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
+            
+            foreach (var u in units) {
+                var unit = u.GetComponent<UnitMain> ();
+                if (unit != null) {
+                    unit.Die ();
+                }
+            }
+        }
+        
+        #if UNITY_EDITOR
+        
+        if (Input.GetKeyDown(KeyCode.Q)){
+            var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,unit_mask);
+            
+            UnitMain unit=null;
+            if (hit.collider!=null){
+                
+                unit = hit.collider.GetComponent<UnitMain> ();
+                unit.DebugGUIOn=!unit.DebugGUIOn;
+                
+            }
+            foreach(var u in Units){
+                if (u!=unit) u.DebugGUIOn=false;
+            }
+        }
+        #endif
+        
+        #if UNITY_EDITOR
+        
+        if (Input.GetKeyDown(KeyCode.E)){
+            DebugGUIOn=!DebugGUIOn;
+        }
+        #endif
+    }
 
     public void AddDeath (UnitMain unit)
     {
@@ -39,16 +160,16 @@ public class GameController : MonoBehaviour
     {
         score += amount * multi;
         score_last += amount;
-
     }
 
+    //scores
     int diversity_basescore=10, population_balancer=10;
 
     int GetDiverseNationalityScore(){
 
         int amount=0;
         foreach (var n in Subs.EnumValues<Nationality>()){
-            amount+=diversity_basescore-((int)GetAmountOfMaxPopulation(n));
+            amount+=diversity_basescore-Mathf.Abs((int)GetAmountOfMaxPopulation(n)-(Units.Count/4));
         }  
         return amount;
     }
@@ -56,7 +177,7 @@ public class GameController : MonoBehaviour
     int GetDiverseIdeologyScore(){
         int amount=0;
         foreach (var n in Subs.EnumValues<Ideology>()){
-            amount+=diversity_basescore-((int)GetAmountOfMaxPopulation(n));
+            amount+=diversity_basescore-Mathf.Abs((int)GetAmountOfMaxPopulation(n)-(Units.Count/4));
         }  
         return amount;
     }
@@ -66,7 +187,6 @@ public class GameController : MonoBehaviour
     }
 
     void HudScoresUpdate(){
-
         //calculate scores
 
         multi=GetMulti();
@@ -76,7 +196,6 @@ public class GameController : MonoBehaviour
         if (GO.NationalityMode==GameMode.Diverse&&GO.IdeologyMode==GameMode.Diverse){
             temp+=GetDiverseIdeologyScore();
             temp+=GetDiverseNationalityScore();
-
             temp*=multi;
         }
 
@@ -119,115 +238,16 @@ public class GameController : MonoBehaviour
         score_last = 0;
     }
 
-    // Use this for initialization
-    void Start ()
-    {
-        GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
-        //fingerOfGodus.enabled = false;
-
-        ScoreTimer = new Timer (5000, HudScoresUpdate);
-        Hud.SetScore (score);
-        Hud.SetMulti (multi);
-
-
-        //generate units
-
-        int a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            ABase.AddUnit ();
+    void UpdateStatIcons(){
+        foreach (var i in Subs.EnumValues<Ideology>()){
+            Hud.SetIdeologyIconPercentage((int)i,(int)(GetPercentOfMaxPopulation(i)*100));
         }
-
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            BBase.AddUnit ();
-        }
-
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            CBase.AddUnit ();
-        }
-
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            DBase.AddUnit ();
+        foreach (var i in Subs.EnumValues<Nationality>()){
+            Hud.SetNationalityIconPercentage((int)i,(int)(GetPercentOfMaxPopulation(i)*100));
         }
     }
-    
-    // Update is called once per frame
-    void Update ()
-    {
 
-        ScoreTimer.Update ();
 
-        SecondsAfterStart += Time.deltaTime;
-        LastMin += Time.deltaTime;
-        if (LastMin > 60) {
-            LastMin = 0;
-            AmountOfDeathsLastMin = AmountOfSpawnsLastMin = 0;
-        }
-
-        //input
-
-        int mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
-        int unit_mask = 1 << LayerMask.NameToLayer ("Unit");
-
-        if (Input.GetMouseButtonDown (0)) {
-            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
-            
-            if (hit.collider != null) {
-                var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
-                if (bubble.StatementPhase)
-                    bubble.PlayerApprove ();
-            }
-        }
-
-        if (Input.GetMouseButtonDown (1)) {
-            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
-            
-            if (hit.collider != null) {
-                var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
-                if (bubble.StatementPhase)
-                    bubble.PlayerDissapprove ();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space)){
-
-            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
-            
-            foreach (var u in units) {
-                var unit = u.GetComponent<UnitMain> ();
-                if (unit != null) {
-                    unit.Die ();
-                }
-            }
-        }
-
-#if UNITY_EDITOR
-
-        if (Input.GetKeyDown(KeyCode.Q)){
-            var hit=Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,1,unit_mask);
-
-            UnitMain unit=null;
-            if (hit.collider!=null){
-
-                unit = hit.collider.GetComponent<UnitMain> ();
-                unit.DebugGUIOn=!unit.DebugGUIOn;
-
-            }
-            foreach(var u in Units){
-                if (u!=unit) u.DebugGUIOn=false;
-            }
-        }
-#endif
-
-#if UNITY_EDITOR
-
-        if (Input.GetKeyDown(KeyCode.E)){
-            DebugGUIOn=!DebugGUIOn;
-        }
-#endif
-    }
 
     public bool DebugGUIOn = false;
 
@@ -246,6 +266,7 @@ public class GameController : MonoBehaviour
 
     public float GetPercentOfMaxPopulation (Nationality Nat)
     {
+        if (Units.Count==0) return 0;
         return GetAmountOfMaxPopulation (Nat) / Units.Count;
     }
 
@@ -264,6 +285,7 @@ public class GameController : MonoBehaviour
     
     public float GetPercentOfMaxPopulation (Ideology ide)
     {
+        if (Units.Count==0) return 0;
         return GetAmountOfMaxPopulation (ide) / Units.Count;
     }
 

@@ -6,7 +6,7 @@ public enum GameMode{Diverse,Similar}
 
 public class GameOptions : MonoBehaviour {
 
-    public int GameTime=1;
+    public int GameTime=120;
     public GameMode NationalityMode,IdeologyMode;
 
 

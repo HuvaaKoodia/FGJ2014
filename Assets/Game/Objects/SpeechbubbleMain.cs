@@ -9,13 +9,14 @@ public class SpeechbubbleMain : MonoBehaviour
     public AudioClip approveSound, rejectSound;
     public AudioSource audio_src;
     public bool StatementPhase = true, approved = false;
+    public GameObject GraphicsParent;
 
     // Use this for initialization
     void Start ()
     {
         BONUS_ON = false;
     }
-    
+     
     // Update is called once per frame
     void Update ()
     {
@@ -76,6 +77,7 @@ public class SpeechbubbleMain : MonoBehaviour
 
         }
 
+        GraphicsParent.SetActive(false);
         //    Destroy(gameObject);
     }
 
