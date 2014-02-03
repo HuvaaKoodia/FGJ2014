@@ -4,21 +4,38 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
+    public bool DebugGUIOn = false;
+
+    public List<UnitMain> Units{get;private set;}
 
     public ResourceStore ResStore;
-    public List<UnitMain> Units = new List<UnitMain> ();
     public HudController Hud;
     public BaseMain ABase, BBase, CBase, DBase;
-    public AudioSource audio_src;
-    GameOptions GO;
+    
     public int AmountOfDeaths = 0, AmountOfSpawns = 0, AmountOfDeathsLastMin = 0, AmountOfSpawnsLastMin = 0;
     public float SecondsAfterStart = 0, FingerOfGodRadius = 2.5f;
+   
+    GameOptions GO;
     float LastMin = 0;
-
     float GameTime;
+    bool gameover=false;
+
+    int speechbubble_mask;
+    int unit_mask;
+
+    Timer ScoreTimer;
+    int score = 0, score_last = 0, multi = 0;
+    int diversity_basescore, population_balancer;
 
     void Start ()
     {
+        speechbubble_mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
+        unit_mask = 1 << LayerMask.NameToLayer ("Unit");
+
+        diversity_basescore=10;
+        population_balancer=10;
+        Units = new List<UnitMain> ();
+
         GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
 
         GameTime=GO.GameTime;
@@ -50,8 +67,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    bool gameover=false;
-
     void Update ()
     {
         if(gameover) return;
@@ -78,11 +93,8 @@ public class GameController : MonoBehaviour
         
         //input
         
-        int mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
-        int unit_mask = 1 << LayerMask.NameToLayer ("Unit");
-        
         if (Input.GetMouseButtonDown (0)) {
-            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
+            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, speechbubble_mask);
             
             if (hit.collider != null) {
                 var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
@@ -92,7 +104,7 @@ public class GameController : MonoBehaviour
         }
         
         if (Input.GetMouseButtonDown (1)) {
-            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, mask);
+            var hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1, speechbubble_mask);
             
             if (hit.collider != null) {
                 var bubble = hit.collider.gameObject.GetComponent<SpeechbubbleMain> ();
@@ -129,9 +141,6 @@ public class GameController : MonoBehaviour
                 if (u!=unit) u.DebugGUIOn=false;
             }
         }
-        #endif
-        
-        #if UNITY_EDITOR
         
         if (Input.GetKeyDown(KeyCode.E)){
             DebugGUIOn=!DebugGUIOn;
@@ -153,9 +162,6 @@ public class GameController : MonoBehaviour
         ++AmountOfSpawnsLastMin;
     }
 
-    Timer ScoreTimer;
-    int score = 0, score_last = 0, multi = 2;
-
     void AddScore (int amount)
     {
         score += amount * multi;
@@ -163,23 +169,63 @@ public class GameController : MonoBehaviour
     }
 
     //scores
-    int diversity_basescore=10, population_balancer=10;
+
 
     int GetDiverseNationalityScore(){
 
         int amount=0;
+        int aver_amount=Units.Count/4;
         foreach (var n in Subs.EnumValues<Nationality>()){
-            amount+=diversity_basescore-Mathf.Abs((int)GetAmountOfMaxPopulation(n)-(Units.Count/4));
+            amount+=diversity_basescore-Mathf.Abs(GetAmountOfMaxPopulation(n)-aver_amount);
         }  
         return amount;
     }
 
     int GetDiverseIdeologyScore(){
         int amount=0;
+        int aver_amount=Units.Count/4;
         foreach (var n in Subs.EnumValues<Ideology>()){
-            amount+=diversity_basescore-Mathf.Abs((int)GetAmountOfMaxPopulation(n)-(Units.Count/4));
+            amount+=diversity_basescore-Mathf.Abs(GetAmountOfMaxPopulation(n)-aver_amount);
         }  
         return amount;
+    }
+
+    int GetLargestNationalityCount(){
+        int max=0;
+        foreach(var n in Subs.EnumValues<Nationality>()){
+            int amount=(int)GetAmountOfMaxPopulation(n);
+            if (max<amount){
+                max=amount;
+            }
+        }
+        return max;
+    }
+
+    int GetLargestIdeologyCount(){
+        int max=0;
+        foreach(var n in Subs.EnumValues<Nationality>()){
+            int amount=(int)GetAmountOfMaxPopulation(n);
+            if (max<amount){
+                max=amount;
+            }
+        }
+        return max;
+    }
+
+    int GetHighestNationalityIdeology(){
+        int total_max=0;
+        foreach(var n in Subs.EnumValues<Nationality>()){
+            int nat_max=0;
+            foreach(var i in Subs.EnumValues<Ideology>()){
+                int amount=GetAmountOfMaxPopulation(n,i);
+                if (amount>nat_max){
+                    nat_max=amount;
+                }
+            }
+            if (nat_max>total_max)
+                total_max=nat_max;
+        }
+        return total_max;
     }
 
     int GetMulti(){
@@ -196,39 +242,24 @@ public class GameController : MonoBehaviour
         if (GO.NationalityMode==GameMode.Diverse&&GO.IdeologyMode==GameMode.Diverse){
             temp+=GetDiverseIdeologyScore();
             temp+=GetDiverseNationalityScore();
-            temp*=multi;
         }
-
+        else
         if (GO.NationalityMode==GameMode.Similar&&GO.IdeologyMode==GameMode.Diverse){
             temp+=GetDiverseIdeologyScore();
+            temp+=GetLargestNationalityCount();
+        }
+        else
+        if (GO.NationalityMode==GameMode.Diverse&&GO.IdeologyMode==GameMode.Similar){
+            temp+=GetLargestIdeologyCount();
+            temp+=GetDiverseNationalityScore();
 
-            int max=0;
-            foreach(var n in Subs.EnumValues<Nationality>()){
-                int amount=(int)GetAmountOfMaxPopulation(n);
-                if (max<amount){
-                    max=amount;
-                }
-            }
-            temp+=max;
-            
-            temp*=multi;
+        }
+        else{
+            //one nation one idea
+            temp+=GetHighestNationalityIdeology();
         }
 
-        if (GO.NationalityMode==GameMode.Diverse&&GO.IdeologyMode==GameMode.Diverse){
-            temp+=GetDiverseIdeologyScore();
-            
-            int max=0;
-            foreach(var n in Subs.EnumValues<Nationality>()){
-                int amount=(int)GetAmountOfMaxPopulation(n);
-                if (max<amount){
-                    max=amount;
-                }
-            }
-            temp+=max;
-            
-            temp*=multi;
-        }
-       
+        temp*=multi;
         AddScore (temp);
 
         Hud.SetScore (score);
@@ -247,13 +278,23 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //DEV.OPT. cache results into arrays every score update
 
-
-    public bool DebugGUIOn = false;
-
-    public float GetAmountOfMaxPopulation (Nationality Nat)
+    public int GetAmountOfMaxPopulation (Nationality Nat,Ideology Ide)
     {
-        //DEV. Opti. save all results in a batch every 5 seconds of so.
+        int amount = 0;
+        foreach (var u in Units) {
+            if (u.MyNationality == Nat&&u.MyIdeology==Ide){
+                ++amount;
+            }
+        }
+        
+        return amount;
+    }
+
+    public int GetAmountOfMaxPopulation (Nationality Nat)
+    {
+
         int amount = 0;
         foreach (var u in Units) {
             if (u.MyNationality == Nat) {
@@ -267,10 +308,10 @@ public class GameController : MonoBehaviour
     public float GetPercentOfMaxPopulation (Nationality Nat)
     {
         if (Units.Count==0) return 0;
-        return GetAmountOfMaxPopulation (Nat) / Units.Count;
+        return (float)GetAmountOfMaxPopulation (Nat) / Units.Count;
     }
 
-    public float GetAmountOfMaxPopulation (Ideology ide)
+    public int GetAmountOfMaxPopulation (Ideology ide)
     {
         //DEV. Opti. save all results in a batch every 5 seconds of so.
         int amount = 0;
@@ -286,8 +327,10 @@ public class GameController : MonoBehaviour
     public float GetPercentOfMaxPopulation (Ideology ide)
     {
         if (Units.Count==0) return 0;
-        return GetAmountOfMaxPopulation (ide) / Units.Count;
+        return (float)GetAmountOfMaxPopulation (ide) / Units.Count;
     }
+
+    #region misc
 
     string guitext = "";
 
@@ -310,4 +353,5 @@ public class GameController : MonoBehaviour
         }
         GUI.Box (new Rect (Screen.width - 300, 10, 300, 400), guitext);
     }
+    #endregion
 }

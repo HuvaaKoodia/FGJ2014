@@ -12,11 +12,7 @@ public class MainMenuHud : MonoBehaviour {
     void Start(){
         GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
 
-        GO.GameTime=0;
-        TimeAdd();
-        TimeAdd();
-        TimeAdd();
-        TimeAdd();
+        UpdateTimeLabel();
 
         DisableAll();
     }
@@ -72,13 +68,18 @@ public class MainMenuHud : MonoBehaviour {
     }
 
     void TimeAdd(){
-        GO.GameTime+=6;
-        SecondsLabel.text=(GO.GameTime*5)+ "s";
+        GO.GameTime+=30;
+        UpdateTimeLabel();
     }
 
     void TimeRemove(){
-        if (GO.GameTime>6)
-            GO.GameTime-=6;
-        SecondsLabel.text=(GO.GameTime*5)+ "s";
+        if (GO.GameTime>30)
+            GO.GameTime-=30;
+        UpdateTimeLabel();
+    }
+
+    void UpdateTimeLabel ()
+    {
+        SecondsLabel.text=(GO.GameTime)+ "s";
     }
 }

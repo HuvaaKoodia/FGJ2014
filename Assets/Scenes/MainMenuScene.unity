@@ -74,74 +74,6 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &29487936
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 29487937}
-  - 114: {fileID: 29487938}
-  m_Layer: 9
-  m_Name: Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &29487937
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 29487936}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.997184992, y: .538460732, z: -.309152484}
-  m_LocalScale: {x: .00277799997, y: .00277799997, z: .00277799997}
-  m_Children: []
-  m_Father: {fileID: 793596927}
---- !u!114 &29487938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 29487936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 0
-  mWidth: 869
-  mHeight: 619
-  mDepth: -3
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: 2f2473f73b9ca724f9080d6d76009ea2, type: 2}
-  mSpriteName: Button
-  mFillCenter: 1
-  mType: 1
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
 --- !u!1 &36310501
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +341,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 124819559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 371.094513, y: -218.632538, z: 0}
+  m_LocalPosition: {x: -77.423172, y: 149.381882, z: 0}
   m_LocalScale: {x: 359.955048, y: 359.955048, z: 359.955048}
   m_Children:
   - {fileID: 1612043975}
@@ -441,7 +373,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 173998311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -562.692932, y: 34.4732018, z: 0}
+  m_LocalPosition: {x: -105.573532, y: 34.4732018, z: 0}
   m_LocalScale: {x: .999955118, y: .999955118, z: .999955118}
   m_Children:
   - {fileID: 400299084}
@@ -720,74 +652,6 @@ MonoBehaviour:
   functionName: GM2
   trigger: 0
   includeChildren: 0
---- !u!1 &234652377
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 234652378}
-  - 114: {fileID: 234652379}
-  m_Layer: 9
-  m_Name: Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &234652378
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 234652377}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.997184992, y: .538460732, z: -.309152484}
-  m_LocalScale: {x: .00277799997, y: .00277799997, z: .00277799997}
-  m_Children: []
-  m_Father: {fileID: 671834941}
---- !u!114 &234652379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 234652377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 0
-  mWidth: 869
-  mHeight: 619
-  mDepth: -2
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: 2f2473f73b9ca724f9080d6d76009ea2, type: 2}
-  mSpriteName: Button
-  mFillCenter: 1
-  mType: 1
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
 --- !u!1 &237218105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,11 +900,11 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: ac44b8a25154a9d40a172ab5851e0986, type: 2}
-  mText: "2\n\nFruits try to spread their ideologies \nby talking to other fruits.
-    The other \nfruits may convert to the new way of \nthinking or they might start
-    to act \nhostile and end up killing each other. \nWhen two fruits with the same
-    ideology \nspeak, it reinforces their belief in their \nideology and might increase
-    their \nhostility towards other ideologies.\r\n"
+  mText: "2/5 Basics\n\nFruits try to spread their ideologies \nby talking to other
+    fruits. The other one \nmay convert to the new way of \nthinking or they might
+    start to act \nhostile. \n\nWhen two fruits with the same ideology \nspeak, it
+    reinforces their belief in their \nideology and might increase their \nhostility
+    towards other ideologies.\r\n"
   mFontSize: 20
   mFontStyle: 0
   mEncoding: 1
@@ -1071,7 +935,7 @@ GameObject:
   - 4: {fileID: 309567911}
   - 114: {fileID: 309567912}
   m_Layer: 9
-  m_Name: Sprite
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1755,74 +1619,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!1 &530198224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 530198225}
-  - 114: {fileID: 530198226}
-  m_Layer: 9
-  m_Name: Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &530198225
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530198224}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.997184992, y: .538460732, z: -.309152484}
-  m_LocalScale: {x: .00277799997, y: .00277799997, z: .00277799997}
-  m_Children: []
-  m_Father: {fileID: 694945480}
---- !u!114 &530198226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530198224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 0
-  mWidth: 869
-  mHeight: 619
-  mDepth: -3
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: 2f2473f73b9ca724f9080d6d76009ea2, type: 2}
-  mSpriteName: Button
-  mFillCenter: 1
-  mType: 1
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
 --- !u!1 &565941116
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,7 +1837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &628734793
 Transform:
   m_ObjectHideFlags: 0
@@ -2049,7 +1845,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628734792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 371.094574, y: -218.63237, z: 0}
+  m_LocalPosition: {x: -77.423111, y: 149.381989, z: 0}
   m_LocalScale: {x: 359.955048, y: 359.955048, z: 359.955048}
   m_Children:
   - {fileID: 1752011579}
@@ -2174,10 +1970,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 645136548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.1027531e-05, y: 0, z: 0}
+  m_LocalPosition: {x: -448.517822, y: 368.014587, z: 0}
   m_LocalScale: {x: .999955118, y: .999955118, z: .999955118}
   m_Children:
   - {fileID: 237218106}
+  - {fileID: 1650684356}
   - {fileID: 671834941}
   - {fileID: 1195299747}
   - {fileID: 694945480}
@@ -2256,11 +2053,11 @@ MonoBehaviour:
     e00: 359.955017
     e01: 0
     e02: 0
-    e03: 449.943848
+    e03: 448.517822
     e10: 0
     e11: 359.955017
     e12: 0
-    e13: -359.955017
+    e13: -368.014587
     e20: 0
     e21: 0
     e22: 359.955017
@@ -2300,7 +2097,6 @@ Transform:
   m_LocalScale: {x: 359.971222, y: 359.971222, z: 359.971222}
   m_Children:
   - {fileID: 2080078201}
-  - {fileID: 234652378}
   m_Father: {fileID: 645136549}
 --- !u!1 &691916724
 GameObject:
@@ -2328,7 +2124,6 @@ Transform:
   m_LocalScale: {x: 359.971222, y: 359.971222, z: 359.971222}
   m_Children:
   - {fileID: 2022001286}
-  - {fileID: 1993407725}
   m_Father: {fileID: 645136549}
 --- !u!1 &694945479
 GameObject:
@@ -2356,7 +2151,6 @@ Transform:
   m_LocalScale: {x: 359.971222, y: 359.971222, z: 359.971222}
   m_Children:
   - {fileID: 1181517885}
-  - {fileID: 530198225}
   m_Father: {fileID: 645136549}
 --- !u!1 &741056088
 GameObject:
@@ -2368,7 +2162,7 @@ GameObject:
   - 4: {fileID: 741056089}
   - 114: {fileID: 741056090}
   m_Layer: 9
-  m_Name: Anchor_lefttop
+  m_Name: Anchor_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2381,7 +2175,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 741056088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -450, y: 360, z: 0}
+  m_LocalPosition: {x: .718294084, y: .718562901, z: 0}
   m_LocalScale: {x: 1.00012493, y: 1.00012493, z: 1.00012493}
   m_Children:
   - {fileID: 124819560}
@@ -2401,7 +2195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiCamera: {fileID: 81951722}
   container: {fileID: 0}
-  side: 2
+  side: 8
   runOnlyOnce: 1
   relativeOffset: {x: 0, y: 0}
   pixelOffset: {x: 0, y: 0}
@@ -2432,7 +2226,6 @@ Transform:
   m_LocalScale: {x: 359.971222, y: 359.971222, z: 359.971222}
   m_Children:
   - {fileID: 1324606291}
-  - {fileID: 29487937}
   m_Father: {fileID: 645136549}
 --- !u!1 &821087058
 GameObject:
@@ -2529,7 +2322,7 @@ GameObject:
   - 4: {fileID: 885004120}
   - 114: {fileID: 885004121}
   m_Layer: 9
-  m_Name: Anchor_center
+  m_Name: Anchor_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2542,9 +2335,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 885004119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .541516244, y: -.541353405, z: 0}
+  m_LocalPosition: {x: .718294084, y: .718562901, z: 0}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
-  m_Children: []
+  m_Children:
+  - {fileID: 1731659702}
+  - {fileID: 1549218298}
   m_Father: {fileID: 423515619}
 --- !u!114 &885004121
 MonoBehaviour:
@@ -3205,10 +3000,10 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: ac44b8a25154a9d40a172ab5851e0986, type: 2}
-  mText: "3\n\nYOUR ABILITIES\n\n1. Encourage an idea (Left-click)\r:\nLeft-click
-    a speech bubble in order to \nencourage the given ideology and to \nconvert the
-    subject. When you encourage \nan idea that the both fruits already share, \nit
-    reinforces their ideology but also their \nhostility towards others increases.\r"
+  mText: "3/5 YOUR ABILITIES\n\n1. Encourage an idea\r:\n\nLeft-click a speech bubble
+    in order to \nencourage the given ideology and to \nconvert the subject. When
+    you encourage \nan idea that the both fruits already share, \nit reinforces their
+    ideology but also their \nhostility towards others increases.\r"
   mFontSize: 20
   mFontStyle: 0
   mEncoding: 1
@@ -3255,7 +3050,6 @@ Transform:
   m_LocalScale: {x: 359.971222, y: 359.971222, z: 359.971222}
   m_Children:
   - {fileID: 305846044}
-  - {fileID: 1729831787}
   m_Father: {fileID: 645136549}
 --- !u!1 &1298844604
 GameObject:
@@ -3406,9 +3200,9 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: ac44b8a25154a9d40a172ab5851e0986, type: 2}
-  mText: "5\n\nYOUR ABILITIES\n\n3. Finger of God (Space)\r\nYour ultimate solution
-    to deal with \nunwanted fruits / ideas. Hover your \ncursor above the target and
-    unleash \nyour wrath with Space. Collateral \ndamage may (will) occur.\n\nOTHER
+  mText: "5/5 YOUR ABILITIES\n\n3. Finger of God\n\nYour ultimate solution to deal
+    with \nunwanted fruits / ideas. Hover your \ncursor above the target and unleash
+    \nyour wrath by pressing Space. Collateral \ndamage may (will) occur.\n\nOTHER
     CONTROLS:\nMove Camera - WASD\nZoom Camera - Mouse Scroll"
   mFontSize: 20
   mFontStyle: 0
@@ -3456,7 +3250,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1361485522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -129.760086, y: 36.1869774, z: 0}
+  m_LocalPosition: {x: 327.359528, y: 36.1869774, z: 0}
   m_LocalScale: {x: .999955118, y: .999955118, z: .999955118}
   m_Children:
   - {fileID: 355304066}
@@ -3532,7 +3326,7 @@ GameObject:
   - 4: {fileID: 1424056661}
   - 114: {fileID: 1424056662}
   m_Layer: 9
-  m_Name: Anchor_righttop
+  m_Name: Anchor_Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3545,7 +3339,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1424056660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 450, y: -360, z: 0}
+  m_LocalPosition: {x: .718294084, y: -360, z: 0}
   m_LocalScale: {x: 1.00012493, y: 1.00012493, z: 1.00012493}
   m_Children:
   - {fileID: 1361485523}
@@ -3566,7 +3360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiCamera: {fileID: 81951722}
   container: {fileID: 0}
-  side: 6
+  side: 7
   runOnlyOnce: 1
   relativeOffset: {x: 0, y: 0}
   pixelOffset: {x: 0, y: 0}
@@ -3682,7 +3476,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1436728397}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -344.733612, y: 34.4332886, z: 0}
+  m_LocalPosition: {x: 112.385963, y: 34.4332886, z: 0}
   m_LocalScale: {x: .999955118, y: .999955118, z: .999955118}
   m_Children:
   - {fileID: 621027460}
@@ -3816,6 +3610,76 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+--- !u!1 &1549218297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1549218298}
+  - 114: {fileID: 1549218299}
+  m_Layer: 9
+  m_Name: Title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1549218298
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1549218297}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 341.516693, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 885004120}
+--- !u!114 &1549218299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1549218297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c5ca47aa5c01740810b7c66662099f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 1
+  mWidth: 873
+  mHeight: 191
+  mDepth: -2
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  mRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  mTexture: {fileID: 2800000, guid: c8feffb7a37274442a5502f7a870bb3d, type: 3}
+  mMat: {fileID: 0}
+  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
 --- !u!1 &1565306065
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,7 +3719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d41cf69def1794aa3c45d74a7ad045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameTime: 1
+  GameTime: 120
   NationalityMode: 0
   IdeologyMode: 0
 --- !u!1 &1612043974
@@ -3929,9 +3793,9 @@ MonoBehaviour:
 
     Mikael Kitola - Design
 
-    Miikka Lehtonen - Animations, audio
+    Miikka Lehtonen - Animations & Audio
 
-    Harri Pulsa - Art
+    Harri Pulsa - Graphics
 
 
     Background Music: www.freesfx.co.uk'
@@ -4193,39 +4057,39 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!1 &1729831786
+--- !u!1 &1650684355
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1729831787}
-  - 114: {fileID: 1729831788}
+  - 4: {fileID: 1650684356}
+  - 114: {fileID: 1650684357}
   m_Layer: 9
-  m_Name: Sprite
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1729831787
+--- !u!4 &1650684356
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1729831786}
+  m_GameObject: {fileID: 1650684355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.997184992, y: .538460732, z: -.309152484}
-  m_LocalScale: {x: .00277799997, y: .00277799997, z: .00277799997}
+  m_LocalPosition: {x: 12.1529541, y: -24.810791, z: -111.281189}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1195299747}
---- !u!114 &1729831788
+  m_Father: {fileID: 645136549}
+--- !u!114 &1650684357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1729831786}
+  m_GameObject: {fileID: 1650684355}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
@@ -4249,7 +4113,7 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 0
-  mWidth: 869
+  mWidth: 875
   mHeight: 619
   mDepth: -2
   autoResizeBoxCollider: 0
@@ -4261,6 +4125,91 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+--- !u!1 &1731659701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1731659702}
+  - 114: {fileID: 1731659703}
+  m_Layer: 9
+  m_Name: Version
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1731659702
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1731659701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 363.092621, y: 206.413879, z: 0}
+  m_LocalScale: {x: 1.70000005, y: 1.70000005, z: 1}
+  m_Children: []
+  m_Father: {fileID: 885004120}
+--- !u!114 &1731659703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1731659701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 0
+  mWidth: 56
+  mHeight: 20
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepCrispWhenShrunk: 1
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: ac44b8a25154a9d40a172ab5851e0986, type: 2}
+  mText: V.1.1
+  mFontSize: 20
+  mFontStyle: 0
+  mEncoding: 1
+  mMaxLineCount: 0
+  mEffectStyle: 2
+  mEffectColor: {r: .183823526, g: .163539544, b: 0, a: 1}
+  mSymbols: 1
+  mEffectDistance: {x: .639999986, y: .850000024}
+  mOverflow: 0
+  mMaterial: {fileID: 0}
+  mApplyGradient: 1
+  mGradientTop: {r: 1, g: .977281928, b: .882352948, a: 1}
+  mGradientBottom: {r: .0588235259, g: .0474645011, b: 0, a: 1}
+  mSpacingX: 0
+  mSpacingY: 0
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
 --- !u!1 &1734072327
 GameObject:
   m_ObjectHideFlags: 0
@@ -4378,7 +4327,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .389705896, g: .38634637, b: .340992659, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -4535,6 +4484,10 @@ Prefab:
     - target: {fileID: 400000, guid: 99e90b7945915d54881dbe0a5c4226b9, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 99e90b7945915d54881dbe0a5c4226b9, type: 2}
+      propertyPath: GameTime
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99e90b7945915d54881dbe0a5c4226b9, type: 2}
@@ -4788,7 +4741,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1849128130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -777.666565, y: 33.9449158, z: 0}
+  m_LocalPosition: {x: -320.547089, y: 33.9449158, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1796483168}
@@ -5033,74 +4986,6 @@ MonoBehaviour:
   functionName: StartClick
   trigger: 0
   includeChildren: 0
---- !u!1 &1993407724
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1993407725}
-  - 114: {fileID: 1993407726}
-  m_Layer: 9
-  m_Name: Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1993407725
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1993407724}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.997184992, y: .538460732, z: -.309152484}
-  m_LocalScale: {x: .00277799997, y: .00277799997, z: .00277799997}
-  m_Children: []
-  m_Father: {fileID: 691916725}
---- !u!114 &1993407726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1993407724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 0
-  mWidth: 869
-  mHeight: 619
-  mDepth: -3
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: 2f2473f73b9ca724f9080d6d76009ea2, type: 2}
-  mSpriteName: Button
-  mFillCenter: 1
-  mType: 1
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
 --- !u!1 &2022001285
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,9 +5050,9 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: ac44b8a25154a9d40a172ab5851e0986, type: 2}
-  mText: "4\n\nYOUR ABILITIES\n\n2. Forbid an idea (Right-click)\r:\nYou can destroy
-    unwanted convert \nattempts with Right-click. This way you \ncan prevent unwanted
-    ideas from \nspreading. Be warned though, forbidding \nideas makes the target
+  mText: "4/5 YOUR ABILITIES\n\n2. Forbid an idea\r:\n\nYou can destroy conversion
+    attempts \nby Right-clicking a speech bubble. \nThis way you can prevent unwanted
+    ideas\nfrom spreading. \n\nBe warned though, forbidding \nideas makes the target
     more aggressive, \npossibly leading to bloodshed. "
   mFontSize: 20
   mFontStyle: 0
@@ -5338,10 +5223,10 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: ac44b8a25154a9d40a172ab5851e0986, type: 2}
-  mText: "1\n\nThe world is inhabited by 4 different \nfruit people and each individual
-    stands \nup for one of the 4 ideologies. You are \na god-like entity trying to
-    uphold (or \ncrush) the diversity of fruits and/or \nideologies depending on the
-    main goal \ngiven to you in the beginning of the game.\r\n"
+  mText: "1/5 basics\n\nThe world is inhabited by 4 different \nfruit people and each
+    individual stands \nup for one of the 4 ideologies. \n\nYou are a god-like entity
+    trying to uphold (or \ncrush) the diversity of fruits and/or \nideologies depending
+    on the main goal \ngiven to you in the beginning of the game.\r\n"
   mFontSize: 20
   mFontStyle: 0
   mEncoding: 1
