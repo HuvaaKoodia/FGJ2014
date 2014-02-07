@@ -62,6 +62,7 @@ public class UIButtonColor : UIWidgetContainer
 #endif
 			Start();
 			mColor = value;
+            TweenColor.Begin(tweenTarget, duration, mColor);
 		}
 	}
 
@@ -157,9 +158,11 @@ public class UIButtonColor : UIWidgetContainer
 		}
 	}
 
+    public bool OnHoverColorTweenOn=true;
+
 	protected virtual void OnHover (bool isOver)
 	{
-		if (enabled)
+        if (enabled&&OnHoverColorTweenOn)
 		{
 			if (!mStarted) Start();
 			TweenColor.Begin(tweenTarget, duration, isOver ? hover : mColor);

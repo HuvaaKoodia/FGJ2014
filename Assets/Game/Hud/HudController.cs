@@ -50,9 +50,13 @@ public class HudController : MonoBehaviour {
     }
 
     public void SetTime(int seconds){
+       TimeLabel.text=GetFormattedTime(seconds);
+    }
+
+    public static string GetFormattedTime(int seconds){
         int s=seconds%60;
         int m=seconds/60;
-        TimeLabel.text=m+":"+s;
+        return string.Format("{0}:{1:00}",m,s);
     }
 
     public void SetGameover ()

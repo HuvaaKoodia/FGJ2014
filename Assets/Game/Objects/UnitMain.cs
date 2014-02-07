@@ -261,16 +261,18 @@ public class UnitMain: MonoBehaviour
             var units = Physics2D.OverlapCircleAll (transform.position, 2, unit_mask);
     
             if (units.Length > 1) {
-                List<UnitMain> unitsShits = new List<UnitMain> ();
+                List<UnitMain> LegitUnits = new List<UnitMain> ();
                 UnitMain foo;
                 foreach (var v in units) {
                     foo = v.GetComponent<UnitMain> ();
                     if (!foo.dead && foo != this) {
-                        unitsShits.Add (foo);
+                        LegitUnits.Add (foo);
                     }
                 }
-                while (true) {
-                    UnitMain talk_to = Subs.GetRandom (unitsShits);
+
+                while (LegitUnits.Count>0) {
+                    UnitMain talk_to = Subs.GetRandom (LegitUnits);
+                    LegitUnits.Remove(talk_to);
                     Talk_target = talk_to;
                     if (Talk_target != this) {
                         return;
@@ -411,7 +413,7 @@ public class UnitMain: MonoBehaviour
 
     public void ForceStopTalking ()
     {
-        TalkingTo.EndConversation ();
+        if (TalkingTo!=null) TalkingTo.EndConversation ();
         EndConversation ();
 
         //start dissing everyone
