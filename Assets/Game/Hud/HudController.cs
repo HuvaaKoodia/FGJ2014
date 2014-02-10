@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HudController : MonoBehaviour {
 
-    public UILabel ScoreLabel,ScoreAddLabel,MultiLabel,TimeLabel;
+    public UILabel ScoreLabel,ScoreAddLabel,MultiLabel,TimeLabel,GO_scorelabel;
     Timer AddTimer;
 
     public GameObject GameOverPanel;
@@ -59,8 +59,13 @@ public class HudController : MonoBehaviour {
         return string.Format("{0}:{1:00}",m,s);
     }
 
-    public void SetGameover ()
+    public void SetGameover (int score)
     {
         GameOverPanel.SetActive(true);
+        GO_scorelabel.text="Score:\n"+score;
+    }
+
+    public void BackPressed(){
+        Application.LoadLevel("MainMenuScene");
     }
 }

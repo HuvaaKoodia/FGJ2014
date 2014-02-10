@@ -27,44 +27,28 @@ public class GameController : MonoBehaviour
     int score = 0, score_last = 0, multi = 0;
     int diversity_basescore, population_balancer;
 
-    void Start ()
+    void Awake()
     {
         speechbubble_mask = 1 << LayerMask.NameToLayer ("SpeechBubble");
         unit_mask = 1 << LayerMask.NameToLayer ("Unit");
-
+        
         diversity_basescore=10;
         population_balancer=10;
         Units = new List<UnitMain> ();
 
+        ResStore=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<ResourceStore>();
         GO=GameObject.FindGameObjectWithTag("GameOptions").GetComponent<GameOptions>();
-
+        
         GameTime=GO.GameTime;
-
+        
         ScoreTimer = new Timer (5000, HudScoresUpdate);
         Hud.SetScore (score);
         Hud.SetMulti (multi);
+    }
 
-        //generate units
-        
-        int a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            ABase.AddUnit ();
-        }
-        
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            BBase.AddUnit ();
-        }
-        
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            CBase.AddUnit ();
-        }
-        
-        a = Subs.GetRandom (5, 10);
-        for (int i=0; i<a; i++) {
-            DBase.AddUnit ();
-        }
+    void Start()
+    {
+
     }
 
     void Update ()
@@ -75,9 +59,9 @@ public class GameController : MonoBehaviour
 
         if(GameTime<0){
             gameover=true;
-            Hud.SetGameover();
+            Hud.SetGameover(score);
             GameTime=0;
-        }
+        } 
 
         Hud.SetTime((int)GameTime);
 
@@ -114,13 +98,15 @@ public class GameController : MonoBehaviour
         }
         
         if (Input.GetKeyDown(KeyCode.Space)){
-            
-            var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
-            
-            foreach (var u in units) {
-                var unit = u.GetComponent<UnitMain> ();
-                if (unit != null) {
-                    unit.Die ();
+            if (canFingerOfGod) {
+                audio.PlayOneShot(audio.clip);
+                var units = Physics2D.OverlapCircleAll (Camera.main.ScreenToWorldPoint (Input.mousePosition), FingerOfGodRadius, unit_mask);
+                
+                foreach (var u in units) {
+                    var unit = u.GetComponent<UnitMain> ();
+                    if (unit != null) {
+                        unit.Die ();
+                    }
                 }
             }
         }
@@ -147,6 +133,8 @@ public class GameController : MonoBehaviour
         }
         #endif
     }
+
+    bool canFingerOfGod=true;
 
     public void AddDeath (UnitMain unit)
     {

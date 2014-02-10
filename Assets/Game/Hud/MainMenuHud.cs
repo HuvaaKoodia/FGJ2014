@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MainMenuHud : MonoBehaviour {
 
-    public GameObject CreditsPanel,HelpPanel,PlayPanel;
+    public GameObject CreditsPanel,HelpPanel,PlayPanel,QuitButton;
 
     public UIButton GM1B,GM2B,GM3B,GM4B;
 
@@ -23,6 +23,9 @@ public class MainMenuHud : MonoBehaviour {
         GM3B.OnHoverColorTweenOn=false;
         GM4B.OnHoverColorTweenOn=false;
 
+#if UNITY_WEBPLAYER
+        QuitButton.SetActive(false);
+#endif
 
     }
 
@@ -107,6 +110,10 @@ public class MainMenuHud : MonoBehaviour {
         GM3B.defaultColor=Color.white;
         GM4B.defaultColor=Color.white;
 
-        button.defaultColor=Color.red;
+        button.defaultColor=button.pressed;
+    }
+
+    void ToggleFullscreen(){
+        Screen.fullScreen=!Screen.fullScreen;
     }
 }

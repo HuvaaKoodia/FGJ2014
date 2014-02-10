@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -.0500000007}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
 --- !u!4 &400002
@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 6.3862772, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400016}
@@ -188,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.34350908, y: 1.34350955, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
 --- !u!4 &400008
@@ -198,8 +198,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.30955207, y: -.675318718, z: -.0500000007}
-  m_LocalScale: {x: .443926007, y: .443925589, z: 1}
+  m_LocalPosition: {x: 1.17506254, y: -.559292793, z: -.0500000007}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
 --- !u!4 &400010
@@ -274,7 +274,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 97e47f93c8200f342a27947eaf8e5803, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .162
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -337,10 +337,12 @@ MonoBehaviour:
   IdeologyIconGREEN: {fileID: 100012}
   IdeologyIconBLUE: {fileID: 100010}
   IdeologyIconYELLOW: {fileID: 100004}
-  StatusApprove: {fileID: 21300012, guid: ae2f506c6ddfd39428495ddbd2ea8982, type: 3}
-  StatusDisapprove: {fileID: 21300010, guid: ae2f506c6ddfd39428495ddbd2ea8982, type: 3}
+  StatusApprove: {fileID: 21300002, guid: 01b8d1c514b903648b5cd8f8be4834b8, type: 3}
+  StatusDisapprove: {fileID: 21300006, guid: 01b8d1c514b903648b5cd8f8be4834b8, type: 3}
+  SpeechBubbleRight: {fileID: 21300004, guid: 01b8d1c514b903648b5cd8f8be4834b8, type: 3}
   StatusRenderer: {fileID: 21200000}
   BonusRenderer: {fileID: 21200006}
+  BG: {fileID: 21200004}
   approveSound: {fileID: 8300000, guid: 3d528464fbf747744b7e4305b5cba544, type: 3}
   rejectSound: {fileID: 8300000, guid: 5921cae33a097b1449ae76cbbab623c7, type: 3}
   audio_src: {fileID: 8200000}
@@ -382,7 +384,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortingLayerID: 2870220851
-  m_Sprite: {fileID: 21300012, guid: ae2f506c6ddfd39428495ddbd2ea8982, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 01b8d1c514b903648b5cd8f8be4834b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200002
 SpriteRenderer:
@@ -428,7 +430,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortingLayerID: 2870220851
-  m_Sprite: {fileID: 21300000, guid: ae2f506c6ddfd39428495ddbd2ea8982, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01b8d1c514b903648b5cd8f8be4834b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200006
 SpriteRenderer:
@@ -451,7 +453,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortingLayerID: 2870220851
-  m_Sprite: {fileID: 21300012, guid: ae2f506c6ddfd39428495ddbd2ea8982, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 01b8d1c514b903648b5cd8f8be4834b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200008
 SpriteRenderer:

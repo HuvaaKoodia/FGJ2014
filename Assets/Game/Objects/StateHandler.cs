@@ -85,11 +85,14 @@ public class StateHandler : MonoBehaviour
 
     public void playSFX (string sampleName)
     {
+        audio_src.volume=1f;
         if (sampleName == "attack" && !audio_src.isPlaying) {
-            
+
+            audio_src.volume=0.2f;
             audio_src.PlayOneShot (attack);
+
         }
-        if (sampleName == "death" && !audio_src.isPlaying) {
+        if (sampleName == "death") {
             
             audio_src.PlayOneShot (death);
         }
@@ -139,7 +142,7 @@ public class StateHandler : MonoBehaviour
             caseSwitcher += 30;
             break;
         }
-        Debug.Log (caseSwitcher);
+
         switch (caseSwitcher) {
         case 0:
             force.appearance = ResStore.BananaBlue;
@@ -199,7 +202,7 @@ public class StateHandler : MonoBehaviour
         int mouth = charaState % 6;
         int eyes = charaState / 6;
 
-        Debug.Log (charaState + " " + eyes + " " + mouth);
+
         switch (eyes) {
         case 0:
             force.eyeState.sprite = force.eyes_grin.sprite;
@@ -273,4 +276,13 @@ public class StateHandler : MonoBehaviour
         UpdateState ();
         UpdateState ();
     }
+
+    public void ToggleGraphicsOff ()
+    {
+        transform.parent=null;
+        foreach(Transform g in transform){
+            g.gameObject.SetActive(false);
+        }
+    }
+
 }

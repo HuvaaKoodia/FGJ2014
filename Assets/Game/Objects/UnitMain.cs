@@ -47,7 +47,7 @@ public class UnitMain: MonoBehaviour
     Color ideologyColor;
     public DeathAction OnDeath;
     public bool DebugGUIOn = false;
-    public GameController GC;
+    public ResourceStore ResStore;
     bool facingRight = true;
     public StateHandler handler;
     Nationality _nationality;
@@ -105,8 +105,8 @@ public class UnitMain: MonoBehaviour
 
     public void splatterStorm ()
     {
-        var obj = Instantiate (GC.ResStore.SplatPrefab, transform.position, Quaternion.identity) as GameObject;
-        obj.transform.parent = GC.ResStore.MiscContainer;
+        var obj = Instantiate (ResStore.SplatPrefab, transform.position, Quaternion.identity) as GameObject;
+        //obj.transform.parent = ResStore.MiscContainer;
         obj.GetComponent<SplatMain>().SetIdeology(MyIdeology);
         splat_timer.Active = false;
         handler.playSFX ("death");
@@ -156,7 +156,7 @@ public class UnitMain: MonoBehaviour
         fighting_timer.Active = false;
         splat_timer = new Timer (2000, splatterStorm);
         splat_timer.Active = false;
-        handler.ResStore = GC.ResStore;
+        handler.ResStore = ResStore;
         unit_mask = 1 << LayerMask.NameToLayer ("Unit");
 
         act_timer = new Timer (Act);
@@ -236,6 +236,9 @@ public class UnitMain: MonoBehaviour
 
     public float BasicMoveTargetRange = 0.5f, MoveSpeed = 3f, CloseProximity = 0.1f;
     bool moving = false, talking = false, fighting = false, dead = false;
+
+    public bool DEAD{get{return dead;}}
+    public UnitMain TalkTarget{get{return TalkingTo;}}
 
     public bool TALKING{ get { return talking; } }
 
@@ -372,7 +375,7 @@ public class UnitMain: MonoBehaviour
     public void ListenTo (UnitMain target)
     {
         TalkTo (target);
-        MoveTo (target.transform.position + Vector3.right * 2, 0.05f);
+        MoveTo (target.transform.position + Vector3.right * 2.5f, 0.05f);
     }
 
     void StartConversation (UnitMain target)
@@ -383,9 +386,9 @@ public class UnitMain: MonoBehaviour
         TalkTo (target);
         target.ListenTo (this);
 
-        SpeechBubble = Instantiate (SpeechBubblePrefab, transform.position + new Vector3 (1, 3, handler.transform.position.z), Quaternion.identity) as SpeechbubbleMain;
+        SpeechBubble = Instantiate (SpeechBubblePrefab, transform.position + new Vector3 (1.3f, 2.8f, handler.transform.position.z), Quaternion.identity) as SpeechbubbleMain;
         SpeechBubble.SetTalker (this);
-        SpeechBubble.transform.parent = GC.ResStore.MiscContainer;
+        //SpeechBubble.transform.parent = ResStore.MiscContainer;
     
         speak_timer.Delay = ConversationStatementDelay;
         speak_timer.Reset (true);
@@ -454,7 +457,7 @@ public class UnitMain: MonoBehaviour
     {
         var c = Subs.GetRandom (100);
         var a = IdeologyStats [target.MyIdeology].Aggression;
-        Debug.Log ("Aggression check: " + c + " < " + a);
+       // Debug.Log ("Aggression check: " + c + " < " + a);
         return c < a;
     }
 
@@ -475,11 +478,11 @@ public class UnitMain: MonoBehaviour
         if (Subs.GetRandom (100) < 50) {
             target.Die (this);
             IdeologyStats [target.MyIdeology].Aggression *= KillAggressionDeductionMultiplier;
-            Debug.LogWarning ("DEATH!");
+
         } else {
             Die (target);
             target.IdeologyStats [MyIdeology].Aggression *= KillAggressionDeductionMultiplier;
-            Debug.LogWarning ("DEATH!");
+
         }
 
     }
@@ -495,7 +498,7 @@ public class UnitMain: MonoBehaviour
         if (OnDeath != null)
             OnDeath (this);
         
-        EndConversation ();
+        ForceStopTalking ();
         Destroy (gameObject, 4f);
 
         DebugGUIOn=false;
@@ -506,8 +509,10 @@ public class UnitMain: MonoBehaviour
         if (OnDeath != null)
             OnDeath (this);
         splatterStorm ();
+
+       // handler.ToggleGraphicsOff();
                 
-        EndConversation ();
+        ForceStopTalking ();
         Destroy (gameObject);
 
         DebugGUIOn=false;
@@ -522,7 +527,7 @@ public class UnitMain: MonoBehaviour
 
         var chance = Subs.GetRandom (100);
 
-        Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
+        //Debug.Log ("Convert chance: " + (chance - Influence) + ", " + target.IdeologyStats [MyIdeology].ConvertChance);
         if (chance - Influence - bonus_influence < target.IdeologyStats [MyIdeology].ConvertChance) {
             //convert infidel
             Influence += InfluenceIncreasePerConversion;
@@ -630,7 +635,7 @@ public class UnitMain: MonoBehaviour
         IdeologyStats [target.MyIdeology].Aggression += add;
 
 
-        Debug.Log ("Aggro add:" + add);
+        //Debug.Log ("Aggro add:" + add);
     }
 
     void ExileCheck ()
@@ -644,7 +649,7 @@ public class UnitMain: MonoBehaviour
     {
         handler.GenerateFace (1);
         var closest_base = FindClosesBase ();
-        var bases = GameObject.FindGameObjectsWithTag ("base");
+        var bases = GameObject.FindGameObjectsWithTag ("Base");
     
         List<BaseMain> other_bases = new List<BaseMain> ();
 

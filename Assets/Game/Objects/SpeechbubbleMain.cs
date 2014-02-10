@@ -4,8 +4,8 @@ using System.Collections;
 public class SpeechbubbleMain : MonoBehaviour
 {
     public GameObject IdeologyIconRED, IdeologyIconGREEN, IdeologyIconBLUE, IdeologyIconYELLOW;
-    public Sprite StatusApprove, StatusDisapprove;
-    public SpriteRenderer StatusRenderer, BonusRenderer;
+    public Sprite StatusApprove, StatusDisapprove,SpeechBubbleRight;
+    public SpriteRenderer StatusRenderer, BonusRenderer,BG;
     public AudioClip approveSound, rejectSound;
     public AudioSource audio_src;
     public bool StatementPhase = true, approved = false;
@@ -20,7 +20,6 @@ public class SpeechbubbleMain : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        
     }
 
     UnitMain Talker;
@@ -62,6 +61,8 @@ public class SpeechbubbleMain : MonoBehaviour
         else
             StatusRenderer.sprite = StatusDisapprove;
         approved = approve;
+
+        BG.sprite=SpeechBubbleRight;
     }
 
     public void Close ()
@@ -72,6 +73,7 @@ public class SpeechbubbleMain : MonoBehaviour
             audio_src.Play();
         } else if (!approved) {
             audio_src.clip = rejectSound;
+            audio_src.volume=0.6f;
             audio_src.loop = false;
             audio_src.Play();
 
