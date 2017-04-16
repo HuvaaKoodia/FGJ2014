@@ -290,6 +290,7 @@ MonoBehaviour:
   hover: {r: .522388101, g: .474307597, b: .378146619, a: 1}
   pressed: {r: .305970132, g: .275525331, b: .214635774, a: 1}
   duration: .200000003
+  OnHoverColorTweenOn: 1
   disabledColor: {r: .268656731, g: .268656731, b: .268656731, a: 1}
   dragHighlight: 0
   onClick: []

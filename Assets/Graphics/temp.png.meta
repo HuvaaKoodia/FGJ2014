@@ -1,6 +1,12 @@
 fileFormatVersion: 2
 guid: 7550ab4b8402a2943abd50ae04f45427
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: temp_0
+    21300002: temp_1
+    21300004: temp_2
+    21300006: temp_3
+    21300008: temp_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,6 +41,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -54,6 +61,7 @@ TextureImporter:
         height: 128
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: temp_1
       rect:
         serializedVersion: 2
@@ -63,6 +71,7 @@ TextureImporter:
         height: 118
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: temp_2
       rect:
         serializedVersion: 2
@@ -72,6 +81,7 @@ TextureImporter:
         height: 117
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: temp_3
       rect:
         serializedVersion: 2
@@ -81,6 +91,7 @@ TextureImporter:
         height: 167
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: temp_4
       rect:
         serializedVersion: 2
@@ -90,5 +101,6 @@ TextureImporter:
         height: 169
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

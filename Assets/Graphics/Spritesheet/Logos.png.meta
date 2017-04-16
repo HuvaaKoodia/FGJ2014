@@ -1,6 +1,11 @@
 fileFormatVersion: 2
 guid: 461069488e12d714eb92fb456d1dd962
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Logos_0
+    21300002: Logos_1
+    21300004: Logos_2
+    21300006: Logos_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -16,7 +21,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: .25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
@@ -35,6 +40,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 60
   alphaIsTransparency: 1
   textureType: 8
@@ -54,6 +60,7 @@ TextureImporter:
         height: 23
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Logos_1
       rect:
         serializedVersion: 2
@@ -63,6 +70,7 @@ TextureImporter:
         height: 53
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Logos_2
       rect:
         serializedVersion: 2
@@ -72,6 +80,7 @@ TextureImporter:
         height: 20
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Logos_3
       rect:
         serializedVersion: 2
@@ -81,5 +90,6 @@ TextureImporter:
         height: 35
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

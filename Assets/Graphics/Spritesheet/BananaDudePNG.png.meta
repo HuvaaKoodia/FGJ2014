@@ -1,6 +1,19 @@
 fileFormatVersion: 2
 guid: ea993c159d0347a469c5e81dbc1795f2
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Banana_Chest
+    21300002: Banana_R_Arm
+    21300004: Banana_L_Arm
+    21300006: Banana_Eye-Grin
+    21300008: Banana_Eyes_Adore
+    21300010: Banana_Eyes_Normal
+    21300012: Banana_Eyes_WTF
+    21300014: Banana_Mouth_Conservative
+    21300016: Banana_Mouth_Smile
+    21300018: Banana_Mouth_Amaze
+    21300020: Banana_Mouth_Grin
+    21300022: Banana_Eyes_Closed
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,6 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -54,6 +68,7 @@ TextureImporter:
         height: 276
       alignment: 9
       pivot: {x: .375356287, y: .301182389}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_R_Arm
       rect:
         serializedVersion: 2
@@ -63,6 +78,7 @@ TextureImporter:
         height: 118
       alignment: 9
       pivot: {x: .338446379, y: .895395577}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_L_Arm
       rect:
         serializedVersion: 2
@@ -72,6 +88,7 @@ TextureImporter:
         height: 117
       alignment: 9
       pivot: {x: .349215865, y: .883033693}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Eye-Grin
       rect:
         serializedVersion: 2
@@ -81,6 +98,7 @@ TextureImporter:
         height: 22
       alignment: 9
       pivot: {x: .672323823, y: .276761144}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Eyes_Adore
       rect:
         serializedVersion: 2
@@ -90,6 +108,7 @@ TextureImporter:
         height: 45
       alignment: 9
       pivot: {x: .624559939, y: .486357272}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Eyes_Normal
       rect:
         serializedVersion: 2
@@ -99,6 +118,7 @@ TextureImporter:
         height: 25
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Eyes_WTF
       rect:
         serializedVersion: 2
@@ -108,6 +128,7 @@ TextureImporter:
         height: 44
       alignment: 9
       pivot: {x: .651114583, y: .486047238}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Mouth_Conservative
       rect:
         serializedVersion: 2
@@ -117,6 +138,7 @@ TextureImporter:
         height: 26
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Mouth_Smile
       rect:
         serializedVersion: 2
@@ -126,6 +148,7 @@ TextureImporter:
         height: 40
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Mouth_Amaze
       rect:
         serializedVersion: 2
@@ -135,6 +158,7 @@ TextureImporter:
         height: 29
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Mouth_Grin
       rect:
         serializedVersion: 2
@@ -144,6 +168,7 @@ TextureImporter:
         height: 46
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Banana_Eyes_Closed
       rect:
         serializedVersion: 2
@@ -153,5 +178,6 @@ TextureImporter:
         height: 5
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

@@ -1,6 +1,19 @@
 fileFormatVersion: 2
 guid: fd0b1b0b1f7ac88499f26fe7b6885c41
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Eggplant_Chest
+    21300002: Eggplant_RightArm
+    21300004: Eggplant_LeftArm
+    21300006: Eggplant_Eyes_Grin
+    21300008: Eggplant_Eyes_Adore
+    21300010: Eggplant_Eyes_Idle
+    21300012: Eggplant_Eyes_WTF
+    21300014: Eggplant_Mouth_Idle
+    21300016: Eggplant_Mouth_Smile
+    21300018: Eggplant_Mouth_Open
+    21300020: Eggplant_Mouth_Derp
+    21300022: Eggplant_Eyes_Closde
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,6 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -54,6 +68,7 @@ TextureImporter:
         height: 276
       alignment: 9
       pivot: {x: .357115746, y: .292811185}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_RightArm
       rect:
         serializedVersion: 2
@@ -63,6 +78,7 @@ TextureImporter:
         height: 118
       alignment: 9
       pivot: {x: .22388123, y: .359695703}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_LeftArm
       rect:
         serializedVersion: 2
@@ -72,6 +88,7 @@ TextureImporter:
         height: 117
       alignment: 9
       pivot: {x: .202776998, y: .34335953}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Eyes_Grin
       rect:
         serializedVersion: 2
@@ -81,6 +98,7 @@ TextureImporter:
         height: 22
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Eyes_Adore
       rect:
         serializedVersion: 2
@@ -90,6 +108,7 @@ TextureImporter:
         height: 45
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Eyes_Idle
       rect:
         serializedVersion: 2
@@ -99,6 +118,7 @@ TextureImporter:
         height: 16
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Eyes_WTF
       rect:
         serializedVersion: 2
@@ -108,6 +128,7 @@ TextureImporter:
         height: 41
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Mouth_Idle
       rect:
         serializedVersion: 2
@@ -117,6 +138,7 @@ TextureImporter:
         height: 26
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Mouth_Smile
       rect:
         serializedVersion: 2
@@ -126,6 +148,7 @@ TextureImporter:
         height: 40
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Mouth_Open
       rect:
         serializedVersion: 2
@@ -135,6 +158,7 @@ TextureImporter:
         height: 29
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Mouth_Derp
       rect:
         serializedVersion: 2
@@ -144,6 +168,7 @@ TextureImporter:
         height: 46
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Eggplant_Eyes_Closde
       rect:
         serializedVersion: 2
@@ -153,5 +178,6 @@ TextureImporter:
         height: 5
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

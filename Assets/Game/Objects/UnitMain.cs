@@ -721,7 +721,7 @@ public class UnitMain: MonoBehaviour
 
     void OnTriggerStay2D (Collider2D col)
     {
-        if (moving || talking || Talk_target != null)
+        if (moving || talking ||fighting|| Talk_target != null)
             return;
         if (col.gameObject.tag == "unit") {
 

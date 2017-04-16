@@ -1654,7 +1654,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 133
   mHeight: 50
-  mDepth: -1
+  mDepth: -4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   mAtlas: {fileID: 11400000, guid: 2f2473f73b9ca724f9080d6d76009ea2, type: 2}
@@ -3063,7 +3063,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 741056088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .543806672, y: 0, z: 0}
+  m_LocalPosition: {x: -1.03746402, y: 1.0374639, z: 0}
   m_LocalScale: {x: 1.00012493, y: 1.00012493, z: 1.00012493}
   m_Children:
   - {fileID: 124819560}
@@ -3189,7 +3189,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 885004119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .543806672, y: 0, z: 0}
+  m_LocalPosition: {x: -1.03746402, y: 1.0374639, z: 0}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 1731659702}
@@ -4811,7 +4811,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1424056660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .543806672, y: -360, z: 0}
+  m_LocalPosition: {x: -1.03746402, y: -360, z: 0}
   m_LocalScale: {x: 1.00012493, y: 1.00012493, z: 1.00012493}
   m_Children:
   - {fileID: 1361485523}
@@ -5124,7 +5124,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 120
   mHeight: 70
-  mDepth: 0
+  mDepth: -3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepCrispWhenShrunk: 1
@@ -6900,7 +6900,7 @@ GameObject:
   - 4: {fileID: 1946062759}
   - 114: {fileID: 1946062760}
   m_Layer: 12
-  m_Name: Anchor_Top
+  m_Name: Anchor_TopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6913,7 +6913,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1946062758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -669.426025, y: 360, z: 0}
+  m_LocalPosition: {x: -777.060486, y: 360, z: 0}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 1941503986}

@@ -1,6 +1,16 @@
 fileFormatVersion: 2
 guid: c5fb547234b542845996eba8d10a78ac
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Chest
+    21300002: Hand
+    21300004: Bananaman_2
+    21300006: Bananaman_3
+    21300008: Foot
+    21300010: Bananaman_5
+    21300012: Bananaman_6
+    21300014: Bananaman_7
+    21300016: Bananaman_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,6 +45,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -54,6 +65,7 @@ TextureImporter:
         height: 120
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Hand
       rect:
         serializedVersion: 2
@@ -63,6 +75,7 @@ TextureImporter:
         height: 24
       alignment: 9
       pivot: {x: -.569652498, y: .500000656}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Bananaman_2
       rect:
         serializedVersion: 2
@@ -72,6 +85,7 @@ TextureImporter:
         height: 17
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Bananaman_3
       rect:
         serializedVersion: 2
@@ -81,6 +95,7 @@ TextureImporter:
         height: 42
       alignment: 9
       pivot: {x: .479601175, y: .200814024}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Foot
       rect:
         serializedVersion: 2
@@ -90,6 +105,7 @@ TextureImporter:
         height: 39
       alignment: 9
       pivot: {x: .255061388, y: .316138625}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Bananaman_5
       rect:
         serializedVersion: 2
@@ -99,6 +115,7 @@ TextureImporter:
         height: 13
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Bananaman_6
       rect:
         serializedVersion: 2
@@ -108,6 +125,7 @@ TextureImporter:
         height: 11
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Bananaman_7
       rect:
         serializedVersion: 2
@@ -117,6 +135,7 @@ TextureImporter:
         height: 27
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Bananaman_8
       rect:
         serializedVersion: 2
@@ -126,5 +145,6 @@ TextureImporter:
         height: 19
       alignment: 9
       pivot: {x: .740493774, y: .469939381}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
